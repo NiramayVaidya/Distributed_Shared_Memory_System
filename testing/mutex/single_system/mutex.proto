@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package mutex;
+
+service Poll {
+	rpc poll (PollRequest) returns (PollReply) {}
+}
+
+service RecvRequest {
+	rpc recvRequest (RecvReq) returns (RecvReply) {}
+}
+
+service SendDefReply {
+	rpc sendDefRep (DefRep) returns (DefReply) {}
+}
+
+message PollRequest {
+
+}
+
+message PollReply {
+	bool active = 1;
+}
+
+message RecvReq {
+	uint64 seqNum = 1;
+	uint32 port = 3;
+}
+
+message RecvReply {
+	bool reply = 1;
+}
+
+message DefRep {
+	uint32 port = 3;
+}
+
+message DefReply {
+
+}

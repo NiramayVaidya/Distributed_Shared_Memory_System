@@ -1,0 +1,5 @@
+RPC call from Niramay-Inspiron-5515:50002 to Niramay-Inspiron-5515:50000 for poll with arguments none
+RPC call from Niramay-Inspiron-5515:50002 to Niramay-Inspiron-5515:50001 for poll with arguments none
+RPC call from Niramay-Inspiron-5515:50002 to Niramay-Inspiron-5515:50000 for recvRequest with arguments seqNum = 3, port = 50000
+RPC call from Niramay-Inspiron-5515:50002 to Niramay-Inspiron-5515:50001 for recvRequest with arguments seqNum = 3, port = 50001
+RPC call from Niramay-Inspiron-5515:50002 to Niramay-Inspiron-5515:50001 for sendDefRep with arguments port = 50001
