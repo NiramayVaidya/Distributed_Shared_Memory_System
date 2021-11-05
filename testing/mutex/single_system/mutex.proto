@@ -24,7 +24,7 @@ message PollReply {
 
 message RecvReq {
 	uint64 seqNum = 1;
-	uint32 port = 3;
+	uint32 port = 2;
 }
 
 message RecvReply {
@@ -32,7 +32,7 @@ message RecvReply {
 }
 
 message DefRep {
-	uint32 port = 3;
+	uint32 port = 1;
 }
 
 message DefReply {
