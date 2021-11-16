@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package dsm;
+
+service Poll {
+	rpc poll (PollRequest) returns (PollReply) {}
+}
+
+service RegDataSeg {
+	rpc regDataSeg (RegRequest) returns (RegReply) {}
+}
+
+service DirUpd {
+	rpc dirUpd (UpdRequest) returns (UpdReply) {}
+}
+
+service Invalidate {
+	rpc invalidate (InvalidateRequest) returns (InvalidateReply) {}
+}
+
+service GetLatest {
+	rpc getLatest (LatestRequest) returns (LatestReply) {}
+}
+
+service FetchLatest {
+	rpc fetchLatest (FetchRequest) returns (FetchReply) {}
+}
+
+message PollRequest {
+
+}
+
+message PollReply {
+	bool active = 1;
+}
+
+message RegRequest {
+	string host = 1;
+	uint32 pageNum = 2;
+	uint64 pageAddr = 3;
+	uint32 size = 4;
+}
+
+message RegReply {
+	uint32 pageNum = 1;
+}
+
+message UpdRequest {
+	string host = 1;
+	uint64 pageAddr = 2;
+}
+
+message UpdReply {
+
+}
+
+message InvalidateRequest {
+	uint64 pageAddr = 1;
+}
+
+message InvalidateReply {
+
+}
+
+message LatestRequest {
+	string host = 1;
+	uint64 pageAddr = 2;
+}
+
+message LatestReply {
+	repeated uint64 pageContent = 1;
+}
+
+message FetchRequest {
+	uint64 pageAddr = 1;
+}
+
+message FetchReply {
+	repeated uint64 pageContent = 1;
+}

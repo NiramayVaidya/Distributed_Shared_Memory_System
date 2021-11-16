@@ -1,1 +1,3 @@
-seq-consistency/p1
+seq-consistency/build.sh
+seq-consistency/cmake/
+seq-consistency/CMakeLists.txt

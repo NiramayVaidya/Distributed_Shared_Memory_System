@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "psu_dsm_system.h"
+#include "psu_dsm.h"
 
 int a __attribute__ ((aligned (4096)));
 int b __attribute__ ((aligned (4096)));
@@ -15,5 +15,8 @@ int main(int argc, char* argv[])
 	while (b == 0);
 
 	printf("a = %d and b = %d\n",a,b);
+
+	psu_dsm_free();
+
 	return 0;
 }
