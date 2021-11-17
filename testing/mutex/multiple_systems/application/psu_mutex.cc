@@ -15,6 +15,7 @@
 #include <vector>
 #include <cstring>
 #include <map>
+#include <mutex>
 
 #include "psu_mutex.h"
 #include "mutex.grpc.pb.h"
@@ -34,9 +35,12 @@ int nodeId = -1;
 map<unsigned int, uint64_t> seqNums;
 map<unsigned int, uint64_t> highestSeqNums;
 map<unsigned int, bool> requestingCSs;
+map<unsigned int, bool> available;
 
 map<unsigned int, map<string, bool>> responses;
 map<unsigned int, map<string, bool>> defers;
+
+std::mutex sharedVarsLock;
 
 #if DEBUG
 static inline string boolToStr(bool val) {
@@ -91,7 +95,9 @@ class RecvRequestClient {
 			cout << "In recvRequest client" << endl;
 #endif
 			RecvReq recvReq;
+			sharedVarsLock.lock();
 			recvReq.set_seqnum(seqNums[lockno]);
+			sharedVarsLock.unlock();
 			recvReq.set_host(clientHost);
 			recvReq.set_nodeid(nodeId);
 			recvReq.set_lockno(lockno);
@@ -102,18 +108,24 @@ class RecvRequestClient {
 
 #if DEBUG
 			cout << "Response map for lockno = " + to_string(lockno) + " -> ";
+			sharedVarsLock.lock();
 			printMap(responses[lockno]);
+			sharedVarsLock.unlock();
 #endif
 
 			Status status = stub_->recvRequest(&context, recvReq, &recvReply);
 
 			if (recvReply.reply()) {
+				sharedVarsLock.lock();
 				responses[lockno][remoteHost] = true;
+				sharedVarsLock.unlock();
 			}
 
 #if DEBUG
 			cout << "Response map for lockno = " + to_string(lockno) + " -> ";
+			sharedVarsLock.lock();
 			printMap(responses[lockno]);
+			sharedVarsLock.unlock();
 #endif
 		}
 
@@ -156,12 +168,20 @@ class RecvRequestServiceImpl final : public RecvRequest::Service {
 #if DEBUG
 		cout << "In recvRequest" << endl;
 		cout << "lockno = " + to_string(request->lockno()) << endl;
+		sharedVarsLock.lock();
 		cout << "highestSeqNum = " + to_string(highestSeqNums[request->lockno()]) << endl;
+		sharedVarsLock.unlock();
 #endif
+		while (!available[request->lockno()]);
+		sharedVarsLock.lock();
 		highestSeqNums[request->lockno()] = max(highestSeqNums[request->lockno()], (uint64_t) request->seqnum()) + 1;
+		sharedVarsLock.unlock();
 #if DEBUG
+		sharedVarsLock.lock();
 		cout << "highestSeqNum = " + to_string(highestSeqNums[request->lockno()]) + ", request->seqNum = " + to_string(request->seqnum()) + ", seqNum = " + to_string(seqNums[request->lockno()]) + ", requestingCS = " + boolToStr(requestingCSs[request->lockno()]) + ", request->host = " + request->host() + ", host = " + GetHostName() + ", request->nodeId = " + to_string(request->nodeid()) + ", nodeId = " + to_string(nodeId) + ", lockno = " + to_string(request->lockno()) << endl;
+		sharedVarsLock.unlock();
 #endif
+		sharedVarsLock.lock();
 		if (requestingCSs[request->lockno()] && ((request->seqnum() > seqNums[request->lockno()]) || ((request->seqnum() == seqNums[request->lockno()]) && (request->nodeid() > nodeId)))) {
 			defers[request->lockno()][request->host()] = true;
 			reply->set_reply(false);
@@ -179,6 +199,7 @@ class RecvRequestServiceImpl final : public RecvRequest::Service {
 			printMap(defers[request->lockno()]);
 #endif
 		}
+		sharedVarsLock.unlock();
 		return Status::OK;
 	}
 };
@@ -190,12 +211,18 @@ class SendDefReplyServiceImpl final : public SendDefReply::Service {
 		cout << "request->host = " + request->host() << endl;
 		cout << "lockno = " + to_string(request->lockno()) << endl;
 		cout << "Response map for lockno = " + to_string(request->lockno()) + " -> ";
+		sharedVarsLock.lock();
 		printMap(responses[request->lockno()]);
+		sharedVarsLock.unlock();
 #endif
+		sharedVarsLock.lock();
 		responses[request->lockno()][request->host()] = true;
+		sharedVarsLock.unlock();
 #if DEBUG
 		cout << "Response map for lockno = " + to_string(request->lockno()) + " -> ";
+		sharedVarsLock.lock();
 		printMap(responses[request->lockno()]);
+		sharedVarsLock.unlock();
 #endif
 		return Status::OK;
 	}
@@ -271,8 +298,10 @@ void psu_mutex_lock(unsigned int lockno) {
 	cout << "In psu_mutex_lock" << endl;
 	cout << "lockno = " + to_string(lockno) << endl;
 #endif
+	sharedVarsLock.lock();
 	requestingCSs[lockno] = true;
 	seqNums[lockno] = highestSeqNums[lockno] + 1;
+	sharedVarsLock.unlock();
 	for (int i = 0; i < remoteHosts.size(); i++) {
 		logFile << "RPC call from " + hostName + " to " + remoteHosts[i] + " for recvRequest with arguments seqNum = " + to_string(seqNums[lockno]) + ", host = " + remoteHosts[i] + ", nodeId = " + to_string(nodeId) + ", lockno = " + to_string(lockno) << endl;
 		RecvRequestClient recvRequestClient(CreateChannel(remoteHosts[i] + ":" + to_string(port), InsecureChannelCredentials()));
@@ -280,14 +309,19 @@ void psu_mutex_lock(unsigned int lockno) {
 	}
 #if DEBUG
 	cout << "Response map for lockno = " + to_string(lockno) + " -> ";
+	sharedVarsLock.lock();
 	printMap(responses[lockno]);
+	sharedVarsLock.unlock();
 #endif
 	while (true) {
 		int i;
 		for (i = 0; i < remoteHosts.size(); i++) {
+			sharedVarsLock.lock();
 			if (!responses[lockno][remoteHosts[i]]) {
+				sharedVarsLock.unlock();
 				break;
 			}
+			sharedVarsLock.unlock();
 		}
 		if (i == remoteHosts.size()) {
 			break;
@@ -295,24 +329,38 @@ void psu_mutex_lock(unsigned int lockno) {
 	}
 #if DEBUG
 	cout << "Response map for lockno = " + to_string(lockno) + " -> ";
+	sharedVarsLock.lock();
 	printMap(responses[lockno]);
+	sharedVarsLock.unlock();
 #endif
+	sharedVarsLock.lock();
+	available[lockno] = false;
+	sharedVarsLock.unlock();
 }
 
 void psu_mutex_unlock(unsigned int lockno) {
 	string hostName = GetHostName();
+	sharedVarsLock.lock();
+	available[lockno] = true;
+	sharedVarsLock.unlock();
 #if DEBUG
 	cout << "In psu_mutex_unlock" << endl;
 	cout << "lockno = " + to_string(lockno) << endl;
 #endif
+	sharedVarsLock.lock();
 	requestingCSs[lockno] = false;
+	sharedVarsLock.unlock();
 	for (int i = 0; i < remoteHosts.size(); i++) {
+		sharedVarsLock.lock();
 		if (defers[lockno][remoteHosts[i]]) {
+			sharedVarsLock.unlock();
 			logFile << "RPC call from " + hostName + " to " + hostName + " for sendDefRep with arguments host = " + remoteHosts[i] + ", lockno = " + to_string(lockno) << endl;
 			SendDefReplyClient sendDefReplyClient(CreateChannel(remoteHosts[i] + ":" + to_string(port), InsecureChannelCredentials()));
 			sendDefReplyClient.sendDefRep(hostName, lockno);
 		}
+		sharedVarsLock.unlock();
 	}
+	sharedVarsLock.lock();
 	for (int i = 0; i < remoteHosts.size(); i++) {
 		if (defers[lockno][remoteHosts[i]]) {
 			defers[lockno][remoteHosts[i]] = false;
@@ -321,6 +369,7 @@ void psu_mutex_unlock(unsigned int lockno) {
 			responses[lockno][remoteHosts[i]] = false;
 		}
 	}
+	sharedVarsLock.unlock();
 }
 
 bool psu_start_lock() {
@@ -345,9 +394,12 @@ bool psu_start_lock() {
 }
 
 void psu_init_lock(unsigned int lockno) {
+	sharedVarsLock.lock();
 	seqNums[lockno] = 0;
 	highestSeqNums[lockno] = 0;
 	requestingCSs[lockno] = false;
+	available[lockno] = true;
+	sharedVarsLock.unlock();
 
 	map<string, bool> response;
 	map<string, bool> defer;
@@ -357,15 +409,21 @@ void psu_init_lock(unsigned int lockno) {
 		defer[remoteHosts[i]] = false;
 	}
 
+	sharedVarsLock.lock();
 	responses[lockno] = response;
 	defers[lockno] = defer;
+	sharedVarsLock.unlock();
 }
 
 void psu_destroy_lock(unsigned int lockno) {
+	sharedVarsLock.lock();
 	seqNums.erase(lockno);
 	highestSeqNums.erase(lockno);
+	requestingCSs.erase(lockno);
+	available.erase(lockno);
 	responses.erase(lockno);
 	defers.erase(lockno);
+	sharedVarsLock.unlock();
 }
 
 void psu_stop_lock() {
