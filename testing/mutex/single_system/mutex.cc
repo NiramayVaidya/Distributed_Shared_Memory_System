@@ -160,7 +160,7 @@ class RecvRequestServiceImpl final : public RecvRequest::Service {
 #if DEBUG
 		cout << "highestSeqNum = " + to_string(highestSeqNum) + ", request->seqNum = " + to_string(request->seqnum()) + ", seqNum = " + to_string(seqNum) + ", requestingCS = " + boolToStr(requestingCS) + ", request->port = " + to_string(request->port()) + ", port = " + to_string(port) << endl;
 #endif
-		if (requestingCS && ((request->seqnum() > seqNum) || (request->seqnum() == seqNum) && (request->port() > port))) {
+		if (requestingCS && ((request->seqnum() > seqNum) || ((request->seqnum() == seqNum) && (request->port() > port)))) {
 			defers[request->port()] = true;
 			reply->set_reply(false);
 #if DEBUG

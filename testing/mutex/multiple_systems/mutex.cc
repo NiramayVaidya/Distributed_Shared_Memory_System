@@ -162,7 +162,7 @@ class RecvRequestServiceImpl final : public RecvRequest::Service {
 #if DEBUG
 		cout << "highestSeqNum = " + to_string(highestSeqNum) + ", request->seqNum = " + to_string(request->seqnum()) + ", seqNum = " + to_string(seqNum) + ", requestingCS = " + boolToStr(requestingCS) + ", request->host = " + request->host() + ", host = " + GetHostName() + ", request->nodeId = " + to_string(request->nodeid()) + ", nodeId = " + to_string(nodeId) << endl;
 #endif
-		if (requestingCS && ((request->seqnum() > seqNum) || (request->seqnum() == seqNum) && (request->nodeid() > nodeId))) {
+		if (requestingCS && ((request->seqnum() > seqNum) || ((request->seqnum() == seqNum) && (request->nodeid() > nodeId)))) {
 			defers[request->host()] = true;
 			reply->set_reply(false);
 #if DEBUG

@@ -11,7 +11,7 @@ GRPC_CPP_PLUGIN_PATH ?= `which $(GRPC_CPP_PLUGIN)`
 
 all: app
 
-app: mutex.pb.o mutex.grpc.pb.o mutex.o app.o
+app: mutex.pb.o mutex.grpc.pb.o psu_mutex.o app.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
 %.grpc.pb.cc: %.proto

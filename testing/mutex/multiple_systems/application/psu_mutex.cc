@@ -15,10 +15,8 @@
 #include <vector>
 #include <cstring>
 #include <map>
-#include <chrono>
-#include <ctime>
 
-#include "mutex.h"
+#include "psu_mutex.h"
 #include "mutex.grpc.pb.h"
 
 using namespace std;
@@ -33,12 +31,12 @@ string nodeListFilename = "node_list.txt";
 string gRPCLogFilename = "gRPC_log.txt";
 int nodeId = -1;
 
-uint64_t seqNum = 0;
-uint64_t highestSeqNum = 0;
-bool requestingCS = false;
+map<unsigned int, uint64_t> seqNums;
+map<unsigned int, uint64_t> highestSeqNums;
+map<unsigned int, bool> requestingCSs;
 
-map<string, bool> responses;
-map<string, bool> defers;
+map<unsigned int, map<string, bool>> responses;
+map<unsigned int, map<string, bool>> defers;
 
 #if DEBUG
 static inline string boolToStr(bool val) {
@@ -73,7 +71,7 @@ class PollClient {
 
 			if (status.ok()) {
 				return pollReply.active();
-			} 
+			}
 			else {
 				cout << status.error_code() << ": " << status.error_message() << endl;
 				return "Poll RPC Failed";
@@ -88,33 +86,34 @@ class RecvRequestClient {
 	public:
 		RecvRequestClient(shared_ptr<Channel> channel) : stub_(RecvRequest::NewStub(channel)) {}
 
-		void recvRequest(string clientHost, string remoteHost) {
+		void recvRequest(string clientHost, string remoteHost, unsigned int lockno) {
 #if DEBUG
 			cout << "In recvRequest client" << endl;
 #endif
 			RecvReq recvReq;
-			recvReq.set_seqnum(seqNum);
+			recvReq.set_seqnum(seqNums[lockno]);
 			recvReq.set_host(clientHost);
 			recvReq.set_nodeid(nodeId);
+			recvReq.set_lockno(lockno);
 
 			RecvReply recvReply;
 
 			ClientContext context;
 
 #if DEBUG
-			cout << "Responses map -> ";
-			printMap(responses);
+			cout << "Response map for lockno = " + to_string(lockno) + " -> ";
+			printMap(responses[lockno]);
 #endif
 
 			Status status = stub_->recvRequest(&context, recvReq, &recvReply);
 
 			if (recvReply.reply()) {
-				responses[remoteHost] = true;
+				responses[lockno][remoteHost] = true;
 			}
 
 #if DEBUG
-			cout << "Responses map -> ";
-			printMap(responses);
+			cout << "Response map for lockno = " + to_string(lockno) + " -> ";
+			printMap(responses[lockno]);
 #endif
 		}
 
@@ -126,12 +125,13 @@ class SendDefReplyClient {
 	public:
 		SendDefReplyClient(shared_ptr<Channel> channel) : stub_(SendDefReply::NewStub(channel)) {}
 
-		void sendDefRep(string clientHost) {
+		void sendDefRep(string clientHost, unsigned int lockno) {
 #if DEBUG
 			cout << "In sendDefRep client" << endl;
 #endif
 			DefRep defRep;
 			defRep.set_host(clientHost);
+			defRep.set_lockno(lockno);
 
 			DefReply defReply;
 
@@ -155,27 +155,28 @@ class RecvRequestServiceImpl final : public RecvRequest::Service {
 	Status recvRequest(ServerContext* context, const RecvReq* request, RecvReply* reply) override {
 #if DEBUG
 		cout << "In recvRequest" << endl;
-		cout << "highestSeqNum = " + to_string(highestSeqNum) << endl;
+		cout << "lockno = " + to_string(request->lockno()) << endl;
+		cout << "highestSeqNum = " + to_string(highestSeqNums[request->lockno()]) << endl;
 #endif
-		highestSeqNum = max(highestSeqNum, (uint64_t) request->seqnum()) + 1;
+		highestSeqNums[request->lockno()] = max(highestSeqNums[request->lockno()], (uint64_t) request->seqnum()) + 1;
 #if DEBUG
-		cout << "highestSeqNum = " + to_string(highestSeqNum) + ", request->seqNum = " + to_string(request->seqnum()) + ", seqNum = " + to_string(seqNum) + ", requestingCS = " + boolToStr(requestingCS) + ", request->host = " + request->host() + ", host = " + GetHostName() + ", request->nodeId = " + to_string(request->nodeid()) + ", nodeId = " + to_string(nodeId) << endl;
+		cout << "highestSeqNum = " + to_string(highestSeqNums[request->lockno()]) + ", request->seqNum = " + to_string(request->seqnum()) + ", seqNum = " + to_string(seqNums[request->lockno()]) + ", requestingCS = " + boolToStr(requestingCSs[request->lockno()]) + ", request->host = " + request->host() + ", host = " + GetHostName() + ", request->nodeId = " + to_string(request->nodeid()) + ", nodeId = " + to_string(nodeId) + ", lockno = " + to_string(request->lockno()) << endl;
 #endif
-		if (requestingCS && ((request->seqnum() > seqNum) || (request->seqnum() == seqNum) && (request->nodeid() > nodeId))) {
-			defers[request->host()] = true;
+		if (requestingCSs[request->lockno()] && ((request->seqnum() > seqNums[request->lockno()]) || ((request->seqnum() == seqNums[request->lockno()]) && (request->nodeid() > nodeId)))) {
+			defers[request->lockno()][request->host()] = true;
 			reply->set_reply(false);
 #if DEBUG
 			cout << "Deferred" << endl;
-			cout << "Defers map -> ";
-			printMap(defers);
+			cout << "Defers map for lockno = " + to_string(request->lockno()) + " -> ";
+			printMap(defers[request->lockno()]);
 #endif
 		}
 		else {
 			reply->set_reply(true);
 #if DEBUG
 			cout << "Responded" << endl;
-			cout << "Defers map -> ";
-			printMap(defers);
+			cout << "Defers map for lockno = " + to_string(request->lockno()) + " -> ";
+			printMap(defers[request->lockno()]);
 #endif
 		}
 		return Status::OK;
@@ -187,21 +188,22 @@ class SendDefReplyServiceImpl final : public SendDefReply::Service {
 #if DEBUG
 		cout << "In sendDefRep" << endl;
 		cout << "request->host = " + request->host() << endl;
-		cout << "Responses map -> ";
-		printMap(responses);
+		cout << "lockno = " + to_string(request->lockno()) << endl;
+		cout << "Response map for lockno = " + to_string(request->lockno()) + " -> ";
+		printMap(responses[request->lockno()]);
 #endif
-		responses[request->host()] = true;
+		responses[request->lockno()][request->host()] = true;
 #if DEBUG
-		cout << "Responses map -> ";
-		printMap(responses);
+		cout << "Response map for lockno = " + to_string(request->lockno()) + " -> ";
+		printMap(responses[request->lockno()]);
 #endif
 		return Status::OK;
 	}
 };
 
 static void RunClient(string hostName, string remoteHost) {
-	string target_address = remoteHost + ":" + to_string(port);
-	PollClient pollClient(CreateChannel(target_address, InsecureChannelCredentials()));
+	string targetAddress = remoteHost + ":" + to_string(port);
+	PollClient pollClient(CreateChannel(targetAddress, InsecureChannelCredentials()));
 
 	logFile << "RPC call from " + hostName + " to " + remoteHost + " for poll with arguments none" << endl;
 	bool response = pollClient.poll();
@@ -263,26 +265,27 @@ static string CheckHostName() {
 	return "";
 }
 
-void enterMutex() {
+void psu_mutex_lock(unsigned int lockno) {
 	string hostName = GetHostName();
 #if DEBUG
-	cout << "In enterMutex" << endl;
+	cout << "In psu_mutex_lock" << endl;
+	cout << "lockno = " + to_string(lockno) << endl;
 #endif
-	requestingCS = true;
-	seqNum = highestSeqNum + 1;
+	requestingCSs[lockno] = true;
+	seqNums[lockno] = highestSeqNums[lockno] + 1;
 	for (int i = 0; i < remoteHosts.size(); i++) {
-		logFile << "RPC call from " + hostName + " to " + remoteHosts[i] + " for recvRequest with arguments seqNum = " + to_string(seqNum) + ", host = " + remoteHosts[i] + ", nodeId = " + to_string(nodeId) << endl;
+		logFile << "RPC call from " + hostName + " to " + remoteHosts[i] + " for recvRequest with arguments seqNum = " + to_string(seqNums[lockno]) + ", host = " + remoteHosts[i] + ", nodeId = " + to_string(nodeId) + ", lockno = " + to_string(lockno) << endl;
 		RecvRequestClient recvRequestClient(CreateChannel(remoteHosts[i] + ":" + to_string(port), InsecureChannelCredentials()));
-		recvRequestClient.recvRequest(hostName, remoteHosts[i]);
+		recvRequestClient.recvRequest(hostName, remoteHosts[i], lockno);
 	}
 #if DEBUG
-	cout << "Responses map -> ";
-	printMap(responses);
+	cout << "Response map for lockno = " + to_string(lockno) + " -> ";
+	printMap(responses[lockno]);
 #endif
 	while (true) {
 		int i;
 		for (i = 0; i < remoteHosts.size(); i++) {
-			if (!responses[remoteHosts[i]]) {
+			if (!responses[lockno][remoteHosts[i]]) {
 				break;
 			}
 		}
@@ -291,35 +294,36 @@ void enterMutex() {
 		}
 	}
 #if DEBUG
-	cout << "Responses map -> ";
-	printMap(responses);
+	cout << "Response map for lockno = " + to_string(lockno) + " -> ";
+	printMap(responses[lockno]);
 #endif
 }
 
-void exitMutex() {
+void psu_mutex_unlock(unsigned int lockno) {
 	string hostName = GetHostName();
 #if DEBUG
-	cout << "In exitMutex" << endl;
+	cout << "In psu_mutex_unlock" << endl;
+	cout << "lockno = " + to_string(lockno) << endl;
 #endif
-	requestingCS = false;
+	requestingCSs[lockno] = false;
 	for (int i = 0; i < remoteHosts.size(); i++) {
-		if (defers[remoteHosts[i]]) {
-			logFile << "RPC call from " + hostName + " to " + hostName + " for sendDefRep with arguments host = " + remoteHosts[i] << endl;
+		if (defers[lockno][remoteHosts[i]]) {
+			logFile << "RPC call from " + hostName + " to " + hostName + " for sendDefRep with arguments host = " + remoteHosts[i] + ", lockno = " + to_string(lockno) << endl;
 			SendDefReplyClient sendDefReplyClient(CreateChannel(remoteHosts[i] + ":" + to_string(port), InsecureChannelCredentials()));
-			sendDefReplyClient.sendDefRep(hostName);
+			sendDefReplyClient.sendDefRep(hostName, lockno);
 		}
 	}
 	for (int i = 0; i < remoteHosts.size(); i++) {
-		if (defers[remoteHosts[i]]) {
-			defers[remoteHosts[i]] = false;
+		if (defers[lockno][remoteHosts[i]]) {
+			defers[lockno][remoteHosts[i]] = false;
 		}
-		if (responses[remoteHosts[i]]) {
-			responses[remoteHosts[i]] = false;
+		if (responses[lockno][remoteHosts[i]]) {
+			responses[lockno][remoteHosts[i]] = false;
 		}
 	}
 }
 
-bool initMutex() {
+bool psu_start_lock() {
 	string hostName = CheckHostName();
 	if (hostName == "") {
 		cout << "Current node's hostname not found in " + nodeListFilename << endl;
@@ -332,10 +336,6 @@ bool initMutex() {
 	cout << "Server thread launched" << endl;
 #endif
 	for (int i = 0; i < remoteHosts.size(); i++) {
-		responses[remoteHosts[i]] = false;
-		defers[remoteHosts[i]] = false;
-	}
-	for (int i = 0; i < remoteHosts.size(); i++) {
 		RunClient(hostName, remoteHosts[i]);
 	}
 #if DEBUG
@@ -344,7 +344,31 @@ bool initMutex() {
 	return true;
 }
 
-void destroyMutex() {
+void psu_init_lock(unsigned int lockno) {
+	seqNums[lockno] = 0;
+	highestSeqNums[lockno] = 0;
+	requestingCSs[lockno] = false;
+
+	map<string, bool> response;
+	map<string, bool> defer;
+
+	for (int i = 0; i < remoteHosts.size(); i++) {
+		response[remoteHosts[i]] = false;
+		defer[remoteHosts[i]] = false;
+	}
+
+	responses[lockno] = response;
+	defers[lockno] = defer;
+}
+
+void psu_destroy_lock(unsigned int lockno) {
+	seqNums.erase(lockno);
+	highestSeqNums.erase(lockno);
+	responses.erase(lockno);
+	defers.erase(lockno);
+}
+
+void psu_stop_lock() {
 	logFile.close();
-	while(1);
+	while (1);
 }
