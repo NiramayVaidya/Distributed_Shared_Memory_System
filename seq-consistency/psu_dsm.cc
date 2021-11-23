@@ -553,8 +553,6 @@ bool initDir() {
 	}
 	logFile.open(dirHost + "_" + gRPCLogFilename, fstream::in | fstream::out | fstream::trunc);
 	logFile.close();
-	// REMOVE
-	// logFile << "Dummy write" << endl;
 	thread server(RunDirServer, dirHost);
 	server.detach();
 #if DEBUG
@@ -575,7 +573,6 @@ static bool initServer() {
 #if DEBUG
 	cout << "Server thread launched" << endl;
 #endif
-	// string dirHost = GetDirHost();
 	PollDirClient(hostName, dirHost);
 #if DEBUG
 	cout << "Client running" << endl;
@@ -584,50 +581,31 @@ static bool initServer() {
 }
 
 void stopDir() {
-	// logFile.close();
 	while (1);
 }
 
 static void stopServer() {
 	logFile.close();
 	while (true);
-	// while (1) {
-	// 	this_thread::sleep_for(chrono::milliseconds(10000));
-	// };
 }
 
 static void segv_handler(int signum, siginfo_t *info, void *ucontext) {
-#if DEBUG
-	// printf("Received signal: %d(SIGSEGV)\n", signum);
-	// printf("%p\n", info->si_addr);
-#endif
 	string hostName = GetHostName();
+	mprotect((void *) PAGE_DOWN((uint64_t) info->si_addr), PAGE_SIZE, PROT_READ | PROT_WRITE);
 	if (((ucontext_t *) ucontext)->uc_mcontext.gregs[REG_ERR] & 0x2) {
 #if DEBUG
 		cout << "Write fault on " + hostName + " at " + to_string((uint64_t) info->si_addr) << endl;
 #endif
-
-		mprotect(info->si_addr, PAGE_SIZE, PROT_READ | PROT_WRITE);
-
-		logFile << "RPC call from " + hostName + " to " + dirHost + " for dirUpd with arguments host = " + hostName + ", pageAddr = " + to_string((uint64_t) info->si_addr) << endl;
+		logFile << "RPC call from " + hostName + " to " + dirHost + " for dirUpd with arguments host = " + hostName + ", pageAddr = " + to_string(PAGE_DOWN((uint64_t) info->si_addr)) << endl;
 		DirUpdClient dirUpdClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
-		dirUpdClient.dirUpd(hostName, (uint64_t) info->si_addr);
+		dirUpdClient.dirUpd(hostName, PAGE_DOWN((uint64_t) info->si_addr));
     } else {
 #if DEBUG
 		cout << "Read fault on " + hostName + " at " + to_string((uint64_t) info->si_addr) << endl;
 #endif
-
-		// mprotect(info->si_addr, PAGE_SIZE, PROT_READ);
-		// if (!(((uint64_t) info->si_addr) % PAGE_SIZE)) {
-
-			// printf("val- %d\n", *((int *) info->si_addr));
-			// mprotect(info->si_addr, PAGE_SIZE, PROT_READ | PROT_WRITE);
-			mprotect((void *) PAGE_DOWN((uint64_t) info->si_addr), PAGE_SIZE, PROT_READ | PROT_WRITE);
-
-			logFile << "RPC call from " + hostName + " to " + dirHost + " for getLatest with arguments host = " + hostName + ", pageAddr = " + to_string((uint64_t) info->si_addr) << endl;
-			GetLatestClient getLatestClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
-			getLatestClient.getLatest(hostName, PAGE_DOWN((uint64_t) info->si_addr));
-		// }
+		logFile << "RPC call from " + hostName + " to " + dirHost + " for getLatest with arguments host = " + hostName + ", pageAddr = " + to_string(PAGE_DOWN((uint64_t) info->si_addr)) << endl;
+		GetLatestClient getLatestClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
+		getLatestClient.getLatest(hostName, PAGE_DOWN((uint64_t) info->si_addr));
     }
 }
 
@@ -651,10 +629,6 @@ void psu_dsm_register_datasegment(void *psu_ds_start, size_t psu_ds_size) {
 	cout << "Server initialized" << endl;
 #endif
 
-#if DEBUG
-	// printf("first- %p\n", psu_ds_start);
-#endif
-
 	register_segv_handler();
 	mprotect(psu_ds_start, psu_ds_size, PROT_READ);
 
@@ -666,6 +640,5 @@ void psu_dsm_register_datasegment(void *psu_ds_start, size_t psu_ds_size) {
 }
 
 void psu_dsm_free() {
-	// stopServer();
-	while (1);
+	stopServer();
 }
