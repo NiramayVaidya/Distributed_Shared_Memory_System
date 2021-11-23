@@ -40,6 +40,11 @@ uint64_t pageNum = 0;
 vector<vector<tuple<string, uint64_t>>> dsmData;
 vector<int> ownerVec;
 mutex dsmDataLock;
+mutex ownerVecLock;
+mutex getLatestLock;
+mutex fetchLatestLock;
+mutex dirUpdLock;
+mutex logLock;
 
 bool invalidateDone = false;
 
@@ -163,19 +168,10 @@ class InvalidateClient {
 
 			ClientContext context;
 			chrono::time_point<chrono::system_clock> deadline = chrono::system_clock::now() + chrono::milliseconds(10);
+			// HACK
 			context.set_deadline(deadline);
 
 			Status status = stub_->invalidate(&context, invalidateRequest, &invalidateReply);
-
-			// REMOVE
-			cout << "Invalidate returned" << endl;
-
-			invalidateDone = true;
-
-			// REMOVE
-			if (!status.ok()) {
-				cout << "Invalidate unsuccessful" << endl;
-			} 
 		}
 
 	 private:
@@ -202,8 +198,6 @@ class GetLatestClient {
 			cout << "0th old value in page at requester = " + to_string((uint64_t) startAddr[0]) << endl;
 #endif
 			for (int i = 0; i < latestReply.pagecontent_size(); i++) {
-				// REMOVE
-				// cout << to_string(i) + ", " + to_string(latestReply.pagecontent(i)) + ", " + to_string(startAddr[i]) << endl;
 				startAddr[i] = latestReply.pagecontent(i);
 			}
 #if DEBUG
@@ -274,7 +268,9 @@ class RegDataSegServiceImpl final : public RegDataSeg::Service {
 				vector<tuple<string, uint64_t>> pageNumLevel;
 				pageNumLevel.push_back(hostPageAddr);
 				dsmData.push_back(pageNumLevel);
+				ownerVecLock.lock();
 				ownerVec.push_back(-1);
+				ownerVecLock.unlock();
 			}
 			dsmDataLock.unlock();
 			iter++;
@@ -282,8 +278,12 @@ class RegDataSegServiceImpl final : public RegDataSeg::Service {
 		}
 		reply->set_pagenum(iter);
 #if DEBUG
+		dsmDataLock.lock();
 		printDsmData();
+		dsmDataLock.unlock();
+		ownerVecLock.lock();
 		printOwnerVec();
+		ownerVecLock.unlock();
 		cout << "Updated pageNum = " + to_string(iter) << endl;
 #endif
 		return Status::OK;
@@ -292,6 +292,7 @@ class RegDataSegServiceImpl final : public RegDataSeg::Service {
 
 class DirUpdServiceImpl final : public DirUpd::Service {
 	Status dirUpd(ServerContext* context, const UpdRequest* request, UpdReply* reply) override {
+		dirUpdLock.lock();
 #if DEBUG
 		cout << "In dirUpd" << endl;
 		cout << "Call from host = " + request->host() << endl;
@@ -301,6 +302,7 @@ class DirUpdServiceImpl final : public DirUpd::Service {
 		int innerLoc = -1;
 		bool found = false;
 		tuple<string, uint64_t> owner;
+		dsmDataLock.lock();
 		for (int i = 0; i < dsmData.size(); i++) {
 			for (int j = 0; j < dsmData[i].size(); j++) {
 				string hostName = get<0>(dsmData[i][j]);
@@ -317,32 +319,44 @@ class DirUpdServiceImpl final : public DirUpd::Service {
 				break;
 			}
 		}
+		dsmDataLock.unlock();
 		if (found) {
-			dsmDataLock.lock();
+			ownerVecLock.lock();
 			ownerVec[outerLoc] = innerLoc;
-			dsmDataLock.unlock();
+			ownerVecLock.unlock();
 #if DEBUG
 			cout << to_string(outerLoc) + ", " + to_string(innerLoc) + ", owner host = " + get<0>(owner) + ", pageAddr = " + to_string((uint64_t) get<1>(owner)) << endl;
 			printOwnerVec();
 #endif
+			dsmDataLock.lock();
 			vector<tuple<string, uint64_t>> invalidateVec = dsmData[outerLoc];
+			dsmDataLock.unlock();
 			invalidateVec.erase(remove(invalidateVec.begin(), invalidateVec.end(), owner), invalidateVec.end());
 #if DEBUG
 			printInvalidateVec(invalidateVec);
 #endif
 			if (invalidateVec.size() > 0) {
 				string dirHost = GetHostName();
-				logFile.open(dirHost + "_" + gRPCLogFilename, fstream::in | fstream::out | fstream::app);
+				logLock.lock();
+				if (!logFile.is_open()) {
+					logFile.open(dirHost + "_" + gRPCLogFilename, fstream::in | fstream::out | fstream::app);
+				}
+				logLock.unlock();
 				for (int i = 0; i < invalidateVec.size(); i++) {
+					logLock.lock();
 					logFile << "RPC call from " + dirHost + " to " + get<0>(invalidateVec[i]) + " for invalidate with arguments pageAddr = " + to_string((uint64_t) get<1>(invalidateVec[i])) << endl;
+					logLock.unlock();
 					InvalidateClient invalidateClient(CreateChannel(get<0>(invalidateVec[i]) + ":" + to_string(port), InsecureChannelCredentials()));
 					invalidateClient.invalidate((uint64_t) get<1>(invalidateVec[i]));
-					// REMOVE
-					cout << "Invalidate done" << endl;
 				}
-				logFile.close();
+				logLock.lock();
+				if (logFile.is_open()) {
+					logFile.close();
+				}
+				logLock.unlock();
 			}
 		}
+		dirUpdLock.unlock();
 		return Status::OK;
 	}
 };
@@ -354,29 +368,26 @@ class InvalidateServiceImpl final : public Invalidate::Service {
 		cout << "pageAddr = " + to_string((uint64_t) request->pageaddr()) << endl;
 #endif
 		mprotect((void *) request->pageaddr(), PAGE_SIZE, PROT_NONE);
-		// REMOVE
-		cout << "mprotect done" << endl; 
+#if DEBUG 
+		cout << "mprotect done" << endl;
+#endif
 		return Status::OK;
 	}
 };
 
 class GetLatestServiceImpl final : public GetLatest::Service {
 	Status getLatest(ServerContext* context, const LatestRequest* request, LatestReply* reply) override {
+		getLatestLock.lock();
 #if DEBUG
 		cout << "In getLatest" << endl;
 		cout << "Call from host = " + request->host() << endl;
 		cout << "pageAddr = " + to_string((uint64_t) request->pageaddr()) << endl;
 #endif
-		while (!invalidateDone) {
-			this_thread::sleep_for(chrono::milliseconds(10));
-		};
-		invalidateDone = false;
-		// REMOVE
-		cout << "invalidateDone false" << endl;
 		int outerLoc = -1;
 		int innerLoc = -1;
 		bool found = false;
 		tuple<string, uint64_t> owner;
+		dsmDataLock.lock();
 		for (int i = 0; i < dsmData.size(); i++) {
 			for (int j = 0; j < dsmData[i].size(); j++) {
 				string hostName = get<0>(dsmData[i][j]);
@@ -391,34 +402,41 @@ class GetLatestServiceImpl final : public GetLatest::Service {
 				break;
 			}
 		}
+		dsmDataLock.unlock();
 		if (found) {
-			// REMOVE
-			printOwnerVec();
+			ownerVecLock.lock();
 			innerLoc = ownerVec[outerLoc];
-			// REMOVE
-			if (innerLoc != -1) {
-				owner = dsmData[outerLoc][innerLoc];
+			ownerVecLock.unlock();
+			dsmDataLock.lock();
+			owner = dsmData[outerLoc][innerLoc];
+			dsmDataLock.unlock();
 #if DEBUG
-				cout << to_string(outerLoc) + ", " + to_string(innerLoc) + ", owner host = " + get<0>(owner) + ", pageAddr = " + to_string((uint64_t) get<1>(owner)) << endl;
+			cout << to_string(outerLoc) + ", " + to_string(innerLoc) + ", owner host = " + get<0>(owner) + ", pageAddr = " + to_string((uint64_t) get<1>(owner)) << endl;
 #endif
-				string dirHost = GetHostName();
+			string dirHost = GetHostName();
+			logLock.lock();
+			if (!logFile.is_open()) {
 				logFile.open(dirHost + "_" + gRPCLogFilename, fstream::in | fstream::out | fstream::app);
-				logFile << "RPC call from " + dirHost + " to " + get<0>(owner) + " for fetchLatest with arguments pageAddr = " + to_string((uint64_t) get<1>(owner)) << endl;
-				logFile.close();
-				FetchLatestClient fetchLatestClient(CreateChannel(get<0>(owner) + ":" + to_string(port), InsecureChannelCredentials()));
-				fetchLatestClient.fetchLatest((uint64_t) get<1>(owner), reply);
-#if DEBUG
-				cout << "0th value in page at directory to be sent to the requester = " + to_string((uint64_t) reply->pagecontent(0)) << endl;
-#endif
 			}
+			logFile << "RPC call from " + dirHost + " to " + get<0>(owner) + " for fetchLatest with arguments pageAddr = " + to_string((uint64_t) get<1>(owner)) << endl;
+			if (logFile.is_open()) {
+				logFile.close();
+			}
+			logLock.unlock();
+			FetchLatestClient fetchLatestClient(CreateChannel(get<0>(owner) + ":" + to_string(port), InsecureChannelCredentials()));
+			fetchLatestClient.fetchLatest((uint64_t) get<1>(owner), reply);
+#if DEBUG
+			cout << "0th value in page at directory to be sent to the requester = " + to_string((uint64_t) reply->pagecontent(0)) << endl;
+#endif
 		}
-		// invalidateDone = false;
+		getLatestLock.unlock();
 		return Status::OK;
 	}
 };
 
 class FetchLatestServiceImpl final : public FetchLatest::Service {
 	Status fetchLatest(ServerContext* context, const FetchRequest* request, FetchReply* reply) override {
+		fetchLatestLock.lock();
 #if DEBUG
 		cout << "In fetchLatest" << endl;
 		cout << "pageAddr = " + to_string((uint64_t) request->pageaddr()) << endl;
@@ -430,6 +448,7 @@ class FetchLatestServiceImpl final : public FetchLatest::Service {
 #if DEBUG
 		cout << "0th value in page at owner to be sent to the directory = " + to_string((uint64_t) reply->pagecontent(0)) << endl;
 #endif
+		fetchLatestLock.unlock();
 		return Status::OK;
 	}
 };
@@ -496,7 +515,7 @@ static vector<string> GetNodeList() {
 	return lines;
 }
 
-// Not used for now
+// NOT USED
 static string GetDirHost() {
 	return GetNodeList().back();
 }
