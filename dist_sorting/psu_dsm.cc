@@ -29,12 +29,12 @@ using namespace std;
 using namespace grpc;
 using namespace dsm;
 
-fstream logFile;
+static fstream logFile;
 
-int port = 50000;
+static int port = 50001;
 string dirHost;
-string nodeListFilename = "node_list.txt";
-string gRPCLogFilename = "gRPC_log.txt";
+static string nodeListFilename = "node_list.txt";
+static string gRPCLogFilename = "gRPC_log.txt";
 
 uint64_t pageNum = 0;
 vector<vector<tuple<string, uint64_t>>> dsmData;
@@ -81,9 +81,9 @@ static string GetHostName() {
 	return hostName;
 }
 
-class PollClient {
+class DirPollClient {
 	public:
-		PollClient(shared_ptr<Channel> channel) : stub_(Poll::NewStub(channel)) {}
+		DirPollClient(shared_ptr<Channel> channel) : stub_(Poll::NewStub(channel)) {}
 		
 		bool poll() {
 			PollRequest pollRequest;
@@ -93,7 +93,7 @@ class PollClient {
 			ClientContext context;
 
 			Status status = stub_->poll(&context, pollRequest, &pollReply);
-
+			
 			while(!status.ok()) {
 				ClientContext context;
 				status = stub_->poll(&context, pollRequest, &pollReply);
@@ -455,10 +455,10 @@ class FetchLatestServiceImpl final : public FetchLatest::Service {
 
 static void PollDirClient(string hostName, string dirHost) {
 	string dirAddress = dirHost + ":" + to_string(port);
-	PollClient pollClient(CreateChannel(dirAddress, InsecureChannelCredentials()));
+	DirPollClient dirPollClient(CreateChannel(dirAddress, InsecureChannelCredentials()));
 
 	logFile << "RPC call from " + hostName + " to " + dirHost + " for poll with arguments none" << endl;
-	bool response = pollClient.poll();
+	bool response = dirPollClient.poll();
 
 #if DEBUG
 	cout << "Directory status: " << response << endl;
@@ -567,7 +567,7 @@ static bool initServer() {
 		cout << "Current node's hostname not found in " + nodeListFilename << endl;
 		return false;
 	}
-	logFile.open(hostName + "_" + gRPCLogFilename, fstream::out | fstream::trunc);
+	logFile.open(hostName + "_" + gRPCLogFilename, fstream::out | fstream::app);
 	thread server(RunServer, hostName);
 	server.detach();
 #if DEBUG

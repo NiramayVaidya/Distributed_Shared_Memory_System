@@ -1,19 +1,20 @@
 #include <iostream>
+#include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <iostream>
 #include <time.h>
-#include "psu_dsm_system.h"
-#include "psu_lock.h"
+#include "psu_dsm.h"
+#include "psu_mutex.h"
 
 using namespace std;
-#define COUNT 4*4096
+// #define COUNT 4*4096
+#define COUNT 1024
 int global_array[COUNT] __attribute__ ((aligned (4096)));
 int partition_num[1024] __attribute__ ((aligned (4096)));
 
 int logbase2(int n);
-int partition_num(int id, int level, int num);
+int get_partition_num(int id, int level, int num);
 void partial_sort(int process_num, int total_processes_num);
 void merge(int process_num, int total_processes_num);
 
@@ -30,7 +31,7 @@ void wait_partition(int a)
 
 void initialize()
 {
-	srand((unsigned) time(&t));
+	srand((unsigned) time(NULL));
 	for(int i = 0; i<COUNT; i++)
 	{
 		global_array[i] = rand()%500;
@@ -45,6 +46,16 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
+	int iter;
+	for (iter = 0; iter < COUNT - 1; iter++) {
+		cout << (uint64_t) &global_array[iter] << "\t";
+	}
+	cout << (uint64_t) &global_array[iter] << endl;
+
+	bool status = psu_start_lock();
+	if (!status) {
+		return 0;
+	}
 	psu_dsm_register_datasegment(&global_array, COUNT*sizeof(int)+(1024*sizeof(int)));
 	psu_init_lock(0);
 	int process_num;
@@ -77,7 +88,7 @@ int main(int argc, char* argv[])
 		if(p % (1<<i) == 0)
 		{
 			merge(p/(1<<i),n/(1<<i));
-			int b_id = partition_num(p,i,n);
+			int b_id = get_partition_num(p,i,n);
 			wait_partition(b_id);
 		}
 		++i;
@@ -86,10 +97,16 @@ int main(int argc, char* argv[])
 	if(process_num == 0)
 	{
 		merge(0,1);
-		for(int i = 0; i<COUNT; i++)
-			std::cout<<global_array[i]<<"\n";
-			//CAT it to a file
+		fstream outputFile;
+		outputFile.open("output.txt", fstream::out | fstream::trunc);
+		for(int i = 0; i<COUNT; i++) {
+			//std::cout<<global_array[i]<<"\t";
+			outputFile << global_array[i] << "\t";
+		}
+		outputFile.close();
 	}
+	psu_dsm_free();
+	psu_stop_lock();
 	return 0;
 }
 
@@ -134,7 +151,7 @@ void merge(int process_num, int total_processes_num)
 		else
 		{
 			a[k++] = global_array[j+offset+size];
-			j++;	
+			j++;
 		}
 	}
 
@@ -174,7 +191,7 @@ int logbase2(int n)
 	return i;
 }
 
-int partition_num(int id, int level, int num)
+int get_partition_num(int id, int level, int num)
 {
 	int k = logbase2(num)-level-1;
 	int s_k = 1 << k;
