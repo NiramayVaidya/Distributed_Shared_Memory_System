@@ -33,8 +33,6 @@ vector<tuple<string, int>> gWordCount;
 int numInputWords;
 
 static void barrier(bool dir) {
-	// psu lock on threadcount increment/decrement based on dir
-	// while till threadcount equals global nthreads or 0 based on dir
 #if DEBUG
 	cout << "in barrier" << endl;
 	cout << "dir -> " << dir << endl;
@@ -67,16 +65,9 @@ void psu_mr_setup(unsigned int tid, unsigned int nthreads) {
 	psu_start_lock();
 	psu_dsm_register_datasegment(&threadcount, PAGE_SIZE);
 	psu_init_lock(0);
-	// open all files, r r/w/a r/w/a modes respectively
-	// get line count in input file, store in global val
-	// inFile.open(inputFile, fstream::in);
-	// inFile.open(inputFile, fstream::in | fstream::out | fstream);
-	// inFile.open(inputFile, fstream::in);
 }
 
 void psu_mr_map(void *(*map_fp)(void *), void *indata, void *outdata) {
-	// based on global tid and line count, get portion of lines for this proc
-	// call mapper_wc with this index (line offset num)
 #if DEBUG
 	cout << "in psu_mr_map" << endl;
 #endif
@@ -114,12 +105,6 @@ void psu_mr_map(void *(*map_fp)(void *), void *indata, void *outdata) {
 }
 
 void psu_mr_reduce(void *(*reduce_fp)(void *), void *indata, void *outdata) {
-	// psu lock on intermediate file operation
-	// calc line count for intermediate file
-	// read the entire file in memory in different global vector of tuples
-	// based on global tid and line count of intermediate file, get portion of
-	// word count pairs for this proc
-	// call reducer_wc with this index (line offset num in above vector)
 #if DEBUG
 	cout << "in psu_mr_reduce" << endl;
 #endif
@@ -139,7 +124,6 @@ void psu_mr_reduce(void *(*reduce_fp)(void *), void *indata, void *outdata) {
 			word.erase(0, 1);
 		}
 		word.erase(word.size() - 1);
-		// count.erase(0, 1);
 		gWordCount.push_back(tuple<string, int>(word, stoi(count)));
 	}
 
@@ -170,19 +154,11 @@ void psu_mr_reduce(void *(*reduce_fp)(void *), void *indata, void *outdata) {
 }
 
 void psu_mr_destroy() {
-	// close all files
-	// free dsm call
-	// destroy lock call
 	psu_dsm_free();
 	psu_stop_lock();
 }
 
 void *mapper_wc(void *param) {
-	// read these lines and parse with space delim to get words and insert word
-	// count pair in global map
-	// psu lock on intermediate file operation, write all word count pairs,
-	// semicolon separated
-	// call barrier with direction (inc/dec) -> inc/1/true
 #if DEBUG
 	cout << "In mapper_wc" << endl;
 #endif
@@ -232,16 +208,6 @@ void *mapper_wc(void *param) {
 }
 
 void *reducer_wc(void *param) {
-	// for it's own set of words in formed vector, create a global map from the
-	// same vector by looking at other entries, create if not exist in map, else
-	// add
-	// psu lock for output file operation
-	// read output file in memory as another global map
-	// for each entry in previous map, check if it's there in this map, if not
-	// there, append to output file
-	// call barrier with direction (inc/dec) -> dec/0/false, probably not
-	// needed?
-	// if g tid is 0, print out output file, keep commented out
 #if DEBUG
 	cout << "In reducer_wc" << endl;
 #endif
@@ -257,7 +223,6 @@ void *reducer_wc(void *param) {
 			word.erase(0, 1);
 		}
 		word.erase(word.size() - 1);
-		// count.erase(0, 1);
 		localWordCount[word] = stoi(count);
 	}
 
@@ -312,6 +277,7 @@ void *reducer_wc(void *param) {
 
 	barrier(false);
 
+	/*
 	if (!g_tid) {
 		oFile.open(outputFile, fstream::in);
 		string line;
@@ -320,6 +286,7 @@ void *reducer_wc(void *param) {
 		}
 		oFile.close();
 	}
+	*/
 
 	return NULL;
 }
