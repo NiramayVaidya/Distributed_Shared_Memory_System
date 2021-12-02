@@ -1,5 +1,3 @@
-// #include <bits/stdc++.h>
-
 #include "psu_mr.h"
 #include "psu_dsm.h"
 #include "psu_mutex.h"
@@ -112,16 +110,12 @@ void map_kmeans(void *indata, void *outdata) {
 
 #if DEBUG
 	cout << "data ->" << endl;
-	// cout << data[0] << endl;
-	// cout << data[1];
 	for (int i = 0; i < data.size(); i++) {
 		cout << data[i] << endl;
 	}
-	// cout << endl;
 #endif
 
 	numPoints = stoi(data[0]);
-	// data[1].erase(0, 1);
 	numCentroids = stoi(data[1]);
 
 #if DEBUG
