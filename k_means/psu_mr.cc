@@ -14,6 +14,7 @@
 #include <cmath>
 #include <iomanip>
 #include <climits>
+#include <stdexcept>
 
 using namespace std;
 
@@ -27,6 +28,8 @@ int numPoints = -1;
 int numCentroids = -1;
 vector<tuple<double, double>> initialCentroids;
 
+string threadcountFile = "threadcount.txt";
+
 static void barrier(bool dir) {
 #if DEBUG
 	cout << "in barrier" << endl;
@@ -34,24 +37,78 @@ static void barrier(bool dir) {
 #endif
 
 	psu_mutex_lock(0);
+#if USE_DSM
 	if (dir) {
 		threadcount++;
 	}
 	else {
 		threadcount--;
 	}
+#else
+	ifstream tcFile(threadcountFile);
+	string tc;
+	while (getline(tcFile, tc));
+	int threadCnt = stoi(tc);
+#if DEBUG
+	cout << "threadCnt -> " << threadCnt << endl;
+#endif
+	fstream tcf;
+	tcf.open(threadcountFile, fstream::out | fstream::trunc);
+	if (dir) {
+		threadCnt++;
+#if DEBUG
+		cout << "threadCnt -> " << threadCnt << endl;
+#endif
+		tcf << threadCnt;
+	}
+	else {
+		threadCnt--;
+#if DEBUG
+		cout << "threadCnt -> " << threadCnt << endl;
+#endif
+		tcf << threadCnt;
+	}
+	tcf.close();
+#endif
 	psu_mutex_unlock(0);
 
 #if DEBUG
 	cout << "waiting on threadcount to reach required value" << endl;
 #endif
 
+#if USE_DSM
 	if (dir) {
 		while (threadcount != g_nthreads);
 	}
 	else {
 		while (threadcount != 0);
 	}
+#else
+	if (dir) {
+		do {
+			ifstream tcntFile(threadcountFile);
+			while (getline(tcntFile, tc));
+			try {
+				threadCnt = stoi(tc);
+			}
+			catch (std::invalid_argument& e) {
+				threadCnt = 0;
+			}
+		} while (threadCnt != g_nthreads);
+	}
+	else {
+		do {
+			ifstream tcntFile(threadcountFile);
+			while (getline(tcntFile, tc));
+			try {
+				threadCnt = stoi(tc);
+			}
+			catch (std::invalid_argument& e) {
+				threadCnt = g_nthreads;
+			}
+		} while (threadCnt != 0);
+	}
+#endif
 }
 
 void psu_mr_setup(unsigned int tid, unsigned int nthreads) {
@@ -60,6 +117,12 @@ void psu_mr_setup(unsigned int tid, unsigned int nthreads) {
 	psu_start_lock();
 	psu_dsm_register_datasegment(&threadcount, PAGE_SIZE);
 	psu_init_lock(0);
+#if USE_DSM == 0
+	fstream tcFile;
+	tcFile.open(threadcountFile, fstream::out | fstream::trunc);
+	tcFile << 0;
+	tcFile.close();
+#endif
 }
 
 void psu_mr_map(void (*map_fp)(void *, void *), void *indata, void *outdata) {
@@ -68,9 +131,18 @@ void psu_mr_map(void (*map_fp)(void *, void *), void *indata, void *outdata) {
 #endif
 
 	string intermediateFile((const char *) outdata);
+#if USE_MULTIPLE_INTERMEDIATE
+	int delimPos = intermediateFile.find('.');
+	for (int i = 0; i < g_nthreads; i++) {
+		fstream tempFile;
+		tempFile.open(intermediateFile.substr(0, delimPos) + to_string(i) + ".txt", fstream::out | fstream::trunc);
+		tempFile.close();
+	}
+#else
 	fstream tempFile;
 	tempFile.open(intermediateFile, fstream::out | fstream::trunc);
 	tempFile.close();
+#endif
 
 	map_fp(indata, outdata);
 }
@@ -192,11 +264,36 @@ void map_kmeans(void *indata, void *outdata) {
 
 	psu_mutex_lock(0);
 	fstream tempFile;
+#if USE_MULTIPLE_INTERMEDIATE
+	int delimPos = intermediateFile.find('.');
+	tempFile.open(intermediateFile.substr(0, delimPos) + to_string(g_tid) + ".txt", fstream::out | fstream::app);
+#else
 	tempFile.open(intermediateFile, fstream::out | fstream::app);
+#endif
 	for (int i = startIndex; i < endIndex; i++) {
-		tempFile << get<0>(points[i]) << " " << get<1>(points[i]) << " " << closestCentroids[i - startIndex] << endl;
+		tempFile << get<0>(points[i]) << " " << get<1>(points[i]) << " " << closestCentroids[i - startIndex] << endl << flush;
+#if DEBUG
+#if USE_MULTIPLE_INTERMEDIATE
+		cout << "flushing to the intermediate file " << intermediateFile.substr(0, delimPos) + to_string(g_tid) + ".txt -> " << get<0>(points[i]) << " " << get<1>(points[i]) << " " << closestCentroids[i - startIndex] << endl;
+#else
+		cout << "flushing to the intermediate file -> " << get<0>(points[i]) << " " << get<1>(points[i]) << " " << closestCentroids[i - startIndex] << endl;
+#endif
+#endif
+		// flush(tempFile);
 	}
 	tempFile.close();
+#if DEBUG
+#if USE_MULTIPLE_INTERMEDIATE
+	ifstream tFile(intermediateFile.substr(0, delimPos) + to_string(g_tid) + ".txt");
+#else
+	ifstream tFile(intermediateFile);
+#endif
+	int numLines = 0;
+	while (getline(tFile, line)) {
+		numLines++;
+	}
+	cout << "Updated num of lines in the intermediate file -> " << numLines << endl;
+#endif
 	psu_mutex_unlock(0);
 	
 	barrier(true);
@@ -212,11 +309,22 @@ void reduce_kmeans(void *indata, void *outdata) {
 
 	// psu_mutex_lock(0);
 	vector<string> data;
+#if USE_MULTIPLE_INTERMEDIATE
+	int delimPos = intermediateFile.find('.');
+	for (int i = 0; i < g_nthreads; i++) {
+		ifstream tempFile(intermediateFile.substr(0, delimPos) + to_string(i) + ".txt");
+		string line;
+		while (getline(tempFile, line)) {
+			data.push_back(line);
+		}
+	}
+#else
 	ifstream tempFile(intermediateFile);
 	string line;
 	while (getline(tempFile, line)) {
 		data.push_back(line);
 	}
+#endif
 
 	vector<tuple<double, double, int>> points;
 	for (int i = 0; i < data.size(); i++) {
@@ -236,7 +344,7 @@ void reduce_kmeans(void *indata, void *outdata) {
 #if DEBUG
 	cout << "points and closestCentroids -> " << endl;
 	for (int i = 0; i < points.size(); i++) {
-		cout << get<0>(points[i]) << " " << get<1>(points[i]) << " " << get<2>(points[2]) <<endl;
+		cout << get<0>(points[i]) << " " << get<1>(points[i]) << " " << get<2>(points[i]) <<endl;
 	}
 #endif
 
