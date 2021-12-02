@@ -279,12 +279,12 @@ void *reducer_wc(void *param) {
 
 	/*
 	if (!g_tid) {
-		oFile.open(outputFile, fstream::in);
+		ifstream of(outputFile);
 		string line;
-		while(getline(oFile, line)) {
-			cout << line << endl;
+		while(getline(of, line)) {
+			cout << line;
 		}
-		oFile.close();
+		cout << endl;
 	}
 	*/
 
