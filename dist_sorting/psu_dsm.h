@@ -11,6 +11,8 @@
 #define PAGE_SIZE (sysconf(_SC_PAGESIZE))
 #define PAGE_DOWN(addr) ((addr) & ~(PAGE_SIZE - 1))
 
+using namespace std;
+
 bool initDir();
 void stopDir();
 

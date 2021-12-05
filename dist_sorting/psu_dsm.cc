@@ -606,6 +606,8 @@ static void segv_handler(int signum, siginfo_t *info, void *ucontext) {
 		logFile << "RPC call from " + hostName + " to " + dirHost + " for getLatest with arguments host = " + hostName + ", pageAddr = " + to_string(PAGE_DOWN((uint64_t) info->si_addr)) << endl;
 		GetLatestClient getLatestClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
 		getLatestClient.getLatest(hostName, PAGE_DOWN((uint64_t) info->si_addr));
+		
+		mprotect((void *) PAGE_DOWN((uint64_t) info->si_addr), PAGE_SIZE, PROT_READ);
     }
 }
 
