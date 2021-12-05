@@ -1,0 +1,7 @@
+/home/niramay/Documents/Fall_2021/CSE_511_OS/project-2-dsm-and-map-reduce-framework-NiramayVaidya/seq-consistency/cmake/build/CMakeFiles/edit_cache.dir
+/home/niramay/Documents/Fall_2021/CSE_511_OS/project-2-dsm-and-map-reduce-framework-NiramayVaidya/seq-consistency/cmake/build/CMakeFiles/p3.dir
+/home/niramay/Documents/Fall_2021/CSE_511_OS/project-2-dsm-and-map-reduce-framework-NiramayVaidya/seq-consistency/cmake/build/CMakeFiles/directory.dir
+/home/niramay/Documents/Fall_2021/CSE_511_OS/project-2-dsm-and-map-reduce-framework-NiramayVaidya/seq-consistency/cmake/build/CMakeFiles/p2.dir
+/home/niramay/Documents/Fall_2021/CSE_511_OS/project-2-dsm-and-map-reduce-framework-NiramayVaidya/seq-consistency/cmake/build/CMakeFiles/rebuild_cache.dir
+/home/niramay/Documents/Fall_2021/CSE_511_OS/project-2-dsm-and-map-reduce-framework-NiramayVaidya/seq-consistency/cmake/build/CMakeFiles/p1.dir
+/home/niramay/Documents/Fall_2021/CSE_511_OS/project-2-dsm-and-map-reduce-framework-NiramayVaidya/seq-consistency/cmake/build/CMakeFiles/psu_dsm.dir

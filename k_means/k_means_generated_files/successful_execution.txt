@@ -1,0 +1,1450 @@
+./directory ->
+
+Directory server thread launched
+Directory initialized
+Directory server listening on port: e5-cse-135-35.cse.psu.edu:50001
+In poll
+In regDataSeg
+Call from host = e5-cse-135-19.cse.psu.edu
+startAddr = 8613888
+size = 4096
+Obtained pageNum = 0
+numPages = 1
+dsmData ->
+0, 0, host = e5-cse-135-19.cse.psu.edu, pageAddr = 8613888
+ownerVec ->
+-1
+Updated pageNum = 1
+In poll
+In regDataSeg
+Call from host = e5-cse-135-16.cse.psu.edu
+startAddr = 8613888
+size = 4096
+Obtained pageNum = 0
+numPages = 1
+dsmData ->
+0, 0, host = e5-cse-135-19.cse.psu.edu, pageAddr = 8613888
+0, 1, host = e5-cse-135-16.cse.psu.edu, pageAddr = 8613888
+ownerVec ->
+-1
+Updated pageNum = 1
+In poll
+In regDataSeg
+Call from host = e5-cse-135-18.cse.psu.edu
+startAddr = 8613888
+size = 4096
+Obtained pageNum = 0
+numPages = 1
+dsmData ->
+0, 0, host = e5-cse-135-19.cse.psu.edu, pageAddr = 8613888
+0, 1, host = e5-cse-135-16.cse.psu.edu, pageAddr = 8613888
+0, 2, host = e5-cse-135-18.cse.psu.edu, pageAddr = 8613888
+ownerVec ->
+-1
+Updated pageNum = 1
+In poll
+In regDataSeg
+Call from host = e5-cse-135-17.cse.psu.edu
+startAddr = 8613888
+size = 4096
+Obtained pageNum = 0
+numPages = 1
+dsmData ->
+0, 0, host = e5-cse-135-19.cse.psu.edu, pageAddr = 8613888
+0, 1, host = e5-cse-135-16.cse.psu.edu, pageAddr = 8613888
+0, 2, host = e5-cse-135-18.cse.psu.edu, pageAddr = 8613888
+0, 3, host = e5-cse-135-17.cse.psu.edu, pageAddr = 8613888
+ownerVec ->
+-1
+Updated pageNum = 1
+In dirUpd
+Call from host = e5-cse-135-19.cse.psu.edu
+pageAddr = 8613888
+0, 0, owner host = e5-cse-135-19.cse.psu.edu, pageAddr = 8613888
+ownerVec ->
+0
+invalidateVec ->
+host = e5-cse-135-16.cse.psu.edu, pageAddr = 8613888
+host = e5-cse-135-18.cse.psu.edu, pageAddr = 8613888
+host = e5-cse-135-17.cse.psu.edu, pageAddr = 8613888
+In getLatest
+Call from host = e5-cse-135-18.cse.psu.edu
+pageAddr = 8613888
+0, 0, owner host = e5-cse-135-19.cse.psu.edu, pageAddr = 8613888
+0th value in page at directory to be sent to the requester = 1
+In dirUpd
+Call from host = e5-cse-135-18.cse.psu.edu
+pageAddr = 8613888
+0, 2, owner host = e5-cse-135-18.cse.psu.edu, pageAddr = 8613888
+ownerVec ->
+2
+invalidateVec ->
+host = e5-cse-135-19.cse.psu.edu, pageAddr = 8613888
+host = e5-cse-135-16.cse.psu.edu, pageAddr = 8613888
+host = e5-cse-135-17.cse.psu.edu, pageAddr = 8613888
+In getLatest
+Call from host = e5-cse-135-16.cse.psu.edu
+pageAddr = 8613888
+0, 2, owner host = e5-cse-135-18.cse.psu.edu, pageAddr = 8613888
+0th value in page at directory to be sent to the requester = 2
+In dirUpd
+Call from host = e5-cse-135-16.cse.psu.edu
+pageAddr = 8613888
+0, 1, owner host = e5-cse-135-16.cse.psu.edu, pageAddr = 8613888
+ownerVec ->
+1
+invalidateVec ->
+host = e5-cse-135-19.cse.psu.edu, pageAddr = 8613888
+host = e5-cse-135-18.cse.psu.edu, pageAddr = 8613888
+host = e5-cse-135-17.cse.psu.edu, pageAddr = 8613888
+In getLatest
+Call from host = e5-cse-135-19.cse.psu.edu
+pageAddr = 8613888
+0, 1, owner host = e5-cse-135-16.cse.psu.edu, pageAddr = 8613888
+0th value in page at directory to be sent to the requester = 2
+In getLatest
+Call from host = e5-cse-135-18.cse.psu.edu
+pageAddr = 8613888
+0, 1, owner host = e5-cse-135-16.cse.psu.edu, pageAddr = 8613888
+0th value in page at directory to be sent to the requester = 3
+In getLatest
+Call from host = e5-cse-135-17.cse.psu.edu
+pageAddr = 8613888
+0, 1, owner host = e5-cse-135-16.cse.psu.edu, pageAddr = 8613888
+0th value in page at directory to be sent to the requester = 3
+In dirUpd
+Call from host = e5-cse-135-17.cse.psu.edu
+pageAddr = 8613888
+0, 3, owner host = e5-cse-135-17.cse.psu.edu, pageAddr = 8613888
+ownerVec ->
+3
+invalidateVec ->
+host = e5-cse-135-19.cse.psu.edu, pageAddr = 8613888
+host = e5-cse-135-16.cse.psu.edu, pageAddr = 8613888
+host = e5-cse-135-18.cse.psu.edu, pageAddr = 8613888
+In getLatest
+Call from host = e5-cse-135-19.cse.psu.edu
+pageAddr = 8613888
+0, 3, owner host = e5-cse-135-17.cse.psu.edu, pageAddr = 8613888
+0th value in page at directory to be sent to the requester = 3
+In getLatest
+Call from host = e5-cse-135-16.cse.psu.edu
+pageAddr = 8613888
+0, 3, owner host = e5-cse-135-17.cse.psu.edu, pageAddr = 8613888
+0th value in page at directory to be sent to the requester = 4
+In getLatest
+Call from host = e5-cse-135-18.cse.psu.edu
+pageAddr = 8613888
+0, 3, owner host = e5-cse-135-17.cse.psu.edu, pageAddr = 8613888
+0th value in page at directory to be sent to the requester = 4
+In dirUpd
+Call from host = e5-cse-135-16.cse.psu.edu
+pageAddr = 8613888
+0, 1, owner host = e5-cse-135-16.cse.psu.edu, pageAddr = 8613888
+ownerVec ->
+1
+invalidateVec ->
+host = e5-cse-135-19.cse.psu.edu, pageAddr = 8613888
+host = e5-cse-135-18.cse.psu.edu, pageAddr = 8613888
+host = e5-cse-135-17.cse.psu.edu, pageAddr = 8613888
+In getLatest
+Call from host = e5-cse-135-19.cse.psu.edu
+pageAddr = 8613888
+0, 1, owner host = e5-cse-135-16.cse.psu.edu, pageAddr = 8613888
+0th value in page at directory to be sent to the requester = 4
+In getLatest
+Call from host = e5-cse-135-17.cse.psu.edu
+pageAddr = 8613888
+0, 1, owner host = e5-cse-135-16.cse.psu.edu, pageAddr = 8613888
+0th value in page at directory to be sent to the requester = 3
+In getLatest
+Call from host = e5-cse-135-18.cse.psu.edu
+pageAddr = 8613888
+0, 1, owner host = e5-cse-135-16.cse.psu.edu, pageAddr = 8613888
+0th value in page at directory to be sent to the requester = 3
+In dirUpd
+Call from host = e5-cse-135-18.cse.psu.edu
+pageAddr = 8613888
+0, 2, owner host = e5-cse-135-18.cse.psu.edu, pageAddr = 8613888
+ownerVec ->
+2
+invalidateVec ->
+host = e5-cse-135-19.cse.psu.edu, pageAddr = 8613888
+host = e5-cse-135-16.cse.psu.edu, pageAddr = 8613888
+host = e5-cse-135-17.cse.psu.edu, pageAddr = 8613888
+In getLatest
+Call from host = e5-cse-135-16.cse.psu.edu
+pageAddr = 8613888
+0, 2, owner host = e5-cse-135-18.cse.psu.edu, pageAddr = 8613888
+0th value in page at directory to be sent to the requester = 2
+In getLatest
+Call from host = e5-cse-135-17.cse.psu.edu
+pageAddr = 8613888
+0, 2, owner host = e5-cse-135-18.cse.psu.edu, pageAddr = 8613888
+0th value in page at directory to be sent to the requester = 2
+In getLatest
+Call from host = e5-cse-135-19.cse.psu.edu
+pageAddr = 8613888
+0, 2, owner host = e5-cse-135-18.cse.psu.edu, pageAddr = 8613888
+0th value in page at directory to be sent to the requester = 2
+In dirUpd
+Call from host = e5-cse-135-19.cse.psu.edu
+pageAddr = 8613888
+0, 0, owner host = e5-cse-135-19.cse.psu.edu, pageAddr = 8613888
+ownerVec ->
+0
+invalidateVec ->
+host = e5-cse-135-16.cse.psu.edu, pageAddr = 8613888
+host = e5-cse-135-18.cse.psu.edu, pageAddr = 8613888
+host = e5-cse-135-17.cse.psu.edu, pageAddr = 8613888
+In getLatest
+Call from host = e5-cse-135-16.cse.psu.edu
+pageAddr = 8613888
+0, 0, owner host = e5-cse-135-19.cse.psu.edu, pageAddr = 8613888
+0th value in page at directory to be sent to the requester = 2
+In getLatest
+Call from host = e5-cse-135-18.cse.psu.edu
+pageAddr = 8613888
+0, 0, owner host = e5-cse-135-19.cse.psu.edu, pageAddr = 8613888
+0th value in page at directory to be sent to the requester = 1
+In getLatest
+Call from host = e5-cse-135-17.cse.psu.edu
+pageAddr = 8613888
+0, 0, owner host = e5-cse-135-19.cse.psu.edu, pageAddr = 8613888
+Segmentation fault (core dumped)
+
+./app1 0 4 ->
+
+Server thread launched
+Server listening on port: e5-cse-135-16.cse.psu.edu:50000
+Server status: 1
+Server status: 1
+Server status: 1
+Client running
+Server thread launched
+Server listening on port: e5-cse-135-16.cse.psu.edu:50001
+Directory status: 1
+Client running
+Server initialized
+in psu_mr_map
+in map_kmeans
+data ->
+20
+4
+0.67 0.71
+0.63 0.85
+0.07 0.78
+0.48 0.95
+0.26 0.43
+0.36 0.68
+0.54 0.68
+0.49 0.61
+0.55 0.62
+0.76 0.25
+0.19 0.46
+0.71 0.31
+0.04 0.8
+0.97 0.69
+0.09 0.03
+0.21 0.12
+0.69 0.86
+0.29 0.51
+0.82 0.44
+0.96 0.99
+0.07 0.78
+0.67 0.71
+0.19 0.46
+0.54 0.68
+numPoints -> 20
+numCentroids -> 4
+initialCentroids -> 
+0.07 0.78
+0.67 0.71
+0.19 0.46
+0.54 0.68
+points -> 
+0.63 0.85
+0.48 0.95
+0.26 0.43
+0.36 0.68
+0.49 0.61
+0.55 0.62
+0.76 0.25
+0.71 0.31
+0.04 0.8
+0.97 0.69
+0.09 0.03
+0.21 0.12
+0.69 0.86
+0.29 0.51
+0.82 0.44
+0.96 0.99
+startIndex -> 0
+endIndex -> 4
+closestCentroids ->
+0.63 0.85 1
+0.48 0.95 3
+0.26 0.43 2
+0.36 0.68 3
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 0
+highestSeqNum = 2, request->seqNum = 1, seqNum = 1, requestingCS = true, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-16.cse.psu.edu, request->nodeId = 2, nodeId = 3, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 2
+highestSeqNum = 3, request->seqNum = 1, seqNum = 1, requestingCS = true, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-16.cse.psu.edu, request->nodeId = 0, nodeId = 3, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 3
+highestSeqNum = 6, request->seqNum = 5, seqNum = 1, requestingCS = true, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-16.cse.psu.edu, request->nodeId = 1, nodeId = 3, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-19.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 6
+highestSeqNum = 8, request->seqNum = 7, seqNum = 1, requestingCS = true, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-16.cse.psu.edu, request->nodeId = 0, nodeId = 3, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+In sendDefRep
+request->host = e5-cse-135-18.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 8
+In psu_mutex_unlock
+lockno = 0
+highestSeqNum = 10, request->seqNum = 9, seqNum = 1, requestingCS = true, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-16.cse.psu.edu, request->nodeId = 2, nodeId = 3, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}     {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In sendDefRep client
+In sendDefRep client
+In sendDefRep client
+in barrier
+dir -> 1
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-17.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In invalidate
+pageAddr = 8613888
+mprotect done
+In recvRequest
+lockno = 0
+highestSeqNum = 10
+highestSeqNum = 14, request->seqNum = 13, seqNum = 11, requestingCS = true, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-16.cse.psu.edu, request->nodeId = 1, nodeId = 3, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-19.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+In invalidate
+pageAddr = 8613888
+mprotect done
+In sendDefRep
+request->host = e5-cse-135-18.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Read fault on e5-cse-135-16.cse.psu.edu at 8613888
+0th old value in page at requester = 0
+0th updated value in page at requester = 2
+Write fault on e5-cse-135-16.cse.psu.edu at 8613888
+In fetchLatest
+pageAddr = 8613888
+0th value in page at owner to be sent to the directory = 2
+In psu_mutex_unlock
+lockno = 0
+In sendDefRep client
+waiting on threadcount to reach required value
+In fetchLatest
+pageAddr = 8613888
+0th value in page at owner to be sent to the directory = 3
+In fetchLatest
+pageAddr = 8613888
+0th value in page at owner to be sent to the directory = 3
+In invalidate
+pageAddr = 8613888
+mprotect done
+Read fault on e5-cse-135-16.cse.psu.edu at 8613888
+0th old value in page at requester = 3
+0th updated value in page at requester = 4
+in psu_mr_reduce
+in reduce_kmeans
+In recvRequest
+lockno = 0
+highestSeqNum = 14
+highestSeqNum = 15, request->seqNum = 13, seqNum = 11, requestingCS = false, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-16.cse.psu.edu, request->nodeId = 1, nodeId = 3, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+points and closestCentroids -> 
+0.69 0.86 1
+0.29 0.51 1
+0.82 0.44 1
+0.96 0.99 1
+0.49 0.61 1
+0.55 0.62 1
+0.76 0.25 1
+0.71 0.31 1
+0.63 0.85 1
+0.48 0.95 1
+0.26 0.43 1
+0.36 0.68 1
+0.04 0.8 1
+0.97 0.69 1
+0.09 0.03 1
+0.21 0.12 1
+g_tid -> 0
+sumX -> 0.11
+sumY -> 1.58
+count -> 2
+0.06 0.79 -----------------------------------------------------> centroid (all the above closestCentroids are same because of a small error in the code)
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 15
+highestSeqNum = 16, request->seqNum = 13, seqNum = 16, requestingCS = true, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-16.cse.psu.edu, request->nodeId = 1, nodeId = 3, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 16
+In psu_mutex_unlock
+highestSeqNum = 18, request->seqNum = 17, seqNum = 16, requestingCS = true, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-16.cse.psu.edu, request->nodeId = 2, nodeId = 3, lockno = 0
+Deferred
+Defers map for lockno = 0 -> lockno = 0
+{e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep client
+in barrier
+dir -> 0
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+In sendDefRep
+request->host = e5-cse-135-18.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Write fault on e5-cse-135-16.cse.psu.edu at 8613888
+In recvRequest
+lockno = 0
+highestSeqNum = 18
+In fetchLatest
+pageAddr = 8613888
+0th value in page at owner to be sent to the directory = 4
+In psu_mutex_unlock
+highestSeqNum = 22, request->seqNum = 21, seqNum = 19, requestingCS = true, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-16.cse.psu.edu, request->nodeId = 2, nodeId = 3, lockno = 0
+lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep client
+waiting on threadcount to reach required value
+In fetchLatest
+pageAddr = 8613888
+0th value in page at owner to be sent to the directory = 3
+In fetchLatest
+pageAddr = 8613888
+0th value in page at owner to be sent to the directory = 3
+In invalidate
+pageAddr = 8613888
+mprotect done
+Read fault on e5-cse-135-16.cse.psu.edu at 8613888
+0th old value in page at requester = 3
+0th updated value in page at requester = 2
+In recvRequest
+lockno = 0
+highestSeqNum = 22
+highestSeqNum = 24, request->seqNum = 23, seqNum = 19, requestingCS = false, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-16.cse.psu.edu, request->nodeId = 0, nodeId = 3, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 24
+highestSeqNum = 25, request->seqNum = 23, seqNum = 19, requestingCS = false, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-16.cse.psu.edu, request->nodeId = 0, nodeId = 3, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In invalidate
+pageAddr = 8613888
+mprotect done
+Read fault on e5-cse-135-16.cse.psu.edu at 8613888
+0th old value in page at requester = 2
+0th updated value in page at requester = 2
+
+./app1 1 4 ->
+
+Server thread launched
+Server listening on port: e5-cse-135-18.cse.psu.edu:50000
+Server status: 1
+Server status: 1
+Server status: 1
+Client running
+Server thread launched
+Server listening on port: e5-cse-135-18.cse.psu.edu:50001
+Directory status: 1
+Client running
+Server initialized
+in psu_mr_map
+in map_kmeans
+data ->
+20
+4
+0.67 0.71
+0.63 0.85
+0.07 0.78
+0.48 0.95
+0.26 0.43
+0.36 0.68
+0.54 0.68
+0.49 0.61
+0.55 0.62
+0.76 0.25
+0.19 0.46
+0.71 0.31
+0.04 0.8
+0.97 0.69
+0.09 0.03
+0.21 0.12
+0.69 0.86
+0.29 0.51
+0.82 0.44
+0.96 0.99
+0.07 0.78
+0.67 0.71
+0.19 0.46
+0.54 0.68
+numPoints -> 20
+numCentroids -> 4
+initialCentroids -> 
+0.07 0.78
+0.67 0.71
+0.19 0.46
+0.54 0.68
+points -> 
+0.63 0.85
+0.48 0.95
+0.26 0.43
+0.36 0.68
+0.49 0.61
+0.55 0.62
+0.76 0.25
+0.71 0.31
+0.04 0.8
+0.97 0.69
+0.09 0.03
+0.21 0.12
+0.69 0.86
+0.29 0.51
+0.82 0.44
+0.96 0.99
+startIndex -> 4
+endIndex -> 8
+closestCentroids ->
+0.49 0.61 3
+0.55 0.62 3
+0.76 0.25 1
+0.71 0.31 1
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 0
+highestSeqNum = 2, request->seqNum = 1, seqNum = 1, requestingCS = true, request->host = e5-cse-135-16.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 3, nodeId = 2, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 2
+highestSeqNum = 3, request->seqNum = 1, seqNum = 1, requestingCS = true, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 0, nodeId = 2, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 3
+highestSeqNum = 6, request->seqNum = 5, seqNum = 1, requestingCS = true, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 1, nodeId = 2, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}     {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-19.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 6
+In psu_mutex_unlock
+highestSeqNum = 8, request->seqNum = 7, seqNum = 1, requestingCS = true, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 0, nodeId = 2, lockno = 0
+lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}     {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In sendDefRep client
+In sendDefRep client
+In sendDefRep client
+in barrier
+dir -> 1
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-16.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 8
+highestSeqNum = 12, request->seqNum = 11, seqNum = 9, requestingCS = true, request->host = e5-cse-135-16.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 3, nodeId = 2, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-17.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 0}
+In invalidate
+pageAddr = 8613888
+mprotect done
+In recvRequest
+lockno = 0
+highestSeqNum = 12
+highestSeqNum = 14, request->seqNum = 13, seqNum = 9, requestingCS = true, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 1, nodeId = 2, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}     {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-19.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Read fault on e5-cse-135-18.cse.psu.edu at 8613888
+0th old value in page at requester = 0
+0th updated value in page at requester = 1
+Write fault on e5-cse-135-18.cse.psu.edu at 8613888
+In psu_mutex_unlock
+lockno = 0
+In sendDefRep client
+In sendDefRep client
+waiting on threadcount to reach required value
+In fetchLatest
+pageAddr = 8613888
+0th value in page at owner to be sent to the directory = 2
+In invalidate
+pageAddr = 8613888
+mprotect done
+Read fault on e5-cse-135-18.cse.psu.edu at 8613888
+0th old value in page at requester = 2
+0th updated value in page at requester = 3
+In invalidate
+pageAddr = 8613888
+mprotect done
+Read fault on e5-cse-135-18.cse.psu.edu at 8613888
+In recvRequest
+lockno = 0
+highestSeqNum = 14
+highestSeqNum = 15, request->seqNum = 13, seqNum = 9, requestingCS = false, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 1, nodeId = 2, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+0th old value in page at requester = 3
+0th updated value in page at requester = 4
+in psu_mr_reduce
+in reduce_kmeans
+In recvRequest
+lockno = 0
+highestSeqNum = 15
+highestSeqNum = 16, request->seqNum = 13, seqNum = 9, requestingCS = false, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 1, nodeId = 2, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+points and closestCentroids -> 
+0.69 0.86 1
+0.29 0.51 1
+0.82 0.44 1
+0.96 0.99 1
+0.49 0.61 1
+0.55 0.62 1
+0.76 0.25 1
+0.71 0.31 1
+0.63 0.85 1
+0.48 0.95 1
+0.26 0.43 1
+0.36 0.68 1
+0.04 0.8 1
+0.97 0.69 1
+0.09 0.03 1
+0.21 0.12 1
+g_tid -> 1
+sumX -> 6.21
+sumY -> 5.1
+count -> 8
+0.78 0.64 -----------------------------------------------------> centroid
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 16
+highestSeqNum = 17, request->seqNum = 16, seqNum = 17, requestingCS = true, request->host = e5-cse-135-16.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 3, nodeId = 2, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In sendDefRep
+request->host = e5-cse-135-16.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 17
+In psu_mutex_unlock
+highestSeqNum = 20, request->seqNum = 19, seqNum = 17, requestingCS = true, request->host = e5-cse-135-16.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 3, nodeId = 2, lockno = 0lockno = 0
+
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep client
+in barrier
+dir -> 0
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In invalidate
+pageAddr = 8613888
+mprotect done
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In sendDefRep
+request->host = e5-cse-135-16.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Read fault on e5-cse-135-18.cse.psu.edu at 8613888
+0th old value in page at requester = 4
+0th updated value in page at requester = 3
+Write fault on e5-cse-135-18.cse.psu.edu at 8613888
+In psu_mutex_unlock
+lockno = 0
+waiting on threadcount to reach required value
+In fetchLatest
+pageAddr = 8613888
+0th value in page at owner to be sent to the directory = 2
+In fetchLatest
+pageAddr = 8613888
+0th value in page at owner to be sent to the directory = 2
+In recvRequest
+lockno = 0
+highestSeqNum = 20
+highestSeqNum = 24, request->seqNum = 23, seqNum = 21, requestingCS = false, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 0, nodeId = 2, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 24
+highestSeqNum = 25, request->seqNum = 23, seqNum = 21, requestingCS = false, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 0, nodeId = 2, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In fetchLatest
+pageAddr = 8613888
+0th value in page at owner to be sent to the directory = 2
+In invalidate
+pageAddr = 8613888
+mprotect done
+Read fault on e5-cse-135-18.cse.psu.edu at 8613888
+0th old value in page at requester = 2
+0th updated value in page at requester = 1
+
+./app1 2 4 ->
+
+Server thread launched
+Server listening on port: e5-cse-135-17.cse.psu.edu:50000
+In recvRequest
+lockno = 0
+highestSeqNum = 0
+Server status: 1
+Server status: 1
+Server status: 1
+Client running
+Server thread launched
+Server listening on port: e5-cse-135-17.cse.psu.edu:50001
+In recvRequest
+lockno = 0
+highestSeqNum = 0
+In recvRequest
+lockno = 0
+highestSeqNum = 0
+Directory status: 1
+Client running
+Server initialized
+highestSeqNum = 3, request->seqNum = 1, seqNum = 0, requestingCS = false, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 2, nodeId = 1, lockno = 0
+Responded
+Defers map for lockno = 0 -> 
+highestSeqNum = 4, request->seqNum = 1, seqNum = 0, requestingCS = false, request->host = e5-cse-135-16.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 3, nodeId = 1, lockno = 0
+Responded
+Defers map for lockno = 0 -> 
+in psu_mr_map
+highestSeqNum = 4, request->seqNum = 1, seqNum = 0, requestingCS = false, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 0, nodeId = 1, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+in map_kmeans
+data ->
+20
+4
+0.67 0.71
+0.63 0.85
+0.07 0.78
+0.48 0.95
+0.26 0.43
+0.36 0.68
+0.54 0.68
+0.49 0.61
+0.55 0.62
+0.76 0.25
+0.19 0.46
+0.71 0.31
+0.04 0.8
+0.97 0.69
+0.09 0.03
+0.21 0.12
+0.69 0.86
+0.29 0.51
+0.82 0.44
+0.96 0.99
+0.07 0.78
+0.67 0.71
+0.19 0.46
+0.54 0.68
+numPoints -> 20
+numCentroids -> 4
+initialCentroids -> 
+0.07 0.78
+0.67 0.71
+0.19 0.46
+0.54 0.68
+points -> 
+0.63 0.85
+0.48 0.95
+0.26 0.43
+0.36 0.68
+0.49 0.61
+0.55 0.62
+0.76 0.25
+0.71 0.31
+0.04 0.8
+0.97 0.69
+0.09 0.03
+0.21 0.12
+0.69 0.86
+0.29 0.51
+0.82 0.44
+0.96 0.99
+startIndex -> 8
+endIndex -> 12
+closestCentroids ->
+0.04 0.8 0
+0.97 0.69 1
+0.09 0.03 2
+0.21 0.12 2
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-19.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 4
+highestSeqNum = 8, request->seqNum = 7, seqNum = 5, requestingCS = true, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 0, nodeId = 1, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+In sendDefRep
+request->host = e5-cse-135-18.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 8
+highestSeqNum = 10, request->seqNum = 9, seqNum = 5, requestingCS = true, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 2, nodeId = 1, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In sendDefRep
+request->host = e5-cse-135-16.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 10
+In psu_mutex_unlock
+highestSeqNum = 12, request->seqNum = 11, seqNum = 5, requestingCS = true, request->host = e5-cse-135-16.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 3, nodeId = 1, lockno = 0
+lockno = 0Deferred
+
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}     {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In sendDefRep client
+In sendDefRep client
+In sendDefRep client
+in barrier
+dir -> 1
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In invalidate
+pageAddr = 8613888
+mprotect done
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-19.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+In invalidate
+pageAddr = 8613888
+mprotect done
+In sendDefRep
+request->host = e5-cse-135-18.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In invalidate
+pageAddr = 8613888
+mprotect done
+In sendDefRep
+request->host = e5-cse-135-16.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Read fault on e5-cse-135-17.cse.psu.edu at 8613888
+0th old value in page at requester = 0
+0th updated value in page at requester = 3
+Write fault on e5-cse-135-17.cse.psu.edu at 8613888
+In fetchLatest
+pageAddr = 8613888
+0th value in page at owner to be sent to the directory = 3
+In psu_mutex_unlock
+lockno = 0
+waiting on threadcount to reach required value
+in psu_mr_reduce
+in reduce_kmeans
+points and closestCentroids -> 
+0.69 0.86 1
+0.29 0.51 1
+0.82 0.44 1
+0.96 0.99 1
+0.49 0.61 1
+0.55 0.62 1
+0.76 0.25 1
+0.71 0.31 1
+0.63 0.85 1
+0.48 0.95 1
+0.26 0.43 1
+0.36 0.68 1
+0.04 0.8 1
+0.97 0.69 1
+0.09 0.03 1
+0.21 0.12 1
+g_tid -> 2
+sumX -> 1.04
+sumY -> 1.55
+count -> 5
+0.21 0.31 -----------------------------------------------------> centroid
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In fetchLatest
+pageAddr = 8613888
+0th value in page at owner to be sent to the directory = 4
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In fetchLatest
+pageAddr = 8613888
+0th value in page at owner to be sent to the directory = 4
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In psu_mutex_unlock
+lockno = 0
+in barrier
+dir -> 0
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}  {e5-cse-135-19.cse.psu.edu: 1}
+In psu_mutex_unlock
+lockno = 0
+waiting on threadcount to reach required value
+In recvRequest
+lockno = 0
+highestSeqNum = 12
+highestSeqNum = 17, request->seqNum = 16, seqNum = 13, requestingCS = false, request->host = e5-cse-135-16.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 3, nodeId = 1, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 17
+highestSeqNum = 18, request->seqNum = 17, seqNum = 13, requestingCS = false, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 2, nodeId = 1, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 18
+highestSeqNum = 20, request->seqNum = 19, seqNum = 13, requestingCS = false, request->host = e5-cse-135-16.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 3, nodeId = 1, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 20
+highestSeqNum = 22, request->seqNum = 21, seqNum = 13, requestingCS = false, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 2, nodeId = 1, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In invalidate
+pageAddr = 8613888
+mprotect done
+Read fault on e5-cse-135-17.cse.psu.edu at 8613888
+0th old value in page at requester = 3
+0th updated value in page at requester = 3
+In invalidate
+pageAddr = 8613888
+mprotect done
+Read fault on e5-cse-135-17.cse.psu.edu at 8613888
+0th old value in page at requester = 3
+0th updated value in page at requester = 2
+In recvRequest
+lockno = 0
+highestSeqNum = 22
+highestSeqNum = 24, request->seqNum = 23, seqNum = 13, requestingCS = false, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 0, nodeId = 1, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 24
+highestSeqNum = 25, request->seqNum = 23, seqNum = 13, requestingCS = false, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 0, nodeId = 1, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 0}  {e5-cse-135-19.cse.psu.edu: 0}
+In invalidate
+pageAddr = 8613888
+mprotect done
+Read fault on e5-cse-135-17.cse.psu.edu at 8613888
+0th old value in page at requester = 2
+0th updated value in page at requester = 2
+
+./app1 3 4 ->
+
+Server thread launched
+Server listening on port: e5-cse-135-19.cse.psu.edu:50000
+Server status: 1
+Server status: 1
+Server status: 1
+Client running
+Server thread launched
+Server listening on port: e5-cse-135-19.cse.psu.edu:50001
+Directory status: 1
+Client running
+Server initialized
+in psu_mr_map
+in map_kmeans
+data ->
+20
+4
+0.67 0.71
+0.63 0.85
+0.07 0.78
+0.48 0.95
+0.26 0.43
+0.36 0.68
+0.54 0.68
+0.49 0.61
+0.55 0.62
+0.76 0.25
+0.19 0.46
+0.71 0.31
+0.04 0.8
+0.97 0.69
+0.09 0.03
+0.21 0.12
+0.69 0.86
+0.29 0.51
+0.82 0.44
+0.96 0.99
+0.07 0.78
+0.67 0.71
+0.19 0.46
+0.54 0.68
+numPoints -> 20
+numCentroids -> 4
+initialCentroids -> 
+0.07 0.78
+0.67 0.71
+0.19 0.46
+0.54 0.68
+points -> 
+0.63 0.85
+0.48 0.95
+0.26 0.43
+0.36 0.68
+0.49 0.61
+0.55 0.62
+0.76 0.25
+0.71 0.31
+0.04 0.8
+0.97 0.69
+0.09 0.03
+0.21 0.12
+0.69 0.86
+0.29 0.51
+0.82 0.44
+0.96 0.99
+startIndex -> 12
+endIndex -> 16
+closestCentroids ->
+0.69 0.86 1
+0.29 0.51 2
+0.82 0.44 1
+0.96 0.99 1
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 0
+highestSeqNum = 2, request->seqNum = 1, seqNum = 1, requestingCS = true, request->host = e5-cse-135-16.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 3, nodeId = 0, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 2
+highestSeqNum = 3, request->seqNum = 1, seqNum = 1, requestingCS = true, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 2, nodeId = 0, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 3
+highestSeqNum = 6, request->seqNum = 5, seqNum = 1, requestingCS = true, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 1, nodeId = 0, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}     {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+In psu_mutex_unlock
+lockno = 0
+In sendDefRep client
+In sendDefRep client
+In sendDefRep client
+in barrier
+dir -> 1
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-18.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 6
+highestSeqNum = 10, request->seqNum = 9, seqNum = 7, requestingCS = true, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 2, nodeId = 0, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 1}
+In sendDefRep
+request->host = e5-cse-135-16.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 10
+highestSeqNum = 12, request->seqNum = 11, seqNum = 7, requestingCS = true, request->host = e5-cse-135-16.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 3, nodeId = 0, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 1}
+In sendDefRep
+request->host = e5-cse-135-17.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+Write fault on e5-cse-135-19.cse.psu.edu at 8613888
+In recvRequest
+lockno = 0
+highestSeqNum = 12
+In psu_mutex_unlock
+highestSeqNum = 14, request->seqNum = 13, seqNum = 7, requestingCS = true, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 1, nodeId = 0, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}     {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+lockno = 0
+In sendDefRep client
+In sendDefRep client
+In sendDefRep client
+waiting on threadcount to reach required value
+In fetchLatest
+pageAddr = 8613888
+0th value in page at owner to be sent to the directory = 1
+In invalidate
+pageAddr = 8613888
+mprotect done
+Read fault on e5-cse-135-19.cse.psu.edu at 8613888
+0th old value in page at requester = 1
+0th updated value in page at requester = 2
+In invalidate
+pageAddr = 8613888
+mprotect done
+Read fault on e5-cse-135-19.cse.psu.edu at 8613888
+0th old value in page at requester = 2
+0th updated value in page at requester = 3
+In recvRequest
+lockno = 0
+highestSeqNum = 14
+highestSeqNum = 15, request->seqNum = 13, seqNum = 7, requestingCS = false, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 1, nodeId = 0, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 15
+highestSeqNum = 16, request->seqNum = 13, seqNum = 7, requestingCS = false, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 1, nodeId = 0, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 16
+highestSeqNum = 17, request->seqNum = 16, seqNum = 7, requestingCS = false, request->host = e5-cse-135-16.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 3, nodeId = 0, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 17
+highestSeqNum = 18, request->seqNum = 17, seqNum = 7, requestingCS = false, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 2, nodeId = 0, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 18
+highestSeqNum = 20, request->seqNum = 19, seqNum = 7, requestingCS = false, request->host = e5-cse-135-16.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 3, nodeId = 0, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 20
+highestSeqNum = 22, request->seqNum = 21, seqNum = 7, requestingCS = false, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 2, nodeId = 0, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}     {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 0}
+In invalidate
+pageAddr = 8613888
+mprotect done
+Read fault on e5-cse-135-19.cse.psu.edu at 8613888
+0th old value in page at requester = 3
+0th updated value in page at requester = 4
+in psu_mr_reduce
+In invalidate
+pageAddr = 8613888
+mprotect done
+in reduce_kmeans
+points and closestCentroids -> 
+0.69 0.86 1
+0.29 0.51 1
+0.82 0.44 1
+0.96 0.99 1
+0.49 0.61 1
+0.55 0.62 1
+0.76 0.25 1
+0.71 0.31 1
+0.63 0.85 1
+0.48 0.95 1
+0.26 0.43 1
+0.36 0.68 1
+0.04 0.8 1
+0.97 0.69 1
+0.09 0.03 1
+0.21 0.12 1
+g_tid -> 3
+sumX -> 2.42
+sumY -> 3.54
+count -> 5
+0.48 0.71 -----------------------------------------------------> centroid
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+In psu_mutex_unlock
+lockno = 0
+in barrier
+dir -> 0
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 0}  {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 0}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-16.cse.psu.edu: 1}   {e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+Read fault on e5-cse-135-19.cse.psu.edu at 8613888
+0th old value in page at requester = 4
+0th updated value in page at requester = 2
+Write fault on e5-cse-135-19.cse.psu.edu at 8613888
+In fetchLatest
+pageAddr = 8613888
+0th value in page at owner to be sent to the directory = 2
+In psu_mutex_unlock
+lockno = 0
+waiting on threadcount to reach required value
+In fetchLatest
+pageAddr = 8613888
+0th value in page at owner to be sent to the directory = 1

@@ -1,0 +1,922 @@
+./directory ->
+
+Directory server thread launched
+Directory initialized
+Directory server listening on port: e5-cse-135-35.cse.psu.edu:50001
+In poll
+In regDataSeg
+Call from host = e5-cse-135-19.cse.psu.edu
+startAddr = 8617984
+size = 4096
+Obtained pageNum = 0
+numPages = 1
+dsmData ->
+0, 0, host = e5-cse-135-19.cse.psu.edu, pageAddr = 8617984
+ownerVec ->
+-1
+Updated pageNum = 1
+In poll
+In regDataSeg
+Call from host = e5-cse-135-17.cse.psu.edu
+startAddr = 8617984
+size = 4096
+Obtained pageNum = 0
+numPages = 1
+dsmData ->
+0, 0, host = e5-cse-135-19.cse.psu.edu, pageAddr = 8617984
+0, 1, host = e5-cse-135-17.cse.psu.edu, pageAddr = 8617984
+ownerVec ->
+-1
+Updated pageNum = 1
+In poll
+In regDataSeg
+Call from host = e5-cse-135-18.cse.psu.edu
+startAddr = 8617984
+size = 4096
+Obtained pageNum = 0
+numPages = 1
+dsmData ->
+0, 0, host = e5-cse-135-19.cse.psu.edu, pageAddr = 8617984
+0, 1, host = e5-cse-135-17.cse.psu.edu, pageAddr = 8617984
+0, 2, host = e5-cse-135-18.cse.psu.edu, pageAddr = 8617984
+ownerVec ->
+-1
+Updated pageNum = 1
+In dirUpd
+Call from host = e5-cse-135-19.cse.psu.edu
+pageAddr = 8617984
+0, 0, owner host = e5-cse-135-19.cse.psu.edu, pageAddr = 8617984
+ownerVec ->
+0
+invalidateVec ->
+host = e5-cse-135-17.cse.psu.edu, pageAddr = 8617984
+host = e5-cse-135-18.cse.psu.edu, pageAddr = 8617984
+In getLatest
+Call from host = e5-cse-135-17.cse.psu.edu
+pageAddr = 8617984
+0, 0, owner host = e5-cse-135-19.cse.psu.edu, pageAddr = 8617984
+0th value in page at directory to be sent to the requester = 1
+In dirUpd
+Call from host = e5-cse-135-17.cse.psu.edu
+pageAddr = 8617984
+0, 1, owner host = e5-cse-135-17.cse.psu.edu, pageAddr = 8617984
+ownerVec ->
+1
+invalidateVec ->
+host = e5-cse-135-19.cse.psu.edu, pageAddr = 8617984
+host = e5-cse-135-18.cse.psu.edu, pageAddr = 8617984
+In getLatest
+Call from host = e5-cse-135-19.cse.psu.edu
+pageAddr = 8617984
+0, 1, owner host = e5-cse-135-17.cse.psu.edu, pageAddr = 8617984
+0th value in page at directory to be sent to the requester = 2
+In getLatest
+Call from host = e5-cse-135-18.cse.psu.edu
+pageAddr = 8617984
+0, 1, owner host = e5-cse-135-17.cse.psu.edu, pageAddr = 8617984
+0th value in page at directory to be sent to the requester = 2
+In dirUpd
+Call from host = e5-cse-135-18.cse.psu.edu
+pageAddr = 8617984
+0, 2, owner host = e5-cse-135-18.cse.psu.edu, pageAddr = 8617984
+ownerVec ->
+2
+invalidateVec ->
+host = e5-cse-135-19.cse.psu.edu, pageAddr = 8617984
+host = e5-cse-135-17.cse.psu.edu, pageAddr = 8617984
+In getLatest
+Call from host = e5-cse-135-19.cse.psu.edu
+pageAddr = 8617984
+0, 2, owner host = e5-cse-135-18.cse.psu.edu, pageAddr = 8617984
+0th value in page at directory to be sent to the requester = 3
+In getLatest
+Call from host = e5-cse-135-17.cse.psu.edu
+pageAddr = 8617984
+0, 2, owner host = e5-cse-135-18.cse.psu.edu, pageAddr = 8617984
+0th value in page at directory to be sent to the requester = 3
+In dirUpd
+Call from host = e5-cse-135-19.cse.psu.edu
+pageAddr = 8617984
+0, 0, owner host = e5-cse-135-19.cse.psu.edu, pageAddr = 8617984
+ownerVec ->
+0
+invalidateVec ->
+host = e5-cse-135-17.cse.psu.edu, pageAddr = 8617984
+host = e5-cse-135-18.cse.psu.edu, pageAddr = 8617984
+In getLatest
+Call from host = e5-cse-135-18.cse.psu.edu
+pageAddr = 8617984
+0, 0, owner host = e5-cse-135-19.cse.psu.edu, pageAddr = 8617984
+0th value in page at directory to be sent to the requester = 2
+In getLatest
+Call from host = e5-cse-135-17.cse.psu.edu
+pageAddr = 8617984
+0, 0, owner host = e5-cse-135-19.cse.psu.edu, pageAddr = 8617984
+0th value in page at directory to be sent to the requester = 2
+In dirUpd
+Call from host = e5-cse-135-17.cse.psu.edu
+pageAddr = 8617984
+0, 1, owner host = e5-cse-135-17.cse.psu.edu, pageAddr = 8617984
+ownerVec ->
+1
+invalidateVec ->
+host = e5-cse-135-19.cse.psu.edu, pageAddr = 8617984
+host = e5-cse-135-18.cse.psu.edu, pageAddr = 8617984
+In getLatest
+Call from host = e5-cse-135-19.cse.psu.edu
+pageAddr = 8617984
+0, 1, owner host = e5-cse-135-17.cse.psu.edu, pageAddr = 8617984
+0th value in page at directory to be sent to the requester = 1
+In getLatest
+Call from host = e5-cse-135-18.cse.psu.edu
+pageAddr = 8617984
+0, 1, owner host = e5-cse-135-17.cse.psu.edu, pageAddr = 8617984
+0th value in page at directory to be sent to the requester = 1
+
+./app1 0 3 ->
+
+Server thread launched
+Server listening on port: e5-cse-135-18.cse.psu.edu:50000
+In recvRequest
+lockno = 0
+highestSeqNum = 0
+In recvRequest
+lockno = 0
+highestSeqNum = 0
+Server status: 1
+Server status: 1
+Client running
+Server thread launched
+Server listening on port: e5-cse-135-18.cse.psu.edu:50001
+Directory status: 1
+Client running
+Server initialized
+highestSeqNum = 4, request->seqNum = 1, seqNum = 0, requestingCS = false, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 0, nodeId = 2, lockno = 0
+Responded
+Defers map for lockno = 0 -> 
+in psu_mr_map
+highestSeqNum = 4, request->seqNum = 3, seqNum = 0, requestingCS = false, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 1, nodeId = 2, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}     {e5-cse-135-19.cse.psu.edu: 0}
+inputLines ->
+The scholar and his cat, Pangur Bán
+
+(from the Irish by Robin Flower)
+
+I and Pangur Ban my cat,
+'Tis a like task we are at:
+Hunting mice is his delight,
+Hunting words I sit all night.
+
+Better far than praise of men
+'Tis to sit with book and pen;
+Pangur bears me no ill-will,
+He too plies his simple skill.
+
+'Tis a merry task to see
+At our tasks how glad are we,
+When at home we sit and find
+Entertainment to our mind.
+
+Oftentimes a mouse will stray
+In the hero Pangur's way;
+Oftentimes my keen thought set
+Takes a meaning in its net.
+
+'Gainst the wall he sets his eye
+Full and fierce and sharp and sly;
+'Gainst the wall of knowledge I
+All my little wisdom try.
+
+When a mouse darts from its den,
+O how glad is Pangur then!
+O what gladness do I prove
+When I solve the doubts I love!
+
+So in peace our task we ply,
+Pangur Ban, my cat, and I;
+In our arts we find our bliss,
+I have mine and he has his.
+
+Practice every day has made
+Pangur perfect in his trade;
+I get wisdom day and night
+Turning darkness into light.
+numInputLines -> 43
+startIndex -> 0
+endIndex -> 14
+In mapper_wc
+wordCount ->
+'Tis : 2        (from : 1       Ban : 1 Better : 1      Bán : 1 Flower) : 1     He : 1  Hunting : 2     I : 2   Irish : 1       Pangur : 3      Robin : 1       The : 1 a : 1   all : 1 and : 3 are : 1 at: : 1 bears : 1       book : 1        by : 1  cat, : 2        delight, : 1   far : 1 his : 3 ill-will, : 1   is : 1  like : 1        me : 1  men : 1 mice : 1        my : 1  night. : 1      no : 1  of : 1  pen; : 1        plies : 1       praise : 1      scholar : 1     simple : 1      sit : 2 skill. : 1      task : 1        than : 1      the : 1  to : 1  too : 1 we : 1  with : 1        words : 1
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 4
+In recvRequest
+lockno = 0
+highestSeqNum = 4
+In psu_mutex_unlock
+lockno = 0
+highestSeqNum = 11, request->seqNum = 10, seqNum = 5, requestingCS = true, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 1, nodeId = 2, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}     {e5-cse-135-19.cse.psu.edu: 0}
+highestSeqNum = 12, request->seqNum = 7, seqNum = 5, requestingCS = false, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 0, nodeId = 2, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}     {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep client
+in barrier
+dir -> 1
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+In invalidate
+pageAddr = 8617984
+mprotect done
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-19.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+In invalidate
+pageAddr = 8617984
+mprotect done
+In sendDefRep
+request->host = e5-cse-135-17.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Read fault on e5-cse-135-18.cse.psu.edu at 8617984
+0th old value in page at requester = 0
+0th updated value in page at requester = 2
+Write fault on e5-cse-135-18.cse.psu.edu at 8617984
+In psu_mutex_unlock
+lockno = 0
+waiting on threadcount to reach required value
+in psu_mr_reduce
+In fetchLatest
+pageAddr = 8617984
+0th value in page at owner to be sent to the directory = 3
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+In fetchLatest
+pageAddr = 8617984
+0th value in page at owner to be sent to the directory = 3
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 12
+gWordCount ->
+Ban, : 1        I : 5   I; : 1  In : 1  O : 2   Pangur : 3      Practice : 1    So : 1  Turning : 1     When : 2        a : 1   and : 3 arts : 1        bliss, : 1      cat, : 1        darkness : 1    darts : 1       day : 2 den, : 1        do : 1  doubts : 1      every : 1      find : 1        from : 1        get : 1 glad : 1        gladness : 1    has : 2 have : 1        he : 1  his : 1 his. : 1        how : 1 in : 2  into : 1        is : 1  its : 1 light. : 1      love! : 1       made : 1        mine : 1        mouse : 1       my : 1night : 1        our : 3 peace : 1       perfect : 1     ply, : 1        prove : 1       solve : 1       task : 1        the : 1 then! : 1       trade; : 1      we : 2  what : 1        wisdom : 1      'Gainst : 2     'Tis : 1        All : 1 At : 1  Entertainment : 1     Full : 1 I : 1   In : 1  Oftentimes : 2  Pangur's : 1    Takes : 1       When : 1        a : 3   and : 4 are : 1 at : 1  eye : 1 fierce : 1      find : 1        glad : 1        he : 1  hero : 1        his : 1 home : 1        how : 1 in : 1  its : 1 keen : 1        knowledge : 1  little : 1      meaning : 1     merry : 1       mind. : 1       mouse : 1       my : 2  net. : 1        of : 1  our : 2 see : 1 set : 1 sets : 1        sharp : 1       sit : 1 sly; : 1        stray : 1       task : 1        tasks : 1       the : 3 thought : 1   to : 2   try. : 1        wall : 2        way; : 1        we : 1  we, : 1 will : 1        wisdom : 1      'Tis : 2        (from : 1       Ban : 1 Better : 1      Bán : 1 Flower) : 1     He : 1  Hunting : 2     I : 2   Irish : 1       Pangur : 3      Robin : 1       The : 1a : 1   all : 1 and : 3 are : 1 at : 1  bears : 1       book : 1        by : 1  cat, : 2        delight, : 1    far : 1 his : 3 ill-will, : 1   is : 1  like : 1        me : 1  men : 1 mice : 1        my : 1  night. : 1      no : 1  of : 1  pen; : 1        plies : 1     praise : 1       scholar : 1     simple : 1      sit : 2 skill. : 1      task : 1        than : 1        the : 1 to : 1  too : 1 we : 1  with : 1        words : 1
+In psu_mutex_unlock
+highestSeqNum = 16, request->seqNum = 15, seqNum = 13, requestingCS = true, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 0, nodeId = 2, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0lockno = 0}   {e5-cse-135-19.cse.psu.edu: 1
+}
+In sendDefRep client
+numInputWords -> 164
+startIndex -> 0
+endIndex -> 54
+In reducer_wc
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 16
+highestSeqNum = 19, request->seqNum = 18, seqNum = 17, requestingCS = true, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 1, nodeId = 2, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}     {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+localWordCount ->
+
+wordCount ->
+Ban, : 1        I : 8   I; : 1  In : 2  O : 2   Pangur : 6      Practice : 1    So : 1  Turning : 1     When : 3        a : 5   and : 10        arts : 1        bliss, : 1      cat, : 3        darkness : 1    darts : 1       day : 2 den, : 1        do : 1  doubts : 1    every : 1        find : 2        from : 1        get : 1 glad : 2        gladness : 1    has : 2 have : 1        he : 2  his : 5 his. : 1        how : 2 in : 3  into : 1        is : 2  its : 2 light. : 1      love! : 1       made : 1        mine : 1        mouse : 2     my : 4   night : 1       our : 5 peace : 1       perfect : 1     ply, : 1        prove : 1       solve : 1       task : 3        the : 5 then! : 1       trade; : 1
+In psu_mutex_unlock
+lockno = 0
+In sendDefRep client
+In recvRequest
+lockno = 0
+highestSeqNum = 19
+highestSeqNum = 22, request->seqNum = 21, seqNum = 17, requestingCS = false, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 0, nodeId = 2, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}     {e5-cse-135-19.cse.psu.edu: 0}
+in barrier
+dir -> 0
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-17.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 22
+highestSeqNum = 26, request->seqNum = 25, seqNum = 23, requestingCS = true, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 1, nodeId = 2, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}     {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-19.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+In psu_mutex_unlock
+lockno = 0
+In sendDefRep client
+waiting on threadcount to reach required value
+In recvRequest
+lockno = 0
+highestSeqNum = 26
+highestSeqNum = 28, request->seqNum = 27, seqNum = 23, requestingCS = false, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 0, nodeId = 2, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}     {e5-cse-135-19.cse.psu.edu: 0}
+In invalidate
+pageAddr = 8617984
+mprotect done
+Read fault on e5-cse-135-18.cse.psu.edu at 8617984
+In recvRequest
+lockno = 0
+highestSeqNum = 28
+highestSeqNum = 30, request->seqNum = 29, seqNum = 23, requestingCS = false, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-18.cse.psu.edu, request->nodeId = 1, nodeId = 2, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}     {e5-cse-135-19.cse.psu.edu: 0}
+0th old value in page at requester = 2
+0th updated value in page at requester = 2
+In invalidate
+pageAddr = 8617984
+mprotect done
+Read fault on e5-cse-135-18.cse.psu.edu at 8617984
+0th old value in page at requester = 2
+0th updated value in page at requester = 1
+
+./app1 1 3 ->
+
+Server thread launched
+Server listening on port: e5-cse-135-17.cse.psu.edu:50000
+In recvRequest
+lockno = 0
+highestSeqNum = 0
+Server status: 1
+Server status: 1
+Client running
+Server thread launched
+Server listening on port: e5-cse-135-17.cse.psu.edu:50001
+Directory status: 1
+Client running
+Server initialized
+highestSeqNum = 2, request->seqNum = 1, seqNum = 0, requestingCS = false, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 0, nodeId = 1, lockno = 0
+Responded
+Defers map for lockno = 0 -> 
+in psu_mr_map
+inputLines ->
+The scholar and his cat, Pangur Bán
+
+(from the Irish by Robin Flower)
+
+I and Pangur Ban my cat,
+'Tis a like task we are at:
+Hunting mice is his delight,
+Hunting words I sit all night.
+
+Better far than praise of men
+'Tis to sit with book and pen;
+Pangur bears me no ill-will,
+He too plies his simple skill.
+
+'Tis a merry task to see
+At our tasks how glad are we,
+When at home we sit and find
+Entertainment to our mind.
+
+Oftentimes a mouse will stray
+In the hero Pangur's way;
+Oftentimes my keen thought set
+Takes a meaning in its net.
+
+'Gainst the wall he sets his eye
+Full and fierce and sharp and sly;
+'Gainst the wall of knowledge I
+All my little wisdom try.
+
+When a mouse darts from its den,
+O how glad is Pangur then!
+O what gladness do I prove
+When I solve the doubts I love!
+
+So in peace our task we ply,
+Pangur Ban, my cat, and I;
+In our arts we find our bliss,
+I have mine and he has his.
+
+Practice every day has made
+Pangur perfect in his trade;
+I get wisdom day and night
+Turning darkness into light.
+numInputLines -> 43
+startIndex -> 14
+endIndex -> 28
+In mapper_wc
+wordCount ->
+'Gainst : 2     'Tis : 1        All : 1 At : 1  Entertainment : 1       Full : 1        I : 1   In : 1  Oftentimes : 2  Pangur's : 1    Takes : 1       When : 1        a : 3   and : 4 are : 1 at : 1  eye : 1 fierce : 1      find : 1        glad : 1        he : 1  hero : 1       his : 1 home : 1        how : 1 in : 1  its : 1 keen : 1        knowledge : 1   little : 1      meaning : 1     merry : 1       mind. : 1       mouse : 1       my : 2  net. : 1        of : 1  our : 2 see : 1 set : 1 sets : 1        sharp : 1       sit : 1 sly; : 1       stray : 1       task : 1        tasks : 1       the : 3 thought : 1     to : 2  try. : 1        wall : 2        way; : 1        we : 1  we, : 1 will : 1        wisdom : 1
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-19.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 2
+In recvRequest
+lockno = 0
+highestSeqNum = 2
+In psu_mutex_unlock
+lockno = 0
+highestSeqNum = 9, request->seqNum = 7, seqNum = 3, requestingCS = true, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 0, nodeId = 1, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}     {e5-cse-135-19.cse.psu.edu: 1}
+highestSeqNum = 9, request->seqNum = 5, seqNum = 3, requestingCS = false, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 2, nodeId = 1, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}     {e5-cse-135-19.cse.psu.edu: 1}
+In sendDefRep client
+in barrier
+dir -> 1
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-18.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 0}
+In invalidate
+pageAddr = 8617984
+mprotect done
+In recvRequest
+lockno = 0
+highestSeqNum = 9
+highestSeqNum = 14, request->seqNum = 13, seqNum = 10, requestingCS = true, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 2, nodeId = 1, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}     {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-19.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Read fault on e5-cse-135-17.cse.psu.edu at 8617984
+0th old value in page at requester = 0
+0th updated value in page at requester = 1
+Write fault on e5-cse-135-17.cse.psu.edu at 8617984
+In psu_mutex_unlock
+lockno = 0
+In sendDefRep client
+In fetchLatest
+pageAddr = 8617984
+0th value in page at owner to be sent to the directory = 2
+waiting on threadcount to reach required value
+In fetchLatest
+pageAddr = 8617984
+0th value in page at owner to be sent to the directory = 2
+In invalidate
+pageAddr = 8617984
+mprotect done
+Read fault on e5-cse-135-17.cse.psu.edu at 8617984
+In recvRequest
+lockno = 0
+highestSeqNum = 14
+highestSeqNum = 16, request->seqNum = 15, seqNum = 10, requestingCS = false, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 0, nodeId = 1, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}     {e5-cse-135-19.cse.psu.edu: 0}
+0th old value in page at requester = 2
+0th updated value in page at requester = 3
+in psu_mr_reduce
+In recvRequest
+lockno = 0
+highestSeqNum = 16
+highestSeqNum = 17, request->seqNum = 13, seqNum = 10, requestingCS = false, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 2, nodeId = 1, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}     {e5-cse-135-19.cse.psu.edu: 0}
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-19.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 17
+highestSeqNum = 18, request->seqNum = 17, seqNum = 18, requestingCS = true, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 2, nodeId = 1, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}     {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 18
+highestSeqNum = 22, request->seqNum = 21, seqNum = 18, requestingCS = true, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 0, nodeId = 1, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}     {e5-cse-135-19.cse.psu.edu: 1}
+In sendDefRep
+request->host = e5-cse-135-18.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 22
+gWordCount ->
+Ban, : 1        I : 5   I; : 1  In : 1  O : 2   Pangur : 3      Practice : 1    So : 1  Turning : 1     When : 2        a : 1   and : 3 arts : 1        bliss, : 1      cat, : 1        darkness : 1    darts : 1       day : 2 den, : 1        do : 1  doubts : 1      every : 1      find : 1        from : 1        get : 1 glad : 1        gladness : 1    has : 2 have : 1        he : 1  his : 1 his. : 1        how : 1 in : 2  into : 1        is : 1  its : 1 light. : 1      love! : 1       made : 1        mine : 1        mouse : 1       my : 1night : 1        our : 3 peace : 1       perfect : 1     ply, : 1        prove : 1       solve : 1       task : 1        the : 1 then! : 1       trade; : 1      we : 2  what : 1        wisdom : 1      'Gainst : 2     'Tis : 1        All : 1 At : 1  Entertainment : 1     Full : 1 I : 1   In : 1  Oftentimes : 2  Pangur's : 1    Takes : 1       When : 1        a : 3   and : 4 are : 1 at : 1  eye : 1 fierce : 1      find : 1        glad : 1        he : 1  hero : 1        his : 1 home : 1        how : 1 in : 1  its : 1 keen : 1        knowledge : 1  little : 1      meaning : 1     merry : 1       mind. : 1       mouse : 1       my : 2  net. : 1        of : 1  our : 2 see : 1 set : 1 sets : 1        sharp : 1       sit : 1 sly; : 1        stray : 1       task : 1        tasks : 1       the : 3 thought : 1   to : 2   try. : 1        wall : 2        way; : 1        we : 1  we, : 1 will : 1        wisdom : 1      'Tis : 2        (from : 1       Ban : 1 Better : 1      Bán : 1 Flower) : 1     He : 1  Hunting : 2     I : 2   Irish : 1       Pangur : 3      Robin : 1       The : 1a : 1   all : 1 and : 3 are : 1 at : 1  bears : 1       book : 1        by : 1  cat, : 2        delight, : 1    far : 1 his : 3 ill-will, : 1   is : 1  like : 1        me : 1  men : 1 mice : 1        my : 1  night. : 1      no : 1  of : 1  pen; : 1        plies : 1     praise : 1       scholar : 1     simple : 1      sit : 2 skill. : 1      task : 1        than : 1        the : 1 to : 1  too : 1 we : 1  with : 1        words : 1
+In psu_mutex_unlock
+lockno = 0
+highestSeqNum = 24, request->seqNum = 23, seqNum = 18, requestingCS = true, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 2, nodeId = 1, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}     {e5-cse-135-19.cse.psu.edu: 1}
+In sendDefRep client
+In sendDefRep client
+numInputWords -> 164
+startIndex -> 54
+endIndex -> 108
+In reducer_wc
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-19.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+In sendDefRep
+request->host = e5-cse-135-18.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 24
+localWordCount ->
+'Tis : 3        (from : 1       Ban : 1 Ban, : 1        Better : 1      Bán : 1 Flower) : 1     He : 1  Hunting : 2     I : 8   I; : 1  In : 2  Irish : 1       O : 2   Pangur : 6      Practice : 1    Robin : 1       So : 1  The : 1 Turning : 1     When : 3        a : 5 all : 1  and : 10        are : 2 arts : 1        at : 2  bears : 1       bliss, : 1      book : 1        by : 1  cat, : 3        darkness : 1    darts : 1       day : 2 delight, : 1    den, : 1        do : 1  doubts : 1      every : 1       far : 1 find : 2        from : 1       get : 1 glad : 2        gladness : 1    has : 2 have : 1        he : 2  his : 5 his. : 1        how : 2 ill-will, : 1   in : 3  into : 1        is : 2  its : 2 light. : 1      like : 1        love! : 1       made : 1        me : 1  men : 1 mice : 1        mine : 1       mouse : 2       my : 4  night : 1       night. : 1      no : 1  of : 2  our : 5 peace : 1       pen; : 1        perfect : 1     plies : 1       ply, : 1        praise : 1      prove : 1       scholar : 1     simple : 1      sit : 3 skill. : 1      solve : 1     task : 3 than : 1        the : 5 then! : 1       to : 3  too : 1 trade; : 1      wall : 2        way; : 1        we : 3  we, : 1 will : 1        wisdom : 2      with : 1        words : 1
+wordCount ->
+'Gainst : 2     All : 1 At : 1  Entertainment : 1       Full : 1        Oftentimes : 2  Pangur's : 1    Takes : 1       eye : 1 fierce : 1      hero : 1        home : 1        keen : 1        knowledge : 1   little : 1      meaning : 1     merry : 1       mind. : 1     net. : 1 see : 1 set : 1 sets : 1        sharp : 1       sly; : 1        stray : 1       tasks : 1       thought : 1     try. : 1        what : 1
+In psu_mutex_unlock
+highestSeqNum = 28, request->seqNum = 27, seqNum = 25, requestingCS = true, request->host = e5-cse-135-19.cse.psu.edu, host = e5-cse-135-17.cse.psu.edu, request->nodeId = 0, nodeId = 1, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: lockno = 0
+0}      {e5-cse-135-19.cse.psu.edu: 1}
+In sendDefRep client
+in barrier
+dir -> 0
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+In invalidate
+pageAddr = 8617984
+mprotect done
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-19.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 0}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-18.cse.psu.edu: 1}   {e5-cse-135-19.cse.psu.edu: 1}
+Read fault on e5-cse-135-17.cse.psu.edu at 8617984
+0th old value in page at requester = 3
+0th updated value in page at requester = 2
+Write fault on e5-cse-135-17.cse.psu.edu at 8617984
+In psu_mutex_unlock
+lockno = 0
+waiting on threadcount to reach required value
+In fetchLatest
+pageAddr = 8617984
+0th value in page at owner to be sent to the directory = 1
+In fetchLatest
+pageAddr = 8617984
+0th value in page at owner to be sent to the directory = 1
+
+./app1 2 3 ->
+
+Server thread launched
+Server listening on port: e5-cse-135-19.cse.psu.edu:50000
+Server status: 1
+Server status: 1
+Client running
+Server thread launched
+Server listening on port: e5-cse-135-19.cse.psu.edu:50001
+Directory status: 1
+Client running
+Server initialized
+in psu_mr_map
+inputLines ->
+The scholar and his cat, Pangur Bán
+
+(from the Irish by Robin Flower)
+
+I and Pangur Ban my cat,
+'Tis a like task we are at:
+Hunting mice is his delight,
+Hunting words I sit all night.
+
+Better far than praise of men
+'Tis to sit with book and pen;
+Pangur bears me no ill-will,
+He too plies his simple skill.
+
+'Tis a merry task to see
+At our tasks how glad are we,
+When at home we sit and find
+Entertainment to our mind.
+
+Oftentimes a mouse will stray
+In the hero Pangur's way;
+Oftentimes my keen thought set
+Takes a meaning in its net.
+
+'Gainst the wall he sets his eye
+Full and fierce and sharp and sly;
+'Gainst the wall of knowledge I
+All my little wisdom try.
+
+When a mouse darts from its den,
+O how glad is Pangur then!
+O what gladness do I prove
+When I solve the doubts I love!
+
+So in peace our task we ply,
+Pangur Ban, my cat, and I;
+In our arts we find our bliss,
+I have mine and he has his.
+
+Practice every day has made
+Pangur perfect in his trade;
+I get wisdom day and night
+Turning darkness into light.
+numInputLines -> 43
+startIndex -> 28
+endIndex -> 43
+In mapper_wc
+wordCount ->
+Ban, : 1        I : 5   I; : 1  In : 1  O : 2   Pangur : 3      Practice : 1    So : 1  Turning : 1     When : 2        a : 1   and : 3 arts : 1        bliss, : 1      cat, : 1        darkness : 1    darts : 1       day : 2 den, : 1        do : 1  doubts : 1      every : 1      find : 1        from : 1        get : 1 glad : 1        gladness : 1    has : 2 have : 1        he : 1  his : 1 his. : 1        how : 1 in : 2  into : 1        is : 1  its : 1 light. : 1      love! : 1       made : 1        mine : 1        mouse : 1       my : 1night : 1        our : 3 peace : 1       perfect : 1     ply, : 1        prove : 1       solve : 1       task : 1        the : 1 then! : 1       trade; : 1      we : 2  what : 1        wisdom : 1
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 0
+highestSeqNum = 4, request->seqNum = 3, seqNum = 1, requestingCS = true, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 1, nodeId = 0, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}     {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}
+In psu_mutex_unlock
+lockno = 0
+In sendDefRep client
+In recvRequest
+lockno = 0
+highestSeqNum = 4
+highestSeqNum = 6, request->seqNum = 5, seqNum = 1, requestingCS = false, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 2, nodeId = 0, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}     {e5-cse-135-18.cse.psu.edu: 0}
+in barrier
+dir -> 1
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-17.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 6
+highestSeqNum = 11, request->seqNum = 10, seqNum = 7, requestingCS = true, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 1, nodeId = 0, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}     {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}
+Write fault on e5-cse-135-19.cse.psu.edu at 8617984
+In recvRequest
+lockno = 0
+highestSeqNum = 11
+In psu_mutex_unlock
+highestSeqNum = 14, request->seqNum = 13, seqNum = 7, requestingCS = true, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 2, nodeId = 0, lockno = 0lockno = 0
+Deferred
+Defers map for lockno = 0 -> 
+{e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+In sendDefRep client
+In sendDefRep client
+waiting on threadcount to reach required value
+In fetchLatest
+pageAddr = 8617984
+0th value in page at owner to be sent to the directory = 1
+In invalidate
+pageAddr = 8617984
+mprotect done
+Read fault on e5-cse-135-19.cse.psu.edu at 8617984
+0th old value in page at requester = 1
+0th updated value in page at requester = 2
+In invalidate
+pageAddr = 8617984
+mprotect done
+Read fault on e5-cse-135-19.cse.psu.edu at 8617984
+0th old value in page at requester = 2
+0th updated value in page at requester = 3
+in psu_mr_reduce
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest
+lockno = 0
+highestSeqNum = 14
+highestSeqNum = 15, request->seqNum = 13, seqNum = 15, requestingCS = true, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 2, nodeId = 0, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-18.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 15
+In recvRequest
+lockno = 0
+highestSeqNum = 15
+gWordCount ->
+Ban, : 1        I : 5   I; : 1  In : 1  O : 2   Pangur : 3      Practice : 1    So : 1  Turning : 1     When : 2        a : 1   and : 3 arts : 1        bliss, : 1      cat, : 1        darkness : 1    darts : 1       day : 2 den, : 1        do : 1  doubts : 1      every : 1      find : 1        from : 1        get : 1 glad : 1        gladness : 1    has : 2 have : 1        he : 1  his : 1 his. : 1        how : 1 in : 2  into : 1        is : 1  its : 1 light. : 1      love! : 1       made : 1        mine : 1        mouse : 1       my : 1night : 1        our : 3 peace : 1       perfect : 1     ply, : 1        prove : 1       solve : 1       task : 1        the : 1 then! : 1       trade; : 1      we : 2  what : 1        wisdom : 1      'Gainst : 2     'Tis : 1        All : 1 At : 1  Entertainment : 1     Full : 1 I : 1   In : 1  Oftentimes : 2  Pangur's : 1    Takes : 1       When : 1        a : 3   and : 4 are : 1 at : 1  eye : 1 fierce : 1      find : 1        glad : 1        he : 1  hero : 1        his : 1 home : 1        how : 1 in : 1  its : 1 keen : 1        knowledge : 1  little : 1      meaning : 1     merry : 1       mind. : 1       mouse : 1       my : 2  net. : 1        of : 1  our : 2 see : 1 set : 1 sets : 1        sharp : 1       sit : 1 sly; : 1        stray : 1       task : 1        tasks : 1       the : 3 thought : 1   to : 2   try. : 1        wall : 2        way; : 1        we : 1  we, : 1 will : 1        wisdom : 1      'Tis : 2        (from : 1       Ban : 1 Better : 1      Bán : 1 Flower) : 1     He : 1  Hunting : 2     I : 2   Irish : 1       Pangur : 3      Robin : 1       The : 1a : 1   all : 1 and : 3 are : 1 at : 1  bears : 1       book : 1        by : 1  cat, : 2        delight, : 1    far : 1 his : 3 ill-will, : 1   is : 1  like : 1        me : 1  men : 1 mice : 1        my : 1  night. : 1      no : 1  of : 1  pen; : 1        plies : 1     praise : 1       scholar : 1     simple : 1      sit : 2 skill. : 1      task : 1        than : 1        the : 1 to : 1  too : 1 we : 1  with : 1        words : 1
+In psu_mutex_unlock
+lockno = 0
+highestSeqNum = 20, request->seqNum = 18, seqNum = 15, requestingCS = true, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 1, nodeId = 0, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}     {e5-cse-135-18.cse.psu.edu: 0}
+highestSeqNum = 20, request->seqNum = 17, seqNum = 15, requestingCS = false, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 2, nodeId = 0, lockno = 0
+Responded
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}     {e5-cse-135-18.cse.psu.edu: 0}
+In sendDefRep client
+numInputWords -> 164
+startIndex -> 108
+endIndex -> 164
+In reducer_wc
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 20
+highestSeqNum = 24, request->seqNum = 23, seqNum = 21, requestingCS = true, request->host = e5-cse-135-18.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 2, nodeId = 0, lockno = 0
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}     {e5-cse-135-18.cse.psu.edu: 1}
+In sendDefRep
+request->host = e5-cse-135-17.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}    {e5-cse-135-18.cse.psu.edu: 1}
+{e5-cse-135-17.cse.psu.edu: 1}  {e5-cse-135-18.cse.psu.edu: 1}
+In recvRequest
+lockno = 0
+highestSeqNum = 24
+localWordCount ->
+Ban, : 1        I : 8   I; : 1  In : 2  O : 2   Pangur : 6      Practice : 1    So : 1  Turning : 1     When : 3        a : 5   and : 10        arts : 1        bliss, : 1      cat, : 3        darkness : 1    darts : 1       day : 2 den, : 1        do : 1  doubts : 1    every : 1        find : 2        from : 1        get : 1 glad : 2        gladness : 1    has : 2 have : 1        he : 2  his : 5 his. : 1        how : 2 in : 3  into : 1        is : 2  its : 2 light. : 1      love! : 1       made : 1        mine : 1        mouse : 2     my : 4   night : 1       our : 5 peace : 1       perfect : 1     ply, : 1        prove : 1       solve : 1       task : 3        the : 5 then! : 1       trade; : 1
+wordCount ->
+'Tis : 3        (from : 1       Ban : 1 Better : 1      Bán : 1 Flower) : 1     He : 1  Hunting : 2     Irish : 1       Robin : 1       The : 1 all : 1 are : 2 at : 2  bears : 1       book : 1        by : 1  delight, : 1    far : 1 ill-will, : 1   like : 1        me : 1men : 1  mice : 1        night. : 1      no : 1  of : 2  pen; : 1        plies : 1       praise : 1      scholar : 1     simple : 1      sit : 3 skill. : 1      than : 1        to : 3  too : 1 wall : 2        way; : 1        we : 3  we, : 1 will : 1        wisdom : 2    with : 1 words : 1
+In psu_mutex_unlock
+highestSeqNum = 26, request->seqNum = 25, seqNum = 21, requestingCS = true, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 1, nodeId = 0, lockno = 0
+Deferredlockno = 0
+
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}     {e5-cse-135-18.cse.psu.edu: 1}
+In sendDefRep client
+In sendDefRep client
+in barrier
+dir -> 0
+In psu_mutex_lock
+lockno = 0
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}
+In recvRequest client
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}
+In sendDefRep
+request->host = e5-cse-135-17.cse.psu.edu
+lockno = 0
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 0}   {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 0}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}
+Response map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}   {e5-cse-135-18.cse.psu.edu: 1}
+Write fault on e5-cse-135-19.cse.psu.edu at 8617984
+In recvRequest
+lockno = 0
+highestSeqNum = 26
+In psu_mutex_unlock
+highestSeqNum = 30, request->seqNum = 29, seqNum = 27, requestingCS = true, request->host = e5-cse-135-17.cse.psu.edu, host = e5-cse-135-19.cse.psu.edu, request->nodeId = 1, nodeId = 0, lockno = 0lockno = 0
+
+Deferred
+Defers map for lockno = 0 -> {e5-cse-135-17.cse.psu.edu: 1}     {e5-cse-135-18.cse.psu.edu: 0}
+In sendDefRep client
+waiting on threadcount to reach required value
+In fetchLatest
+pageAddr = 8617984
+0th value in page at owner to be sent to the directory = 2
+In fetchLatest
+pageAddr = 8617984
+0th value in page at owner to be sent to the directory = 2
+In invalidate
+pageAddr = 8617984
+mprotect done
+Read fault on e5-cse-135-19.cse.psu.edu at 8617984
+0th old value in page at requester = 2
+0th updated value in page at requester = 1
