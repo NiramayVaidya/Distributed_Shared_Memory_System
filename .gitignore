@@ -1,3 +1,6 @@
-seq-consistency/build.sh
-seq-consistency/cmake/
-seq-consistency/CMakeLists.txt
+seq_consistency/build.sh
+seq_consistency/cmake/
+seq_consistency/CMakeLists.txt
+seq_consistency_with_malloc/build.sh
+seq_consistency_with_malloc/cmake/
+seq_consistency_with_malloc/CMakeLists.txt
