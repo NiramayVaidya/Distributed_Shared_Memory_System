@@ -50,7 +50,7 @@ cmake and cmake/build folder, and CMakeLists.txt) kindly ignore all these files.
 
 ### Execute
 
-**Note-** Keep DEBUG flag in the header files set to 1 for verbose output
+**Note-** Keep DEBUG flag in the header files set to 1 for verbose output.
 
 #### Distributed mutex locks-
 
