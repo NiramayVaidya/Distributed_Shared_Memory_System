@@ -1126,7 +1126,6 @@ static void segv_handler(int signum, siginfo_t *info, void *ucontext) {
 		bool present = checkAllocatePointerClient.checkAllocatePointer(hostName, (uint64_t) PAGE_DOWN((uint64_t) info->si_addr));
 
 		if (present) {
-			// call malloc specific dirUpd
 			logFile << "RPC call from " + hostName + " to " + dirHost + " for dirUpdAlloc with arguments host = " + hostName + ", pointer = " + to_string(PAGE_DOWN((uint64_t) info->si_addr)) << endl;
 			DirUpdAllocClient dirUpdAllocClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
 			dirUpdAllocClient.dirUpdAlloc(hostName, PAGE_DOWN((uint64_t) info->si_addr));
@@ -1147,7 +1146,6 @@ static void segv_handler(int signum, siginfo_t *info, void *ucontext) {
 		bool present = checkAllocatePointerClient.checkAllocatePointer(hostName, (uint64_t) PAGE_DOWN((uint64_t) info->si_addr));
 
 		if (present) {
-			// call malloc specific getLatest
 			logFile << "RPC call from " + hostName + " to " + dirHost + " for getLatestAlloc with arguments host = " + hostName + ", pointer = " + to_string(PAGE_DOWN((uint64_t) info->si_addr)) << endl;
 			GetLatestAllocClient getLatestAllocClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
 			getLatestAllocClient.getLatestAlloc(hostName, PAGE_DOWN((uint64_t) info->si_addr));
@@ -1204,10 +1202,6 @@ void *psu_dsm_malloc(char *name, size_t size) {
 		initialize();
 	}
 
-	// call dir to check if name is there or not
-	// if there, call dir to get start address, return this
-	// if not there, call valloc, then call dir to allocate
-	// mprotect this region, then return this pointer
 	string hostName = GetHostName();
 	string allocName(name);
 	void *pointer;
