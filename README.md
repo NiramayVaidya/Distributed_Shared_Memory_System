@@ -1,3 +1,17 @@
+**Note-** My partner's implementation (Aman's git repository) has been added as 
+a git submodule in my repository, so in order to get his code in my repo,
+execute this after doing 'git clone'-
+
+```
+git submodule update --init --recursive
+```
+
+For the sequential consistency and dist sorting dsm based implementation 
+(without malloc), refer to Aman's repo (works more reliably than mine).
+</br>
+For the dsm based implementation specific to malloc (just for testing the basic 
+test that has been added), word count and k-means, refer to my repo.
+
 ### Summary
 
 #### Distributed mutual locks-
@@ -22,6 +36,11 @@ The two test application codes are in the seq_consistency and dist_sorting
 folders. Within the dist_sorting folder, the dist_sorting_generated_files
 contains the actual output file and the terminal output (because of DEBUG mode
 on) obtained for all the running hosts in case of a successful execution.
+</br>
+The dsm malloc implementation is in a separate folder called 
+seq_consistency_with_malloc, containing another subfolder having a file which
+has the terminal output of a successful execution (similar to what has been
+explained above).
 
 #### Map reduce framework-
 
@@ -73,6 +92,9 @@ Run in this order only (for now)-
 ./p2
 ./p1
 ```
+
+**Note-** For the seq consistency test using malloc, follow the same execution 
+order as above.
 
 **Merge sort**
 
