@@ -12,6 +12,7 @@
 #include <bits/stdc++.h>
 #include <ucontext.h>
 #include <grpcpp/grpcpp.h>
+#include <malloc.h>
 
 #include <string>
 #include <thread>
@@ -21,6 +22,7 @@
 #include <tuple>
 #include <mutex>
 #include <chrono>
+#include <iterator>
 
 #include "psu_dsm.h"
 #include "dsm.grpc.pb.h"
@@ -39,17 +41,19 @@ string gRPCLogFilename = "gRPC_log.txt";
 uint64_t pageNum = 0;
 vector<vector<tuple<string, uint64_t>>> dsmData;
 vector<int> ownerVec;
-vector<tuple<string, uint64_t>> allocateDsmData;
+map<string, map<string, vector<uint64_t>>> allocateDsmData;
+map<string, string> ownerMap;
 
 mutex dsmDataLock;
 mutex ownerVecLock;
 mutex allocateDsmDataLock;
+mutex ownerMapLock;
 mutex getLatestLock;
 mutex fetchLatestLock;
 mutex dirUpdLock;
 mutex logLock;
 
-bool invalidateDone = false;
+bool initialized = false;
 
 #if DEBUG
 static void printDsmData() {
@@ -57,6 +61,24 @@ static void printDsmData() {
 	for (int i = 0; i < dsmData.size(); i++) {
 		for (int j = 0; j < dsmData[i].size(); j++) {
 			cout << to_string(i) + ", " + to_string(j) + ", host = " + get<0>(dsmData[i][j]) + ", pageAddr = " + to_string(get<1>(dsmData[i][j])) << endl;
+		}
+	}
+}
+
+static void printAllocDsmData() {
+	cout << "allocDsmData ->" << endl;
+	map<string, map<string, vector<uint64_t>>>::iterator it;
+	for (it = allocateDsmData.begin(); it != allocateDsmData.end(); it++) {
+		cout << "name = " + it->first << endl;
+		map<string, vector<uint64_t>>::iterator itnew;
+		map<string, vector<uint64_t>> hostPointers = it->second;
+		for (itnew = hostPointers.begin(); itnew != hostPointers.end(); itnew++) {
+			cout << "host = " + itnew->first + ", pointers = ";
+			vector<uint64_t> pointers = itnew->second;
+			for (int i = 0; i < pointers.size(); i++) {
+				cout << to_string(pointers[i]) + " ";
+			}
+			cout << endl;
 		}
 	}
 }
@@ -73,6 +95,14 @@ static void printInvalidateVec(vector<tuple<string, uint64_t>> invalidateVec) {
 	cout << "invalidateVec ->" << endl;
 	for (int i = 0; i < invalidateVec.size(); i++) {
 		cout << "host = " + get<0>(invalidateVec[i]) + ", pageAddr = " + to_string(get<1>(invalidateVec[i])) << endl;
+	}
+}
+
+static void printOwnerMap() {
+	cout << "ownerMap ->" << endl;
+	map<string, string>::iterator it;
+	for (it = ownerMap.begin(); it != ownerMap.end(); it++) {
+		cout << "name = " + it->first + ", host = " + it->second << endl;
 	}
 }
 #endif
@@ -159,6 +189,26 @@ class DirUpdClient {
 		std::unique_ptr<DirUpd::Stub> stub_;
 };
 
+class DirUpdAllocClient {
+	public:
+		DirUpdAllocClient(shared_ptr<Channel> channel) : stub_(DirUpdAlloc::NewStub(channel)) {}
+		
+		void dirUpdAlloc(string hostName, uint64_t pointer) {
+			UpdAllocRequest updAllocRequest;
+			updAllocRequest.set_host(hostName);
+			updAllocRequest.set_pointer(pointer);
+
+			UpdAllocReply updAllocReply;
+
+			ClientContext context;
+
+			Status status = stub_->dirUpdAlloc(&context, updAllocRequest, &updAllocReply);
+		}
+
+	 private:
+		std::unique_ptr<DirUpdAlloc::Stub> stub_;
+};
+
 class InvalidateClient {
 	public:
 		InvalidateClient(shared_ptr<Channel> channel) : stub_(Invalidate::NewStub(channel)) {}
@@ -179,6 +229,28 @@ class InvalidateClient {
 
 	 private:
 		std::unique_ptr<Invalidate::Stub> stub_;
+};
+
+class InvalidateAllocClient {
+	public:
+		InvalidateAllocClient(shared_ptr<Channel> channel) : stub_(InvalidateAlloc::NewStub(channel)) {}
+		
+		void invalidateAlloc(uint64_t pointer) {
+			InvalidateAllocRequest invalidateAllocRequest;
+			invalidateAllocRequest.set_pointer(pointer);
+
+			InvalidateAllocReply invalidateAllocReply;
+
+			ClientContext context;
+			chrono::time_point<chrono::system_clock> deadline = chrono::system_clock::now() + chrono::milliseconds(10);
+			// HACK
+			context.set_deadline(deadline);
+
+			Status status = stub_->invalidateAlloc(&context, invalidateAllocRequest, &invalidateAllocReply);
+		}
+
+	 private:
+		std::unique_ptr<InvalidateAlloc::Stub> stub_;
 };
 
 class GetLatestClient {
@@ -212,6 +284,37 @@ class GetLatestClient {
 		std::unique_ptr<GetLatest::Stub> stub_;
 };
 
+class GetLatestAllocClient {
+	public:
+		GetLatestAllocClient(shared_ptr<Channel> channel) : stub_(GetLatestAlloc::NewStub(channel)) {}
+		
+		void getLatestAlloc(string hostName, uint64_t pointer) {
+			LatestAllocRequest latestAllocRequest;
+			latestAllocRequest.set_host(hostName);
+			latestAllocRequest.set_pointer(pointer);
+
+			LatestAllocReply latestAllocReply;
+
+			ClientContext context;
+
+			Status status = stub_->getLatestAlloc(&context, latestAllocRequest, &latestAllocReply);
+
+			uint64_t *initialPointer = (uint64_t *) pointer;
+#if DEBUG
+			cout << "0th old value at pointer at requester = " + to_string((uint64_t) initialPointer[0]) << endl;
+#endif
+			for (int i = 0; i < latestAllocReply.pagecontent_size(); i++) {
+				initialPointer[i] = latestAllocReply.pagecontent(i);
+			}
+#if DEBUG
+			cout << "0th updated value at pointer at requester = " + to_string((uint64_t) initialPointer[0]) << endl;
+#endif
+		}
+
+	 private:
+		std::unique_ptr<GetLatestAlloc::Stub> stub_;
+};
+
 class FetchLatestClient {
 	public:
 		FetchLatestClient(shared_ptr<Channel> channel) : stub_(FetchLatest::NewStub(channel)) {}
@@ -233,6 +336,117 @@ class FetchLatestClient {
 
 	 private:
 		std::unique_ptr<FetchLatest::Stub> stub_;
+};
+
+class FetchLatestAllocClient {
+	public:
+		FetchLatestAllocClient(shared_ptr<Channel> channel) : stub_(FetchLatestAlloc::NewStub(channel)) {}
+		
+		void fetchLatestAlloc(uint64_t pointer, LatestAllocReply *latestAllocReply) {
+			FetchAllocRequest fetchAllocRequest;
+			fetchAllocRequest.set_pointer(pointer);
+
+			FetchAllocReply fetchAllocReply;
+
+			ClientContext context;
+
+			Status status = stub_->fetchLatestAlloc(&context, fetchAllocRequest, &fetchAllocReply);
+
+			for (int i = 0; i < fetchAllocReply.pagecontent_size(); i++) {
+				latestAllocReply->add_pagecontent(fetchAllocReply.pagecontent(i));
+			}
+		}
+
+	 private:
+		std::unique_ptr<FetchLatestAlloc::Stub> stub_;
+};
+
+class CheckAllocateClient {
+	public:
+		CheckAllocateClient(shared_ptr<Channel> channel) : stub_(CheckAllocate::NewStub(channel)) {}
+		
+		bool checkAllocate(string hostName, string name) {
+			CheckRequest checkRequest;
+			checkRequest.set_host(hostName);
+			checkRequest.set_name(name);
+
+			CheckReply checkReply;
+
+			ClientContext context;
+
+			Status status = stub_->checkAllocate(&context, checkRequest, &checkReply);
+
+			return checkReply.present();
+		}
+
+	 private:
+		std::unique_ptr<CheckAllocate::Stub> stub_;
+};
+
+class CheckAllocatePointerClient {
+	public:
+		CheckAllocatePointerClient(shared_ptr<Channel> channel) : stub_(CheckAllocatePointer::NewStub(channel)) {}
+		
+		bool checkAllocatePointer(string hostName, uint64_t pointer) {
+			CheckPointerRequest checkPointerRequest;
+			checkPointerRequest.set_host(hostName);
+			checkPointerRequest.set_pointer(pointer);
+
+			CheckPointerReply checkPointerReply;
+
+			ClientContext context;
+
+			Status status = stub_->checkAllocatePointer(&context, checkPointerRequest, &checkPointerReply);
+
+			return checkPointerReply.present();
+		}
+
+	 private:
+		std::unique_ptr<CheckAllocatePointer::Stub> stub_;
+};
+
+class GetPointerClient {
+	public:
+		GetPointerClient(shared_ptr<Channel> channel) : stub_(GetPointer::NewStub(channel)) {}
+		
+		uint64_t getPointer(string hostName, string name) {
+			PointerRequest pointerRequest;
+			pointerRequest.set_host(hostName);
+			pointerRequest.set_name(name);
+
+			PointerReply pointerReply;
+
+			ClientContext context;
+
+			Status status = stub_->getPointer(&context, pointerRequest, &pointerReply);
+
+			return (uint64_t) pointerReply.pointer();
+		}
+
+	 private:
+		std::unique_ptr<GetPointer::Stub> stub_;
+};
+
+class AllocateClient {
+	public:
+		AllocateClient(shared_ptr<Channel> channel) : stub_(Allocate::NewStub(channel)) {}
+		
+		void allocate(string hostName, string name, uint64_t pointer, uint32_t size) {
+			AllocRequest allocRequest;
+			allocRequest.set_host(hostName);
+			allocRequest.set_name(name);
+			allocRequest.set_pointer(pointer);
+			allocRequest.set_size(size);
+
+			AllocReply allocReply;
+
+			ClientContext context;
+
+			Status status = stub_->allocate(&context, allocRequest, &allocReply);
+		}
+
+	 private:
+		std::unique_ptr<Allocate::Stub> stub_;
 };
 
 class PollServiceImpl final : public Poll::Service {
@@ -329,7 +543,9 @@ class DirUpdServiceImpl final : public DirUpd::Service {
 			ownerVecLock.unlock();
 #if DEBUG
 			cout << to_string(outerLoc) + ", " + to_string(innerLoc) + ", owner host = " + get<0>(owner) + ", pageAddr = " + to_string((uint64_t) get<1>(owner)) << endl;
+			ownerVecLock.lock();
 			printOwnerVec();
+			ownerVecLock.unlock();
 #endif
 			dsmDataLock.lock();
 			vector<tuple<string, uint64_t>> invalidateVec = dsmData[outerLoc];
@@ -364,6 +580,80 @@ class DirUpdServiceImpl final : public DirUpd::Service {
 	}
 };
 
+class DirUpdAllocServiceImpl final : public DirUpdAlloc::Service {
+	Status dirUpdAlloc(ServerContext* context, const UpdAllocRequest* request, UpdAllocReply* reply) override {
+		dirUpdLock.lock();
+#if DEBUG
+		cout << "In dirUpdAlloc" << endl;
+		cout << "Call from host = " + request->host() << endl;
+		cout << "pointer = " + to_string((uint64_t) request->pointer()) << endl;
+#endif
+		bool found = false;
+		string name = "";
+		int iter = -1;
+		allocateDsmDataLock.lock();
+		map<string, map<string, vector<uint64_t>>>::iterator it;
+		for (it = allocateDsmData.begin(); it != allocateDsmData.end(); it++) {
+			if (it->second.count(request->host())) {
+				vector<uint64_t> pointers = it->second[request->host()];
+				for (int i = 0; i < pointers.size(); i++) {
+					if (pointers[i] == ((uint64_t) request->pointer())) {
+						iter = i;
+						name = it->first;
+						ownerMapLock.lock();
+						ownerMap[it->first] = request->host();
+						ownerMapLock.unlock();
+						found = true;
+						break;
+					}
+				}
+				if (found) {
+					break;
+				}
+			}
+		}
+		allocateDsmDataLock.unlock();
+		if (found) {
+#if DEBUG
+			ownerMapLock.lock();
+			cout << "owner name = " + name + ", owner host = " + ownerMap[name] << endl;
+			printOwnerMap();
+			ownerMapLock.unlock();
+#endif
+			map<string, vector<uint64_t>>::iterator itnew;
+			allocateDsmDataLock.lock();
+			map<string, vector<uint64_t>> hostPointers = allocateDsmData[name];
+			allocateDsmDataLock.unlock();
+
+			string dirHost = GetHostName();
+
+			logLock.lock();
+			if (!logFile.is_open()) {
+				logFile.open(dirHost + "_" + gRPCLogFilename, fstream::out | fstream::app);
+			}
+			logLock.unlock();
+
+			for (itnew = hostPointers.begin(); itnew != hostPointers.end(); itnew++) {
+				if (itnew->first != request->host()) {
+					logLock.lock();
+					logFile << "RPC call from " + dirHost + " to " + itnew->first + " for invalidateAlloc with arguments pointer = " + to_string(itnew->second[iter]) << endl;
+					logLock.unlock();
+					InvalidateAllocClient invalidateAllocClient(CreateChannel(itnew->first + ":" + to_string(port), InsecureChannelCredentials()));
+					invalidateAllocClient.invalidateAlloc(itnew->second[iter]);
+				}
+			}
+			
+			logLock.lock();
+			if (logFile.is_open()) {
+				logFile.close();
+			}
+			logLock.unlock();
+		}
+		dirUpdLock.unlock();
+		return Status::OK;
+	}
+};
+
 class InvalidateServiceImpl final : public Invalidate::Service {
 	Status invalidate(ServerContext* context, const InvalidateRequest* request, InvalidateReply* reply) override {
 #if DEBUG
@@ -371,6 +661,20 @@ class InvalidateServiceImpl final : public Invalidate::Service {
 		cout << "pageAddr = " + to_string((uint64_t) request->pageaddr()) << endl;
 #endif
 		mprotect((void *) request->pageaddr(), PAGE_SIZE, PROT_NONE);
+#if DEBUG 
+		cout << "mprotect done" << endl;
+#endif
+		return Status::OK;
+	}
+};
+
+class InvalidateAllocServiceImpl final : public InvalidateAlloc::Service {
+	Status invalidateAlloc(ServerContext* context, const InvalidateAllocRequest* request, InvalidateAllocReply* reply) override {
+#if DEBUG
+		cout << "In invalidateAlloc" << endl;
+		cout << "pointer = " + to_string((uint64_t) request->pointer()) << endl;
+#endif
+		mprotect((void *) request->pointer(), PAGE_SIZE, PROT_NONE);
 #if DEBUG 
 		cout << "mprotect done" << endl;
 #endif
@@ -437,6 +741,64 @@ class GetLatestServiceImpl final : public GetLatest::Service {
 	}
 };
 
+class GetLatestAllocServiceImpl final : public GetLatestAlloc::Service {
+	Status getLatestAlloc(ServerContext* context, const LatestAllocRequest* request, LatestAllocReply* reply) override {
+		getLatestLock.lock();
+#if DEBUG
+		cout << "In getLatestAlloc" << endl;
+		cout << "Call from host = " + request->host() << endl;
+		cout << "pointer = " + to_string((uint64_t) request->pointer()) << endl;
+#endif
+		bool found = false;
+		uint64_t pointer = 0;
+		string owner = "";
+		allocateDsmDataLock.lock();
+		map<string, map<string, vector<uint64_t>>>::iterator it;
+		for (it = allocateDsmData.begin(); it != allocateDsmData.end(); it++) {
+			if (it->second.count(request->host())) {
+				vector<uint64_t> pointers = it->second[request->host()];
+				for (int i = 0; i < pointers.size(); i++) {
+					if (pointers[i] == ((uint64_t) request->pointer())) {
+						ownerMapLock.lock();
+						owner = ownerMap[it->first];
+						pointer = allocateDsmData[it->first][ownerMap[it->first]][i];
+						ownerMapLock.unlock();
+						found = true;
+						break;
+					}
+				}
+				if (found) {
+					break;
+				}
+			}
+		}
+		allocateDsmDataLock.unlock();
+		if (found) {
+#if DEBUG
+			cout << "owner = " + owner + ", pointer = " + to_string(pointer) << endl;
+#endif
+			string dirHost = GetHostName();
+
+			logLock.lock();
+			if (!logFile.is_open()) {
+				logFile.open(dirHost + "_" + gRPCLogFilename, fstream::out | fstream::app);
+			}
+			logFile << "RPC call from " + dirHost + " to " + owner + " for fetchLatestAlloc with arguments pointer = " + to_string(pointer) << endl;
+			if (logFile.is_open()) {
+				logFile.close();
+			}
+			logLock.unlock();
+			FetchLatestAllocClient fetchLatestAllocClient(CreateChannel(owner + ":" + to_string(port), InsecureChannelCredentials()));
+			fetchLatestAllocClient.fetchLatestAlloc(pointer, reply);
+#if DEBUG
+			cout << "0th value at pointer at directory to be sent to the requester = " + to_string((uint64_t) reply->pagecontent(0)) << endl;
+#endif
+		}
+		getLatestLock.unlock();
+		return Status::OK;
+	}
+};
+
 class FetchLatestServiceImpl final : public FetchLatest::Service {
 	Status fetchLatest(ServerContext* context, const FetchRequest* request, FetchReply* reply) override {
 		fetchLatestLock.lock();
@@ -452,6 +814,149 @@ class FetchLatestServiceImpl final : public FetchLatest::Service {
 		cout << "0th value in page at owner to be sent to the directory = " + to_string((uint64_t) reply->pagecontent(0)) << endl;
 #endif
 		fetchLatestLock.unlock();
+		return Status::OK;
+	}
+};
+
+class FetchLatestAllocServiceImpl final : public FetchLatestAlloc::Service {
+	Status fetchLatestAlloc(ServerContext* context, const FetchAllocRequest* request, FetchAllocReply* reply) override {
+		fetchLatestLock.lock();
+#if DEBUG
+		cout << "In fetchLatestAlloc" << endl;
+		cout << "pointer = " + to_string((uint64_t) request->pointer()) << endl;
+#endif
+		uint64_t *initialPointer = (uint64_t *) request->pointer();
+		for (int i = 0; i < PAGE_SIZE / sizeof(uint64_t); i++) {
+			reply->add_pagecontent(initialPointer[i]);
+		}
+#if DEBUG
+		cout << "0th value at pointer at owner to be sent to the directory = " + to_string((uint64_t) reply->pagecontent(0)) << endl;
+#endif
+		fetchLatestLock.unlock();
+		return Status::OK;
+	}
+};
+
+class CheckAllocateServiceImpl final : public CheckAllocate::Service {
+	Status checkAllocate(ServerContext* context, const CheckRequest* request, CheckReply* reply) override {
+#if DEBUG
+		cout << "In checkAllocate" << endl;
+		cout << "Call from host = " + request->host() << endl;
+		cout << "name = " + request->name() << endl;
+#endif
+		bool present = false;
+		allocateDsmDataLock.lock();
+		if (allocateDsmData.count(request->name())) {
+			if (allocateDsmData[request->name()].count(request->host())) {
+				present = true;
+			}
+		}
+		allocateDsmDataLock.unlock();
+#if DEBUG
+		string flag = present ? "true" : "false";
+		cout << "present = " + flag << endl;
+#endif
+		reply->set_present(present);
+		return Status::OK;
+	}
+};
+
+class CheckAllocatePointerServiceImpl final : public CheckAllocatePointer::Service {
+	Status checkAllocatePointer(ServerContext* context, const CheckPointerRequest* request, CheckPointerReply* reply) override {
+#if DEBUG
+		cout << "In checkAllocatePointer" << endl;
+		cout << "Call from host = " + request->host() << endl;
+		cout << "pointer = " + to_string((uint64_t) request->pointer()) << endl;
+#endif
+		bool present = false;
+		allocateDsmDataLock.lock();
+		map<string, map<string, vector<uint64_t>>>::iterator it;
+		for (it = allocateDsmData.begin(); it != allocateDsmData.end(); it++) {
+			if (it->second.count(request->host())) {
+				vector<uint64_t> pointers = it->second[request->host()];
+				for (int i = 0; i < pointers.size(); i++) {
+					if (pointers[i] == ((uint64_t) request->pointer())) {
+						present = true;
+						break;
+					}
+				}
+				if (present) {
+					break;
+				}
+			}
+		}
+		allocateDsmDataLock.unlock();
+#if DEBUG
+		string flag = present ? "true" : "false";
+		cout << "present = " + flag << endl;
+#endif
+		reply->set_present(present);
+		return Status::OK;
+	}
+};
+
+class GetPointerServiceImpl final : public GetPointer::Service {
+	Status getPointer(ServerContext* context, const PointerRequest* request, PointerReply* reply) override {
+#if DEBUG
+		cout << "In getPointer" << endl;
+		cout << "Call from host = " + request->host() << endl;
+		cout << "name = " + request->name() << endl;
+#endif
+		// uint64_t pointer = 0;
+		allocateDsmDataLock.lock();
+		/*
+		if (allocateDsmData.count(request->name())) {
+			if (allocateDsmData[request->name()].count(request->host())) {
+				pointer = allocateDsmData[request->name()][request->host()][0];
+			}
+		}
+		*/
+		reply->set_pointer(allocateDsmData[request->name()][request->host()][0]);
+		allocateDsmDataLock.unlock();
+#if DEBUG
+		cout << "pointer = " + to_string(allocateDsmData[request->name()][request->host()][0]) << endl;
+#endif
+		// reply->set_pointer(pointer);
+		return Status::OK;
+	}
+};
+
+class AllocateServiceImpl final : public Allocate::Service {
+	Status allocate(ServerContext* context, const AllocRequest* request, AllocReply* reply) override {
+#if DEBUG
+		cout << "In allocate" << endl;
+		cout << "Call from host = " + request->host() << endl;
+		cout << "name = " + request->name() << endl;
+		cout << "pointer = " + to_string((uint64_t) request->pointer()) << endl;
+		cout << "size = " + to_string((uint32_t) request->size()) << endl;
+#endif
+		int numPointers = ((int) request->size() / PAGE_SIZE) + 1;
+#if DEBUG
+		cout << "numPointers = " + to_string(numPointers) << endl;
+#endif
+		vector<uint64_t> pointers;
+		for (int i = 0; i < numPointers; i++) {
+			pointers.push_back(((uint64_t) request->pointer()) + ((uint64_t) i * PAGE_SIZE));
+		}
+		allocateDsmDataLock.lock();
+		if (allocateDsmData.count(request->name())) {
+			allocateDsmData[request->name()][request->host()] = pointers;
+		}
+		else {
+			map<string, vector<uint64_t>> hostPointers;
+			hostPointers[request->host()] = pointers;
+			allocateDsmData[request->name()] = hostPointers;
+			/*
+			ownerMapLock.lock();
+			ownerMap[request->name()] = "";
+			ownerMapLock.unlock();
+			*/
+		}
+#if DEBUG
+		printAllocDsmData();
+		// printOwnerMap();
+#endif
+		allocateDsmDataLock.unlock();
 		return Status::OK;
 	}
 };
@@ -473,14 +978,26 @@ static void RunDirServer(string hostName) {
 	PollServiceImpl pollService;
 	RegDataSegServiceImpl regDataSegService;
 	DirUpdServiceImpl dirUpdService;
+	DirUpdAllocServiceImpl dirUpdAllocService;
 	GetLatestServiceImpl getLatestService;
+	GetLatestAllocServiceImpl getLatestAllocService;
+	CheckAllocateServiceImpl checkAllocateService;
+	CheckAllocatePointerServiceImpl checkAllocatePointerService;
+	GetPointerServiceImpl getPointerService;
+	AllocateServiceImpl allocateService;
 
 	ServerBuilder builder;
 	builder.AddListeningPort(serverAddress, grpc::InsecureServerCredentials());
 	builder.RegisterService(&pollService);
 	builder.RegisterService(&regDataSegService);
 	builder.RegisterService(&dirUpdService);
+	builder.RegisterService(&dirUpdAllocService);
 	builder.RegisterService(&getLatestService);
+	builder.RegisterService(&getLatestAllocService);
+	builder.RegisterService(&checkAllocateService);
+	builder.RegisterService(&checkAllocatePointerService);
+	builder.RegisterService(&getPointerService);
+	builder.RegisterService(&allocateService);
 
 	unique_ptr<Server> server(builder.BuildAndStart());
 #if DEBUG
@@ -493,12 +1010,16 @@ static void RunDirServer(string hostName) {
 static void RunServer(string hostName) {
 	string serverAddress = hostName + ":" + to_string(port);
 	InvalidateServiceImpl invalidateService;
+	InvalidateAllocServiceImpl invalidateAllocService;
 	FetchLatestServiceImpl fetchLatestService;
+	FetchLatestAllocServiceImpl fetchLatestAllocService;
 
 	ServerBuilder builder;
 	builder.AddListeningPort(serverAddress, grpc::InsecureServerCredentials());
 	builder.RegisterService(&invalidateService);
+	builder.RegisterService(&invalidateAllocService);
 	builder.RegisterService(&fetchLatestService);
+	builder.RegisterService(&fetchLatestAllocService);
 
 	unique_ptr<Server> server(builder.BuildAndStart());
 #if DEBUG
@@ -599,16 +1120,45 @@ static void segv_handler(int signum, siginfo_t *info, void *ucontext) {
 #if DEBUG
 		cout << "Write fault on " + hostName + " at " + to_string((uint64_t) info->si_addr) << endl;
 #endif
-		logFile << "RPC call from " + hostName + " to " + dirHost + " for dirUpd with arguments host = " + hostName + ", pageAddr = " + to_string(PAGE_DOWN((uint64_t) info->si_addr)) << endl;
-		DirUpdClient dirUpdClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
-		dirUpdClient.dirUpd(hostName, PAGE_DOWN((uint64_t) info->si_addr));
-    } else {
+
+		logFile << "RPC call from " + hostName + " to " + dirHost + " for checkAllocatePointer with arguments host = " + hostName + ", pointer = " + to_string((uint64_t) PAGE_DOWN((uint64_t) info->si_addr)) << endl;
+		CheckAllocatePointerClient checkAllocatePointerClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
+		bool present = checkAllocatePointerClient.checkAllocatePointer(hostName, (uint64_t) PAGE_DOWN((uint64_t) info->si_addr));
+
+		if (present) {
+			// call malloc specific dirUpd
+			logFile << "RPC call from " + hostName + " to " + dirHost + " for dirUpdAlloc with arguments host = " + hostName + ", pointer = " + to_string(PAGE_DOWN((uint64_t) info->si_addr)) << endl;
+			DirUpdAllocClient dirUpdAllocClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
+			dirUpdAllocClient.dirUpdAlloc(hostName, PAGE_DOWN((uint64_t) info->si_addr));
+		}
+		else {
+			logFile << "RPC call from " + hostName + " to " + dirHost + " for dirUpd with arguments host = " + hostName + ", pageAddr = " + to_string(PAGE_DOWN((uint64_t) info->si_addr)) << endl;
+			DirUpdClient dirUpdClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
+			dirUpdClient.dirUpd(hostName, PAGE_DOWN((uint64_t) info->si_addr));
+		}
+    }
+	else {
 #if DEBUG
 		cout << "Read fault on " + hostName + " at " + to_string((uint64_t) info->si_addr) << endl;
 #endif
-		logFile << "RPC call from " + hostName + " to " + dirHost + " for getLatest with arguments host = " + hostName + ", pageAddr = " + to_string(PAGE_DOWN((uint64_t) info->si_addr)) << endl;
-		GetLatestClient getLatestClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
-		getLatestClient.getLatest(hostName, PAGE_DOWN((uint64_t) info->si_addr));
+
+		logFile << "RPC call from " + hostName + " to " + dirHost + " for checkAllocatePointer with arguments host = " + hostName + ", pointer = " + to_string((uint64_t) PAGE_DOWN((uint64_t) info->si_addr)) << endl;
+		CheckAllocatePointerClient checkAllocatePointerClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
+		bool present = checkAllocatePointerClient.checkAllocatePointer(hostName, (uint64_t) PAGE_DOWN((uint64_t) info->si_addr));
+
+		if (present) {
+			// call malloc specific getLatest
+			logFile << "RPC call from " + hostName + " to " + dirHost + " for getLatestAlloc with arguments host = " + hostName + ", pointer = " + to_string(PAGE_DOWN((uint64_t) info->si_addr)) << endl;
+			GetLatestAllocClient getLatestAllocClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
+			getLatestAllocClient.getLatestAlloc(hostName, PAGE_DOWN((uint64_t) info->si_addr));
+		}
+		else {
+			logFile << "RPC call from " + hostName + " to " + dirHost + " for getLatest with arguments host = " + hostName + ", pageAddr = " + to_string(PAGE_DOWN((uint64_t) info->si_addr)) << endl;
+			GetLatestClient getLatestClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
+			getLatestClient.getLatest(hostName, PAGE_DOWN((uint64_t) info->si_addr));
+		}
+
+		mprotect((void *) PAGE_DOWN((uint64_t) info->si_addr), PAGE_SIZE, PROT_READ);
     }
 }
 
@@ -620,7 +1170,7 @@ static void register_segv_handler() {
  	sigaction(SIGSEGV, &sa, NULL);
 }
 
-void psu_dsm_register_datasegment(void *psu_ds_start, size_t psu_ds_size) {
+static void initialize() {
 	bool status = initServer();
 	if (!status) {
 #if DEBUG
@@ -633,6 +1183,13 @@ void psu_dsm_register_datasegment(void *psu_ds_start, size_t psu_ds_size) {
 #endif
 
 	register_segv_handler();
+}
+
+void psu_dsm_register_datasegment(void *psu_ds_start, size_t psu_ds_size) {
+	if (!initialized) {
+		initialize();
+	}
+
 	mprotect(psu_ds_start, psu_ds_size, PROT_READ);
 
 	string hostName = GetHostName();
@@ -643,7 +1200,43 @@ void psu_dsm_register_datasegment(void *psu_ds_start, size_t psu_ds_size) {
 }
 
 void *psu_dsm_malloc(char *name, size_t size) {
+	if (!initialized) {
+		initialize();
+	}
 
+	// call dir to check if name is there or not
+	// if there, call dir to get start address, return this
+	// if not there, call valloc, then call dir to allocate
+	// mprotect this region, then return this pointer
+	string hostName = GetHostName();
+	string allocName(name);
+	void *pointer;
+
+	logFile << "RPC call from " + hostName + " to " + dirHost + " for checkAllocate with arguments host = " + hostName + ", name = " + allocName << endl;
+	CheckAllocateClient checkAllocateClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
+	bool present = checkAllocateClient.checkAllocate(hostName, allocName);
+	if (present) {
+		logFile << "RPC call from " + hostName + " to " + dirHost + " for getPointer with arguments host = " + hostName + ", name = " + allocName << endl;
+		GetPointerClient getPointerClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
+		pointer = (void *) getPointerClient.getPointer(hostName, allocName);
+#if DEBUG
+		cout << "Received pointer for directory = " + to_string((uint64_t) pointer) << endl;
+#endif
+	}
+	else {
+		// pointer = valloc(size);
+		pointer = pvalloc(size);
+#if DEBUG
+		cout << "valloced pointer = " + to_string((uint64_t) pointer) << endl;
+#endif
+
+		mprotect(pointer, size, PROT_READ);
+
+		logFile << "RPC call from " + hostName + " to " + dirHost + " for allocate with arguments host = " + hostName + ", name = " + allocName + ", pointer = " + to_string((uint64_t) pointer) + ", size = " + to_string((uint32_t) size) << endl;
+		AllocateClient allocateClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
+		allocateClient.allocate(hostName, allocName, (uint64_t) pointer, (uint32_t) size);
+	}
+	return pointer;
 }
 
 void psu_dsm_free() {

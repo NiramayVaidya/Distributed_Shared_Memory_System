@@ -1,0 +1,221 @@
+./directory ->
+
+Directory server thread launched
+Directory initialized
+Directory server listening on port: e5-cse-135-35.cse.psu.edu:50000
+In poll
+In checkAllocate
+Call from host = e5-cse-135-21.cse.psu.edu
+name = a
+present = false
+In allocate
+Call from host = e5-cse-135-21.cse.psu.edu
+name = a
+pointer = 39555072
+size = 4
+numPointers = 1
+allocDsmData ->
+name = a
+host = e5-cse-135-21.cse.psu.edu, pointers = 39555072 
+In poll
+In checkAllocate
+Call from host = e5-cse-135-21.cse.psu.edu
+name = b
+present = false
+In allocate
+Call from host = e5-cse-135-21.cse.psu.edu
+name = b
+pointer = 39575552
+size = 4
+numPointers = 1
+allocDsmData ->
+name = a
+host = e5-cse-135-21.cse.psu.edu, pointers = 39555072 
+name = b
+host = e5-cse-135-21.cse.psu.edu, pointers = 39575552 
+In poll
+In checkAllocate
+Call from host = e5-cse-135-17.cse.psu.edu
+name = a
+present = false
+In allocate
+Call from host = e5-cse-135-17.cse.psu.edu
+name = a
+pointer = 14782464
+size = 4
+numPointers = 1
+allocDsmData ->
+name = a
+host = e5-cse-135-17.cse.psu.edu, pointers = 14782464 
+host = e5-cse-135-21.cse.psu.edu, pointers = 39555072 
+name = b
+host = e5-cse-135-21.cse.psu.edu, pointers = 39575552 
+In poll
+In checkAllocate
+Call from host = e5-cse-135-17.cse.psu.edu
+name = b
+present = false
+In allocate
+Call from host = e5-cse-135-17.cse.psu.edu
+name = b
+pointer = 14802944
+size = 4
+numPointers = 1
+allocDsmData ->
+name = a
+host = e5-cse-135-17.cse.psu.edu, pointers = 14782464 
+host = e5-cse-135-21.cse.psu.edu, pointers = 39555072 
+name = b
+host = e5-cse-135-17.cse.psu.edu, pointers = 14802944 
+host = e5-cse-135-21.cse.psu.edu, pointers = 39575552 
+In poll
+In checkAllocate
+Call from host = e5-cse-135-19.cse.psu.edu
+name = a
+present = false
+In allocate
+Call from host = e5-cse-135-19.cse.psu.edu
+name = a
+pointer = 29564928
+size = 4
+numPointers = 1
+allocDsmData ->
+name = a
+host = e5-cse-135-17.cse.psu.edu, pointers = 14782464 
+host = e5-cse-135-19.cse.psu.edu, pointers = 29564928 
+host = e5-cse-135-21.cse.psu.edu, pointers = 39555072 
+name = b
+host = e5-cse-135-17.cse.psu.edu, pointers = 14802944 
+host = e5-cse-135-21.cse.psu.edu, pointers = 39575552 
+In checkAllocatePointer
+Call from host = e5-cse-135-19.cse.psu.edu
+pointer = 29564928
+present = true
+In dirUpdAlloc
+Call from host = e5-cse-135-19.cse.psu.edu
+pointer = 29564928
+owner name = a, owner host = e5-cse-135-19.cse.psu.edu
+ownerMap ->
+name = a, host = e5-cse-135-19.cse.psu.edu
+In checkAllocatePointer
+Call from host = e5-cse-135-17.cse.psu.edu
+pointer = 14782464
+present = true
+In getLatestAlloc
+Call from host = e5-cse-135-17.cse.psu.edu
+pointer = 14782464
+owner = e5-cse-135-19.cse.psu.edu, pointer = 29564928
+0th value at pointer at directory to be sent to the requester = 1
+In checkAllocatePointer
+Call from host = e5-cse-135-17.cse.psu.edu
+pointer = 14802944
+present = true
+In dirUpdAlloc
+Call from host = e5-cse-135-17.cse.psu.edu
+pointer = 14802944
+owner name = b, owner host = e5-cse-135-17.cse.psu.edu
+ownerMap ->
+name = a, host = e5-cse-135-19.cse.psu.edu
+name = b, host = e5-cse-135-17.cse.psu.edu
+In checkAllocatePointer
+Call from host = e5-cse-135-21.cse.psu.edu
+pointer = 39575552
+present = true
+In getLatestAlloc
+Call from host = e5-cse-135-21.cse.psu.edu
+pointer = 39575552
+owner = e5-cse-135-17.cse.psu.edu, pointer = 14802944
+0th value at pointer at directory to be sent to the requester = 1
+In checkAllocatePointer
+Call from host = e5-cse-135-21.cse.psu.edu
+pointer = 39555072
+present = true
+In getLatestAlloc
+Call from host = e5-cse-135-21.cse.psu.edu
+pointer = 39555072
+owner = e5-cse-135-19.cse.psu.edu, pointer = 29564928
+0th value at pointer at directory to be sent to the requester = 1
+
+./p3 ->
+
+Server thread launched
+Server listening on port: e5-cse-135-21.cse.psu.edu:50000
+Directory status: 1
+Client running
+Server initialized
+valloced pointer = 34455552
+Server thread launched
+Server listening on port: e5-cse-135-21.cse.psu.edu:50000
+Directory status: 1
+Client running
+Server initialized
+valloced pointer = 34476032
+^C
+e5-cse-135-21.cse.psu.edu 105$ ./p3
+Server thread launched
+Server listening on port: e5-cse-135-21.cse.psu.edu:50000
+Directory status: 1
+Client running
+Server initialized
+valloced pointer = 39555072
+Server thread launched
+Server listening on port: e5-cse-135-21.cse.psu.edu:50000
+Directory status: 1
+Client running
+Server initialized
+valloced pointer = 39575552
+In invalidateAlloc
+pointer = 39555072
+mprotect done
+In invalidateAlloc
+pointer = 39575552
+mprotect done
+Read fault on e5-cse-135-21.cse.psu.edu at 39575552
+0th old value at pointer at requester = 39575552
+0th updated value at pointer at requester = 1
+Read fault on e5-cse-135-21.cse.psu.edu at 39555072
+0th old value at pointer at requester = 0
+0th updated value at pointer at requester = 1
+a = 1 and b = 1 ---------------------------------------------------------> output
+
+./p2 ->
+
+Server thread launched
+Server listening on port: e5-cse-135-17.cse.psu.edu:50000
+Directory status: 1
+Client running
+Server initialized
+valloced pointer = 14782464
+Server thread launched
+Server listening on port: e5-cse-135-17.cse.psu.edu:50000
+Directory status: 1
+Client running
+Server initialized
+valloced pointer = 14802944
+In invalidateAlloc
+pointer = 14782464
+mprotect done
+Read fault on e5-cse-135-17.cse.psu.edu at 14782464
+0th old value at pointer at requester = 14782456
+0th updated value at pointer at requester = 1
+Write fault on e5-cse-135-17.cse.psu.edu at 14802944
+a = 1 ---------------------------------------------------------> output
+In fetchLatestAlloc
+pointer = 14802944
+0th value at pointer at owner to be sent to the directory = 1
+
+./p1 ->
+
+Server thread launched
+Server listening on port: e5-cse-135-19.cse.psu.edu:50000
+Directory status: 1
+Client running
+Server initialized
+valloced pointer = 29564928
+Write fault on e5-cse-135-19.cse.psu.edu at 29564928
+In fetchLatestAlloc
+pointer = 29564928
+0th value at pointer at owner to be sent to the directory = 1
+In fetchLatestAlloc
+pointer = 29564928
+0th value at pointer at owner to be sent to the directory = 1

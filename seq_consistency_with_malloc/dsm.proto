@@ -14,16 +14,44 @@ service DirUpd {
 	rpc dirUpd (UpdRequest) returns (UpdReply) {}
 }
 
+service DirUpdAlloc {
+	rpc dirUpdAlloc (UpdAllocRequest) returns (UpdAllocReply) {}
+}
+
 service Invalidate {
 	rpc invalidate (InvalidateRequest) returns (InvalidateReply) {}
+}
+
+service InvalidateAlloc {
+	rpc invalidateAlloc (InvalidateAllocRequest) returns (InvalidateAllocReply) {}
 }
 
 service GetLatest {
 	rpc getLatest (LatestRequest) returns (LatestReply) {}
 }
 
+service GetLatestAlloc {
+	rpc getLatestAlloc (LatestAllocRequest) returns (LatestAllocReply) {}
+}
+
 service FetchLatest {
 	rpc fetchLatest (FetchRequest) returns (FetchReply) {}
+}
+
+service FetchLatestAlloc {
+	rpc fetchLatestAlloc (FetchAllocRequest) returns (FetchAllocReply) {}
+}
+
+service CheckAllocate {
+	rpc checkAllocate (CheckRequest) returns (CheckReply) {}
+}
+
+service CheckAllocatePointer {
+	rpc checkAllocatePointer (CheckPointerRequest) returns (CheckPointerReply) {}
+}
+
+service GetPointer {
+	rpc getPointer (PointerRequest) returns (PointerReply) {}
 }
 
 service Allocate {
@@ -58,11 +86,28 @@ message UpdReply {
 
 }
 
+message UpdAllocRequest {
+	string host = 1;
+	uint64 pointer = 2;
+}
+
+message UpdAllocReply {
+
+}
+
 message InvalidateRequest {
 	uint64 pageAddr = 1;
 }
 
 message InvalidateReply {
+
+}
+
+message InvalidateAllocRequest {
+	uint64 pointer = 1;
+}
+
+message InvalidateAllocReply {
 
 }
 
@@ -75,6 +120,15 @@ message LatestReply {
 	repeated uint64 pageContent = 1;
 }
 
+message LatestAllocRequest {
+	string host = 1;
+	uint64 pointer = 2;
+}
+
+message LatestAllocReply {
+	repeated uint64 pageContent = 1;
+}
+
 message FetchRequest {
 	uint64 pageAddr = 1;
 }
@@ -83,11 +137,47 @@ message FetchReply {
 	repeated uint64 pageContent = 1;
 }
 
+message FetchAllocRequest {
+	uint64 pointer = 1;
+}
+
+message FetchAllocReply {
+	repeated uint64 pageContent = 1;
+}
+
+message CheckRequest {
+	string host = 1;
+	string name = 2;
+}
+
+message CheckReply {
+	bool present = 1;
+}
+
+message CheckPointerRequest {
+	string host = 1;
+	uint64 pointer = 2;
+}
+
+message CheckPointerReply {
+	bool present = 1;
+}
+
+message PointerRequest {
+	string host = 1;
+	string name = 2;
+}
+
+message PointerReply {
+	uint64 pointer = 1;
+}
+
 message AllocRequest {
-	string name = 1;
-	uint32 size = 2;
+	string host = 1;
+	string name = 2;
+	uint64 pointer = 3;
+	uint32 size = 4;
 }
 
 message AllocReply {
-	uint64 pointer = 1;
 }

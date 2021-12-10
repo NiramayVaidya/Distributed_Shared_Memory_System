@@ -17,7 +17,6 @@
 #include <thread>
 #include <vector>
 #include <cstring>
-#include <map>
 #include <tuple>
 #include <mutex>
 #include <chrono>
@@ -45,8 +44,6 @@ mutex getLatestLock;
 mutex fetchLatestLock;
 mutex dirUpdLock;
 mutex logLock;
-
-bool invalidateDone = false;
 
 #if DEBUG
 static void printDsmData() {
@@ -599,7 +596,8 @@ static void segv_handler(int signum, siginfo_t *info, void *ucontext) {
 		logFile << "RPC call from " + hostName + " to " + dirHost + " for dirUpd with arguments host = " + hostName + ", pageAddr = " + to_string(PAGE_DOWN((uint64_t) info->si_addr)) << endl;
 		DirUpdClient dirUpdClient(CreateChannel(dirHost + ":" + to_string(port), InsecureChannelCredentials()));
 		dirUpdClient.dirUpd(hostName, PAGE_DOWN((uint64_t) info->si_addr));
-    } else {
+    }
+	else {
 #if DEBUG
 		cout << "Read fault on " + hostName + " at " + to_string((uint64_t) info->si_addr) << endl;
 #endif
