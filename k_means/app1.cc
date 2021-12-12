@@ -6,9 +6,9 @@
 
 using namespace std;
 
-static const char *inputFile = "input1.txt";
-static const char *intermediateFile = "intermediate1.txt";
-static const char *outputFile = "output1.txt";
+static const char *inputFile = "input3.txt";
+static const char *intermediateFile = "intermediate3.txt";
+static const char *outputFile = "output3.txt";
 
 int main(int argc, char* argv[]) {
 	if (argc < 3) {

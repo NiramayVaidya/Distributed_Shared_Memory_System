@@ -15,6 +15,8 @@
 #include <iomanip>
 #include <climits>
 #include <stdexcept>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
@@ -36,7 +38,7 @@ static void barrier(bool dir) {
 	cout << "dir -> " << dir << endl;
 #endif
 
-	psu_mutex_lock(0);
+	// psu_mutex_lock(0);
 #if USE_DSM
 	if (dir) {
 		threadcount++;
@@ -70,7 +72,7 @@ static void barrier(bool dir) {
 	}
 	tcf.close();
 #endif
-	psu_mutex_unlock(0);
+	// psu_mutex_unlock(0);
 
 #if DEBUG
 	cout << "waiting on threadcount to reach required value" << endl;
@@ -114,14 +116,28 @@ static void barrier(bool dir) {
 void psu_mr_setup(unsigned int tid, unsigned int nthreads) {
 	g_tid = tid;
 	g_nthreads = nthreads;
-	psu_start_lock();
+	// psu_start_lock();
 	psu_dsm_register_datasegment(&threadcount, PAGE_SIZE);
-	psu_init_lock(0);
+	// psu_init_lock(0);
 #if USE_DSM == 0
-	fstream tcFile;
-	tcFile.open(threadcountFile, fstream::out | fstream::trunc);
-	tcFile << 0;
-	tcFile.close();
+	if (tid == 0) {
+		fstream tcFile;
+		tcFile.open(threadcountFile, fstream::out | fstream::trunc);
+		tcFile << 0;
+		tcFile.close();
+	}
+	/*
+	ifstream tcntFile(threadcountFile);
+	string line;
+	while (getline(tcntFile, line));
+	int count = stoi(line);
+	if (count != 0) {
+		fstream tcFile;
+		tcFile.open(threadcountFile, fstream::out | fstream::trunc);
+		tcFile << 0;
+		tcFile.close();
+	}
+	*/
 #endif
 }
 
@@ -131,18 +147,21 @@ void psu_mr_map(void (*map_fp)(void *, void *), void *indata, void *outdata) {
 #endif
 
 	string intermediateFile((const char *) outdata);
+	fstream tempFile;
 #if USE_MULTIPLE_INTERMEDIATE
 	int delimPos = intermediateFile.find('.');
+	/*
 	for (int i = 0; i < g_nthreads; i++) {
 		fstream tempFile;
 		tempFile.open(intermediateFile.substr(0, delimPos) + to_string(i) + ".txt", fstream::out | fstream::trunc);
 		tempFile.close();
 	}
+	*/
+	tempFile.open(intermediateFile.substr(0, delimPos) + to_string(g_tid) + ".txt", fstream::out | fstream::trunc);
 #else
-	fstream tempFile;
 	tempFile.open(intermediateFile, fstream::out | fstream::trunc);
-	tempFile.close();
 #endif
+	tempFile.close();
 
 	map_fp(indata, outdata);
 }
@@ -162,7 +181,7 @@ void psu_mr_reduce(void (*reduce_fp)(void *, void *), void *indata, void *outdat
 
 void psu_mr_destroy() {
 	psu_dsm_free();
-	psu_stop_lock();
+	// psu_stop_lock();
 }
 
 void map_kmeans(void *indata, void *outdata) {
@@ -262,7 +281,7 @@ void map_kmeans(void *indata, void *outdata) {
 	}
 #endif
 
-	psu_mutex_lock(0);
+	// psu_mutex_lock(0);
 	fstream tempFile;
 #if USE_MULTIPLE_INTERMEDIATE
 	int delimPos = intermediateFile.find('.');
@@ -294,7 +313,7 @@ void map_kmeans(void *indata, void *outdata) {
 	}
 	cout << "Updated num of lines in the intermediate file -> " << numLines << endl;
 #endif
-	psu_mutex_unlock(0);
+	// psu_mutex_unlock(0);
 	
 	barrier(true);
 }
@@ -328,13 +347,18 @@ void reduce_kmeans(void *indata, void *outdata) {
 
 	vector<tuple<double, double, int>> points;
 	for (int i = 0; i < data.size(); i++) {
+		/*
 		if (points.size() != 0) {
 			data[i].erase(0, 1);
 		}
+		*/
+		// cout << data[i] << endl;
 		int delimIndex = data[i].find(' ');
+		// cout << data[i].substr(0, delimIndex) << endl;
 		double x = stod(data[i].substr(0, delimIndex));
 		string partialData = data[i].substr(delimIndex + 1, data[i].size());
 		delimIndex = partialData.find(' ');
+		// cout << partialData.substr(0, delimIndex) << endl;
 		double y = stod(partialData.substr(0, delimIndex));
 		int closestCentroid = stoi(partialData.substr(delimIndex + 1, partialData.size()));
 		points.push_back(tuple<double, double, int>(x, y, closestCentroid));
@@ -369,21 +393,25 @@ void reduce_kmeans(void *indata, void *outdata) {
 	cout << setprecision(2) << fixed << avgX << " " << setprecision(2) << fixed << avgY << endl;
 #endif
 
-	psu_mutex_lock(0);
+	this_thread::sleep_for(chrono::milliseconds(100));
+
+	// psu_mutex_lock(0);
 	fstream outFile;
 	outFile.open(outputFile, fstream::out | fstream::app);
 	outFile << setprecision(2) << fixed << avgX << " " << setprecision(2) << fixed << avgY << endl;
 	outFile.close();
-	psu_mutex_unlock(0);
+	// psu_mutex_unlock(0);
 	
-	barrier(false);
+	// barrier(false);
 
+	/*
 	if (!g_tid) {
+		cout << "Final centroids" << endl;
 		ifstream oFile(outputFile);
 		string line;
 		while (getline(oFile, line)) {
-			cout << line;
+			cout << line << endl;
 		}
-		cout << endl;
 	}
+	*/
 }
