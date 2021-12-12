@@ -406,7 +406,7 @@ void reduce_kmeans(void *indata, void *outdata) {
 
 	/*
 	if (!g_tid) {
-		cout << "Final centroids" << endl;
+		cout << "Final centroids ->" << endl;
 		ifstream oFile(outputFile);
 		string line;
 		while (getline(oFile, line)) {

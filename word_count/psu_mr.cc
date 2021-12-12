@@ -11,6 +11,8 @@
 #include <map>
 #include <tuple>
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
@@ -32,39 +34,103 @@ map<string, int> wordCount;
 vector<tuple<string, int>> gWordCount;
 int numInputWords;
 
+string threadcountFile = "threadcount.txt";
+
 static void barrier(bool dir) {
 #if DEBUG
 	cout << "in barrier" << endl;
 	cout << "dir -> " << dir << endl;
 #endif
 
-	psu_mutex_lock(0);
+	// psu_mutex_lock(0);
+#if USE_DSM
 	if (dir) {
 		threadcount++;
 	}
 	else {
 		threadcount--;
 	}
-	psu_mutex_unlock(0);
+#else
+	ifstream tcFile(threadcountFile);
+	string tc;
+	while (getline(tcFile, tc));
+	int threadCnt = stoi(tc);
+#if DEBUG
+	cout << "threadCnt -> " << threadCnt << endl;
+#endif
+	fstream tcf;
+	tcf.open(threadcountFile, fstream::out | fstream::trunc);
+	if (dir) {
+		threadCnt++;
+#if DEBUG
+		cout << "threadCnt -> " << threadCnt << endl;
+#endif
+		tcf << threadCnt;
+	}
+	else {
+		threadCnt--;
+#if DEBUG
+		cout << "threadCnt -> " << threadCnt << endl;
+#endif
+		tcf << threadCnt;
+	}
+	tcf.close();
+#endif
+	// psu_mutex_unlock(0);
 
 #if DEBUG
 	cout << "waiting on threadcount to reach required value" << endl;
 #endif
 
+#if USE_DSM
 	if (dir) {
 		while (threadcount != g_nthreads);
 	}
 	else {
 		while (threadcount != 0);
 	}
+#else
+	if (dir) {
+		do {
+			ifstream tcntFile(threadcountFile);
+			while (getline(tcntFile, tc));
+			try {
+				threadCnt = stoi(tc);
+			}
+			catch (std::invalid_argument& e) {
+				threadCnt = 0;
+			}
+		} while (threadCnt != g_nthreads);
+	}
+	else {
+		do {
+			ifstream tcntFile(threadcountFile);
+			while (getline(tcntFile, tc));
+			try {
+				threadCnt = stoi(tc);
+			}
+			catch (std::invalid_argument& e) {
+				threadCnt = g_nthreads;
+			}
+		} while (threadCnt != 0);
+	}
+#endif
 }
 
 void psu_mr_setup(unsigned int tid, unsigned int nthreads) {
 	g_tid = tid;
 	g_nthreads = nthreads;
-	psu_start_lock();
+	// psu_start_lock();
 	psu_dsm_register_datasegment(&threadcount, PAGE_SIZE);
-	psu_init_lock(0);
+	// psu_init_lock(0);
+#if USE_DSM == 0
+	if (tid == 0) {
+		fstream tcFile;
+		tcFile.open(threadcountFile, fstream::out | fstream::trunc);
+		tcFile << 0;
+		tcFile.close();
+	}
+#endif
 }
 
 void psu_mr_map(void *(*map_fp)(void *), void *indata, void *outdata) {
@@ -76,9 +142,14 @@ void psu_mr_map(void *(*map_fp)(void *), void *indata, void *outdata) {
 	string interFile((const char *) outdata);
 	intermediateFile = interFile;
 	fstream tempFile;
+#if USE_MULTIPLE_INTERMEDIATE
+	int delimPos = intermediateFile.find('.');
+	tempFile.open(intermediateFile.substr(0, delimPos) + to_string(g_tid) + ".txt", fstream::out | fstream::trunc);
+#else
 	tempFile.open(intermediateFile, fstream::out | fstream::trunc);
+#endif
 	tempFile.close();
-	
+
 	ifstream inFile(inputFile);
 	string line;
 	while (getline(inFile, line)) {
@@ -115,7 +186,22 @@ void psu_mr_reduce(void *(*reduce_fp)(void *), void *indata, void *outdata) {
 	oFile.open(outputFile, fstream::out | fstream::trunc);
 	oFile.close();
 
-	psu_mutex_lock(0);
+	// psu_mutex_lock(0);
+#if USE_MULTIPLE_INTERMEDIATE
+	int delimPos = intermediateFile.find('.');
+	for (int i = 0; i < g_nthreads; i++) {
+		ifstream tempFile(intermediateFile.substr(0, delimPos) + to_string(i) + ".txt");
+		string word;
+		string count;
+		while (getline(tempFile, word, ':') >> count) {
+			if (gWordCount.size() != 0) {
+				word.erase(0, 1);
+			}
+			word.erase(word.size() - 1);
+			gWordCount.push_back(tuple<string, int>(word, stoi(count)));
+		}
+	}
+#else
 	ifstream tempFile(intermediateFile);
 	string word;
 	string count;
@@ -126,6 +212,7 @@ void psu_mr_reduce(void *(*reduce_fp)(void *), void *indata, void *outdata) {
 		word.erase(word.size() - 1);
 		gWordCount.push_back(tuple<string, int>(word, stoi(count)));
 	}
+#endif
 
 #if DEBUG
 	cout << "gWordCount ->" << endl;
@@ -135,7 +222,7 @@ void psu_mr_reduce(void *(*reduce_fp)(void *), void *indata, void *outdata) {
 	cout << endl;
 #endif
 
-	psu_mutex_unlock(0);
+	// psu_mutex_unlock(0);
 
 	numInputWords = gWordCount.size();
 	startIndex = g_tid * (numInputWords / g_nthreads);
@@ -188,9 +275,14 @@ void *mapper_wc(void *param) {
 	cout << endl;
 #endif
 
-	psu_mutex_lock(0);
+	// psu_mutex_lock(0);
 	fstream tempFile;
+#if USE_MULTIPLE_INTERMEDIATE
+	int delimPos = intermediateFile.find('.');
+	tempFile.open(intermediateFile.substr(0, delimPos) + to_string(g_tid) + ".txt", fstream::out | fstream::app);
+#else
 	tempFile.open(intermediateFile, fstream::out | fstream::app);
+#endif
 	map<string, int>::iterator it;
 	for (it = wordCount.begin(); it != wordCount.end(); it++) {
 		string word = it->first;
@@ -200,7 +292,7 @@ void *mapper_wc(void *param) {
 		tempFile << word << " : " << it->second << endl;
 	}
 	tempFile.close();
-	psu_mutex_unlock(0);
+	// psu_mutex_unlock(0);
 
 	barrier(true);
 
@@ -213,7 +305,7 @@ void *reducer_wc(void *param) {
 #endif
 	wordCount.clear();
 
-	psu_mutex_lock(0);
+	// psu_mutex_lock(0);
 	map<string, int> localWordCount;
 	ifstream outFile(outputFile);
 	string word;
@@ -265,6 +357,8 @@ void *reducer_wc(void *param) {
 	}
 	cout << endl;
 #endif
+	
+	this_thread::sleep_for(chrono::milliseconds(100));
 
 	fstream oFile;
 	oFile.open(outputFile, fstream::out | fstream::app);
@@ -273,18 +367,18 @@ void *reducer_wc(void *param) {
 		oFile << it->first << " : " << it->second << endl;
 	}
 	oFile.close();
-	psu_mutex_unlock(0);
+	// psu_mutex_unlock(0);
 
-	barrier(false);
+	// barrier(false);
 
 	/*
 	if (!g_tid) {
+		cout << "Final word counts ->" << endl;
 		ifstream of(outputFile);
 		string line;
 		while(getline(of, line)) {
-			cout << line;
+			cout << line << endl;
 		}
-		cout << endl;
 	}
 	*/
 
