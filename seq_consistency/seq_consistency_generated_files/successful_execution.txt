@@ -1,0 +1,181 @@
+./directory ->
+
+Directory server thread launched
+Directory initialized
+Directory server listening on port: e5-cse-135-35.cse.psu.edu:50000
+In poll
+In regDataSeg
+Call from host = e5-cse-135-11.cse.psu.edu
+startAddr = 8351744
+size = 8192
+Obtained pageNum = 0
+numPages = 2
+dsmData ->
+0, 0, host = e5-cse-135-11.cse.psu.edu, pageAddr = 8351744
+1, 0, host = e5-cse-135-11.cse.psu.edu, pageAddr = 8355840
+ownerVec ->
+-1      -1
+Updated pageNum = 2
+In poll
+In regDataSeg
+Call from host = e5-cse-135-17.cse.psu.edu
+startAddr = 8351744
+size = 8192
+Obtained pageNum = 0
+numPages = 2
+dsmData ->
+0, 0, host = e5-cse-135-11.cse.psu.edu, pageAddr = 8351744
+0, 1, host = e5-cse-135-17.cse.psu.edu, pageAddr = 8351744
+1, 0, host = e5-cse-135-11.cse.psu.edu, pageAddr = 8355840
+1, 1, host = e5-cse-135-17.cse.psu.edu, pageAddr = 8355840
+ownerVec ->
+-1      -1
+Updated pageNum = 2
+In poll
+In regDataSeg
+Call from host = e5-cse-135-19.cse.psu.edu
+startAddr = 8351744
+size = 8192
+Obtained pageNum = 0
+numPages = 2
+dsmData ->
+0, 0, host = e5-cse-135-11.cse.psu.edu, pageAddr = 8351744
+0, 1, host = e5-cse-135-17.cse.psu.edu, pageAddr = 8351744
+0, 2, host = e5-cse-135-19.cse.psu.edu, pageAddr = 8351744
+1, 0, host = e5-cse-135-11.cse.psu.edu, pageAddr = 8355840
+1, 1, host = e5-cse-135-17.cse.psu.edu, pageAddr = 8355840
+1, 2, host = e5-cse-135-19.cse.psu.edu, pageAddr = 8355840
+ownerVec ->
+-1      -1
+Updated pageNum = 2
+In dirUpd
+Call from host = e5-cse-135-19.cse.psu.edu
+pageAddr = 8351744
+0, 2, owner host = e5-cse-135-19.cse.psu.edu, pageAddr = 8351744
+ownerVec ->
+2       -1
+invalidateVec ->
+host = e5-cse-135-11.cse.psu.edu, pageAddr = 8351744
+host = e5-cse-135-17.cse.psu.edu, pageAddr = 8351744
+In getLatest
+Call from host = e5-cse-135-17.cse.psu.edu
+pageAddr = 8351744
+0, 2, owner host = e5-cse-135-19.cse.psu.edu, pageAddr = 8351744
+0th value in page at directory to be sent to the requester = 1
+In dirUpd
+Call from host = e5-cse-135-17.cse.psu.edu
+pageAddr = 8355840
+1, 1, owner host = e5-cse-135-17.cse.psu.edu, pageAddr = 8355840
+ownerVec ->
+2       1
+invalidateVec ->
+host = e5-cse-135-11.cse.psu.edu, pageAddr = 8355840
+host = e5-cse-135-19.cse.psu.edu, pageAddr = 8355840
+In getLatest
+Call from host = e5-cse-135-11.cse.psu.edu
+pageAddr = 8355840
+1, 1, owner host = e5-cse-135-17.cse.psu.edu, pageAddr = 8355840
+0th value in page at directory to be sent to the requester = 1
+In getLatest
+Call from host = e5-cse-135-19.cse.psu.edu
+pageAddr = 8355840
+1, 1, owner host = e5-cse-135-17.cse.psu.edu, pageAddr = 8355840
+0th value in page at directory to be sent to the requester = 1
+In getLatest
+Call from host = e5-cse-135-11.cse.psu.edu
+pageAddr = 8351744
+0, 2, owner host = e5-cse-135-19.cse.psu.edu, pageAddr = 8351744
+0th value in page at directory to be sent to the requester = 1
+
+./p3 ->
+
+Server thread launched
+Server listening on port: e5-cse-135-11.cse.psu.edu:50000
+Directory status: 1
+Client running
+Server initialized
+In invalidate
+pageAddr = 8351744
+mprotect done
+^C
+e5-cse-135-11.cse.psu.edu 147$ ./p3
+Server thread launched
+Server listening on port: e5-cse-135-11.cse.psu.edu:50000
+Directory status: 1
+Client running
+Server initialized
+In invalidate
+pageAddr = 8351744
+mprotect done
+^C
+e5-cse-135-11.cse.psu.edu 148$ ./p3
+Server thread launched
+Server listening on port: e5-cse-135-11.cse.psu.edu:50000
+Directory status: 1
+Client running
+Server initialized
+In invalidate
+pageAddr = 8351744
+mprotect done
+^C
+e5-cse-135-11.cse.psu.edu 149$ ./p3
+Server thread launched
+Server listening on port: e5-cse-135-11.cse.psu.edu:50000
+Directory status: 1
+Client running
+Server initialized
+In invalidate
+pageAddr = 8351744
+mprotect done
+In invalidate
+pageAddr = 8355840
+mprotect done
+Read fault on e5-cse-135-11.cse.psu.edu at 8355840
+0th old value in page at requester = 0
+0th updated value in page at requester = 1
+Read fault on e5-cse-135-11.cse.psu.edu at 8351744
+0th old value in page at requester = 0
+0th updated value in page at requester = 1
+a = 1 and b = 1 ---------------------------------------------------> output
+
+./p2 ->
+
+Server thread launched
+Server listening on port: e5-cse-135-17.cse.psu.edu:50000
+Directory status: 1
+Client running
+Server initialized
+In invalidate
+pageAddr = 8351744
+mprotect done
+Read fault on e5-cse-135-17.cse.psu.edu at 8351744
+0th old value in page at requester = 0
+0th updated value in page at requester = 1
+Write fault on e5-cse-135-17.cse.psu.edu at 8355840
+In fetchLatest
+pageAddr = 8355840
+0th value in page at owner to be sent to the directory = 1
+In fetchLatest
+pageAddr = 8355840
+0th value in page at owner to be sent to the directory = 1
+
+./p1 ->
+
+Server thread launched
+Server listening on port: e5-cse-135-19.cse.psu.edu:50000
+Directory status: 1
+Client running
+Server initialized
+Write fault on e5-cse-135-19.cse.psu.edu at 8351744
+In fetchLatest
+pageAddr = 8351744
+0th value in page at owner to be sent to the directory = 1
+In invalidate
+pageAddr = 8355840
+mprotect done
+Read fault on e5-cse-135-19.cse.psu.edu at 8356076
+0th old value in page at requester = 0
+0th updated value in page at requester = 1
+In fetchLatest
+pageAddr = 8351744
+0th value in page at owner to be sent to the directory = 1

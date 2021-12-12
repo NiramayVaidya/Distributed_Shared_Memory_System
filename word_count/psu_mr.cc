@@ -358,7 +358,7 @@ void *reducer_wc(void *param) {
 	cout << endl;
 #endif
 	
-	this_thread::sleep_for(chrono::milliseconds(100));
+	// this_thread::sleep_for(chrono::milliseconds(100));
 
 	fstream oFile;
 	oFile.open(outputFile, fstream::out | fstream::app);
@@ -367,6 +367,8 @@ void *reducer_wc(void *param) {
 		oFile << it->first << " : " << it->second << endl;
 	}
 	oFile.close();
+	
+	this_thread::sleep_for(chrono::milliseconds(100));
 	// psu_mutex_unlock(0);
 
 	// barrier(false);
